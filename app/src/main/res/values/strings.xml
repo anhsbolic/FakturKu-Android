@@ -6,4 +6,6 @@
 
     <!-- LOGIN -->
     <string name="login_title">FakturKu</string>
+    <string name="login_with_facebook">Login dengan Facebook</string>
+    <string name="login_with_google">Login dengan Google</string>
 </resources>
