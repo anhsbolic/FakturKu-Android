@@ -8,4 +8,28 @@
     <string name="login_title">FakturKu</string>
     <string name="login_with_facebook">Login dengan Facebook</string>
     <string name="login_with_google">Login dengan Google</string>
+
+    <!-- DASHBOARD-->
+    <string name="dashboard_dialog_exit_message">Apakah Anda yakin untuk keluar?</string>
+    <string name="dashboard_dialog_exit_positive">Ya</string>
+    <string name="dashboard_dialog_exit_negative">Tidak</string>
+
+    <!-- DRAWER NAVIGATION -->
+    <string name="drawer_nav_title_report">Laporan</string>
+    <string name="drawer_nav_title_sell_product">Jual Barang</string>
+    <string name="drawer_nav_title_add_product">Tambah Barang</string>
+    <string name="drawer_nav_title_consignment">Konsinyasi</string>
+    <string name="drawer_nav_title_stock_opname">Stok Opname</string>
+    <string name="drawer_nav_title_settings">Pengaturan</string>
+    <string name="drawer_nav_title_share">Ajak Teman</string>
+    <string name="drawer_nav_title_rate">Beri Rating</string>
+    <string name="drawer_nav_title_feedback">Kritik &amp; Saran</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- INVOICE -->
+    <string name="invoice_title">Faktur</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
