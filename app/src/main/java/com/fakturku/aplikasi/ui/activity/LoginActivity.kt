@@ -1,4 +1,4 @@
-package com.fakturku.aplikasi.view.activity
+package com.fakturku.aplikasi.ui.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
