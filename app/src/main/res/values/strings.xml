@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">FakturKu</string>
 
-    <!-- SPLASH SCREEN-->
+    <!-- SPLASH SCREEN -->
     <string name="splash_screen_title">FakturKu</string>
+
+    <!-- LOGIN -->
+    <string name="login_title">FakturKu</string>
 </resources>

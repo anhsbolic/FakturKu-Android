@@ -32,6 +32,11 @@
         <item name="colorButtonNormal">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="WhiteButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorButtonNormal">@android:color/white</item>
+    </style>
+
     <style name="CircularProgressPrimary" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>

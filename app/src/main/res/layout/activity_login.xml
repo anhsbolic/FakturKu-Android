@@ -1,9 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.fakturku.aplikasi.ui.activity.LoginActivity">
+
+    <ImageView
+        android:id="@+id/loginImgLogo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_receipt_white"
+        tools:ignore="ContentDescription"
+        app:layout_constraintTop_toTopOf="@id/loginTxtTitle"
+        app:layout_constraintBottom_toBottomOf="@id/loginTxtTitle"
+        app:layout_constraintRight_toLeftOf="@id/loginTxtTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/loginTxtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_title"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="42sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/loginBtnLoginByFacebook"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/loginImgLogo"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <Button
+        android:id="@+id/loginBtnLoginByFacebook"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:text="Login dengan Facebook"
+        android:textSize="14sp"
+        android:textColor="@color/colorTextBlueFb"
+        android:textAllCaps="false"
+        android:theme="@style/WhiteButton"
+        android:drawablePadding="20dp"
+        app:layout_constraintTop_toBottomOf="@id/loginTxtTitle"
+        app:layout_constraintBottom_toTopOf="@id/loginBtnLoginByGoogle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="120dp"/>
+
+    <Button
+        android:id="@+id/loginBtnLoginByGoogle"
+        android:layout_width="240dp"
+        android:layout_height="60dp"
+        android:text="Login dengan Google"
+        android:textSize="14sp"
+        android:textColor="@color/colorTextGrayGoogle"
+        android:textAllCaps="false"
+        android:theme="@style/WhiteButton"
+        android:drawablePadding="20dp"
+        app:layout_constraintTop_toBottomOf="@id/loginBtnLoginByFacebook"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="10dp"/>
 
 </android.support.constraint.ConstraintLayout>
