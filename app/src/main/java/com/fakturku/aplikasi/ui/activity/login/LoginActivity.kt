@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         presenter.login(email, pass)
     }
 
-    //Presenter Function
+    //View Function
     override fun showErrorInput(isEmailValidate: Boolean, isPasswordValidate: Boolean) {
         if(!isEmailValidate){
             loginEtEmail.error = "isi dengan email Anda"
@@ -62,14 +62,38 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         loginCardProgress.visibility = View.GONE
     }
 
-    override fun goToRegister() {
-        val intentRegister = Intent(this@LoginActivity, RegisterActivity::class.java)
-        startActivity(intentRegister)
-    }
-
     override fun goToDashboard() {
         val intentDashboard = Intent(this@LoginActivity, DashboardActivity::class.java)
         startActivity(intentDashboard)
         finish()
+    }
+
+    override fun goToRegister() {
+        val intentRegister = Intent(this@LoginActivity, RegisterActivity::class.java)
+        startActivityForResult(intentRegister, INTENT_REGISTER_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode){
+            INTENT_REGISTER_CODE->{
+                when(resultCode){
+                    INTENT_REGISTER_SUCCESS->{
+                        if (data != null) {
+                            val email: String =  data.getStringExtra(INTENT_EMAIL)
+                            loginEtEmail.setText(email)
+                        }
+                    }
+                }
+            }
+            else->{
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+    }
+
+    companion object {
+        const val INTENT_REGISTER_CODE = 20
+        const val INTENT_REGISTER_SUCCESS = 21
+        const val INTENT_EMAIL: String = "IntentEmail"
     }
 }
