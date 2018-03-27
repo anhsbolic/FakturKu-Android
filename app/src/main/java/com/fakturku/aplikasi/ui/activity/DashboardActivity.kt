@@ -24,6 +24,9 @@ import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.ui.fragment.InvoiceFragment
 import com.fakturku.aplikasi.ui.fragment.costumerFragment.CostumerListFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import android.content.Intent
+import com.fakturku.aplikasi.ui.activity.login.LoginActivity
+
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -171,7 +174,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 //TODO : create help
             }
             R.id.nav_logout ->{
-                //TODO : create logout
+                logout()
             }
 
         }
@@ -215,6 +218,30 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 }
             }
         }
+    }
+
+    private fun logout(){
+        AlertDialog.Builder(this)
+                .setMessage("Logout dari akun Anda?")
+                .setPositiveButton("Ya") { _, _ ->
+                    clearLoginToken()
+                }
+                .setNegativeButton("Tidak", null)
+                .show()
+    }
+
+    private fun clearLoginToken() {
+        val pref = applicationContext.getSharedPreferences("LoginPref", MODE_PRIVATE)
+        if(pref.contains("LoginToken")){
+            pref.edit().clear().apply()
+            goToLogin()
+        }
+    }
+
+    private fun goToLogin() {
+        val intentLogin = Intent(this@DashboardActivity, LoginActivity::class.java)
+        startActivity(intentLogin)
+        finish()
     }
 
     fun showDrawer(){

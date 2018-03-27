@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     private fun login() {
         val email = loginEtEmail.text.toString()
         val pass = loginEtPassword.text.toString()
-        presenter.login(email, pass)
+        presenter.login(this@LoginActivity, email, pass)
     }
 
     //View Function

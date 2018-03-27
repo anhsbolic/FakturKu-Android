@@ -1,15 +1,16 @@
 package com.fakturku.aplikasi.ui.activity.login
 
 import android.os.Handler
-
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 
 class LoginPresenter(private val view: LoginContract.View): LoginContract.Presenter{
 
-    override fun login(email: String, pass: String) {
-        validateUser(email, pass)
+    override fun login(context: Context, email: String, pass: String) {
+        validateUser(context, email, pass)
     }
 
-    override fun validateUser(email: String, pass: String) {
+    private fun validateUser(context: Context, email: String, pass: String) {
         var isEmailValidate = false
         var isPasswordValidate = false
 
@@ -26,6 +27,9 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
 
         if (isEmailValidate && isPasswordValidate){
             view.showProgress()
+
+            saveLoginToken(context, email)
+
             Handler().postDelayed({
                 view.hideProgress()
 
@@ -36,6 +40,11 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
         }else{
             view.showErrorInput(isEmailValidate, isPasswordValidate)
         }
+    }
+
+    private fun saveLoginToken(context:Context, token: String) {
+        val pref = context.getSharedPreferences("LoginPref", MODE_PRIVATE)
+        pref.edit().putString("LoginToken", token).apply()
     }
 
     override fun register() {

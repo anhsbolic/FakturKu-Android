@@ -9,7 +9,7 @@ import com.fakturku.aplikasi.ui.activity.login.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val longSplashTime: Long = 3000
+    private val longSplashTime: Long = 1800
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,14 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun isLogin(): Boolean {
-        return false
+        var isLogin = false
+
+        val pref = applicationContext.getSharedPreferences("LoginPref", MODE_PRIVATE)
+        if (pref.contains("LoginToken")) {
+            isLogin = true
+        }
+
+        return isLogin
     }
 
     private fun goToLogin() {

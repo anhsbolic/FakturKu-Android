@@ -1,5 +1,7 @@
 package com.fakturku.aplikasi.ui.activity.login
 
+import android.content.Context
+
 interface LoginContract{
     interface View{
         fun showErrorInput(isEmailValidate: Boolean, isPasswordValidate: Boolean)
@@ -14,9 +16,7 @@ interface LoginContract{
     }
 
     interface Presenter{
-        fun validateUser(email: String, pass: String)
-
-        fun login(email: String, pass: String)
+        fun login(context: Context, email: String, pass: String)
 
         fun register()
     }
