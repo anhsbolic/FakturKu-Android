@@ -32,5 +32,9 @@
 
     <!-- INVOICE -->
     <string name="costumer_title">Pelanggan</string>
+    <string name="login_email_hint">Email Personal Anda</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_btn_login">Masuk</string>
+    <string name="login_btn_register">Belum punya akun? DAFTAR di sini!</string>
 
 </resources>

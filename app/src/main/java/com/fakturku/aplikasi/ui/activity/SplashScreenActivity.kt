@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.ui.activity.login.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
