@@ -22,6 +22,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.ui.fragment.InvoiceFragment
+import com.fakturku.aplikasi.ui.fragment.costumerFragment.CostumerListFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
@@ -133,8 +134,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             R.id.nav_customer ->{
                 showDrawer()
-                //actionBar.setTitle(R.string.report_fragment_title)
-                //currentFragment = ReportFragment()
+                actionBar.setTitle(R.string.costumer_title)
+                currentFragment = CostumerListFragment()
                 goToFragment()
             }
             R.id.nav_product ->{
