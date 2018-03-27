@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
+import com.fakturku.aplikasi.ui.activity.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
@@ -62,6 +63,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun goToRegister() {
+        val intentRegister = Intent(this@LoginActivity, RegisterActivity::class.java)
+        startActivity(intentRegister)
     }
 
     override fun goToDashboard() {
