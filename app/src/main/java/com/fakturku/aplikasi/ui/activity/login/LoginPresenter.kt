@@ -14,7 +14,10 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
         var isPasswordValidate = false
 
         if(email.isNotEmpty()){
-            isEmailValidate = true
+            val isInEmailFormat = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+            if (isInEmailFormat) {
+                isEmailValidate = true
+            }
         }
 
         if(pass.isNotEmpty()){

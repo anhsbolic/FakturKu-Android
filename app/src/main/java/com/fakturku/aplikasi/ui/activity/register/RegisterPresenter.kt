@@ -8,13 +8,13 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
     }
 
     override fun validateInput(name: String, email: String, pass: String, confirmPass: String) {
-        var isNamelValidate = false
+        var isNameValidate = false
         var isEmailValidate = false
         var isPasswordValidate = false
         var isConfirmPasswordValidate = false
 
         if(name.isNotEmpty()){
-            isNamelValidate = true
+            isNameValidate = true
         }
 
         if(email.isNotEmpty()){
@@ -32,7 +32,7 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
             isConfirmPasswordValidate = true
         }
 
-        if (isNamelValidate
+        if (isNameValidate
                 && isEmailValidate
                 && isPasswordValidate
                 && isConfirmPasswordValidate){
@@ -51,7 +51,7 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
             }
         } else {
             view.showErrorInput(
-                    isNamelValidate,
+                    isNameValidate,
                     isEmailValidate,
                     isPasswordValidate,
                     isConfirmPasswordValidate)
