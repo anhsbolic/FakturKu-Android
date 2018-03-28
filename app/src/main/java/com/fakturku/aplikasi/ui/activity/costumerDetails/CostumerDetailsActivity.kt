@@ -1,13 +1,14 @@
 package com.fakturku.aplikasi.ui.activity.costumerDetails
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Costumer
+import com.fakturku.aplikasi.ui.fragment.costumerFragment.CostumerListFragment
 import kotlinx.android.synthetic.main.activity_costumer_details.*
 
 class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.View {
@@ -78,11 +79,16 @@ class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.Vie
     }
 
     override fun update(costumer: Costumer) {
-        Toast.makeText(this@CostumerDetailsActivity, "FAKE UPDATE", Toast.LENGTH_SHORT).show()
+        val intentUpdate = Intent()
+        intentUpdate.putExtra(CostumerListFragment.INTENT_COSTUMER_DETAILS_UPDATE_DATA, costumer)
+        setResult(CostumerListFragment.INTENT_COSTUMER_DETAILS_UPDATE, intentUpdate)
+        finish()
     }
 
     override fun delete(costumer: Costumer) {
-        Toast.makeText(this@CostumerDetailsActivity, "FAKE DELETE", Toast.LENGTH_SHORT).show()
+        val intentDelete = Intent()
+        setResult(CostumerListFragment.INTENT_COSTUMER_DETAILS_DELETE, intentDelete)
+        finish()
     }
 
 

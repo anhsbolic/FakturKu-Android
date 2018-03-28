@@ -19,12 +19,17 @@ interface CostumerListContract{
         fun showCustomerDetails(costumer: Costumer)
 
         fun openAddCostumerPage()
+
+        fun openUpdateCostumerPage(costumer: Costumer)
+
     }
 
     interface Presenter{
         fun loadCostumerListData(page: Int)
 
         fun addCostumer()
+
+        fun updateCostumer(costumer: Costumer)
 
         fun seeCostumerDetails(costumer: Costumer)
     }

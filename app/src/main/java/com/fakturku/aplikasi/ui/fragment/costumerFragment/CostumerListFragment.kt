@@ -7,9 +7,11 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Costumer
@@ -159,12 +161,52 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
     override fun showCustomerDetails(costumer: Costumer) {
         val intentCostumerDetails = Intent(activity, CostumerDetailsActivity::class.java)
         intentCostumerDetails.putExtra(CostumerDetailsActivity.INTENT_DATA_COSTUMER, costumer)
-        startActivity(intentCostumerDetails)
+        startActivityForResult(intentCostumerDetails, INTENT_COSTUMER_DETAILS_CODE)
     }
 
     override fun openAddCostumerPage() {
         val intentAddCostumer = Intent(activity, CostumerFormActivity::class.java)
         startActivityForResult(intentAddCostumer, INTENT_ADD_COSTUMER_CODE)
+    }
+
+    override fun openUpdateCostumerPage(costumer: Costumer) {
+        val intentUpdateCostumer = Intent(activity, CostumerFormActivity::class.java)
+        intentUpdateCostumer.putExtra(CostumerFormActivity.INTENT_COSTUMER_DATA, costumer)
+        startActivityForResult(intentUpdateCostumer, INTENT_UPDATE_COSTUMER_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode){
+            INTENT_COSTUMER_DETAILS_CODE->{
+                when(resultCode){
+                    INTENT_COSTUMER_DETAILS_UPDATE->{
+                        if (data != null) {
+                            val costumer: Costumer = data.getParcelableExtra(INTENT_COSTUMER_DETAILS_UPDATE_DATA)
+                            presenter.updateCostumer(costumer)
+                        }
+                    }
+                    INTENT_COSTUMER_DETAILS_DELETE->{
+                        Toast.makeText(activity,"DATA DELETED",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            INTENT_ADD_COSTUMER_CODE->{
+                when(resultCode){
+                    INTENT_ADD_COSTUMER_SUCCESS->{
+                        Toast.makeText(activity,"DATA ADDED",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            INTENT_UPDATE_COSTUMER_CODE->{
+                when(resultCode){
+                    INTENT_UPDATE_COSTUMER_SUCCESS->{
+                        Toast.makeText(activity,"DATA UPDATED",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            else->{ super.onActivityResult(requestCode, resultCode, data) }
+        }
+
     }
 
 /*
@@ -175,7 +217,16 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
 
 */
     companion object {
+        const val INTENT_COSTUMER_DETAILS_CODE = 20
+        const val INTENT_COSTUMER_DETAILS_UPDATE = 21
+        const val INTENT_COSTUMER_DETAILS_DELETE = 22
+        const val INTENT_COSTUMER_DETAILS_UPDATE_DATA: String = "IntentCostumerUpdateData"
+
         const val INTENT_ADD_COSTUMER_CODE = 30
+        const val INTENT_ADD_COSTUMER_SUCCESS = 31
+
+        const val INTENT_UPDATE_COSTUMER_CODE = 40
+        const val INTENT_UPDATE_COSTUMER_SUCCESS = 41
 
         fun newInstance(param1: String, param2: String): CostumerListFragment {
             val fragment = CostumerListFragment()
