@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#39a3cf</color>
     <color name="colorPrimaryDark">#2486af</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">#2486af</color>
 
     <color name="colorBgCyan">#90d6f5</color>
     <color name="colorBgGray">#ededed</color>
@@ -13,12 +13,16 @@
 
     <color name="colorBgProgress">#a6c6c6c6</color>
     <color name="colorBgProgressPrimary">#9139a3cf</color>
+    <color name="colorBackgroundGray">#ece7e7</color>
 
     <color name="colorTextBlack">#151515</color>
     <color name="colorTextWhite">#ffffff</color>
     <color name="colorTextGray">#d7d7d7</color>
     <color name="colorTextBlueFb">#4a4ca2</color>
     <color name="colorTextGrayGoogle">#6c6c6c</color>
+    <color name="colorTextSoftGray">#848484</color>
 
     <color name="colorWhite">#ffffff</color>
+    <color name="colorLineSeparator">#a2a9a9a9</color>
+
 </resources>

@@ -44,4 +44,13 @@
     <!-- COSTUMER -->
     <string name="costumer_title">Pelanggan</string>
 
+    <!-- COSTUMER DETAILS-->
+    <string name="costumer_details_name">Nama Lengkap</string>
+    <string name="costumer_details_phone">No HP</string>
+    <string name="costumer_details_email">Email</string>
+    <string name="costumer_details_address">Alamat</string>
+    <string name="costumer_details_city">Kota</string>
+    <string name="costumer_details_menu_update">update</string>
+    <string name="costumer_details_menu_delete">hapus</string>
+
 </resources>

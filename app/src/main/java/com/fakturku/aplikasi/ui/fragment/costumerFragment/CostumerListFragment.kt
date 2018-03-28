@@ -1,5 +1,6 @@
 package com.fakturku.aplikasi.ui.fragment.costumerFragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
@@ -15,6 +16,7 @@ import android.widget.Toast
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Costumer
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
+import com.fakturku.aplikasi.ui.activity.costumerDetails.CostumerDetailsActivity
 import com.fakturku.aplikasi.ui.adapter.CostumerListAdapter
 import kotlinx.android.synthetic.main.fragment_costumer_list.*
 import java.util.ArrayList
@@ -156,7 +158,9 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
     }
 
     override fun showCustomerDetails(costumer: Costumer) {
-        Toast.makeText(activity, costumer.name!!, Toast.LENGTH_SHORT).show()
+        val intentCostumerDetails = Intent(activity, CostumerDetailsActivity::class.java)
+        intentCostumerDetails.putExtra(CostumerDetailsActivity.INTENT_DATA_COSTUMER, costumer)
+        startActivity(intentCostumerDetails)
     }
 
     override fun openAddCostumerPage() {
