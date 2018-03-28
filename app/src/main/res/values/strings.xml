@@ -52,11 +52,16 @@
     <string name="costumer_details_city">Kota</string>
     <string name="costumer_details_menu_update">update</string>
     <string name="costumer_details_menu_delete">hapus</string>
+
+    <!-- COSTUMER DETAILS-->
     <string name="costumer_form_name">Nama Lengkap</string>
     <string name="costumer_form_phone">No HP</string>
     <string name="costumer_form_email">Email</string>
     <string name="costumer_form_city">Kota</string>
     <string name="costumer_form_address">Alamat</string>
     <string name="costumer_form_save">Simpan</string>
+    <string name="costumer_form_backed_message">Anda sedang menginput data, yakin untuk keluar?</string>
+    <string name="costumer_form_backed_positive">Ya, Keluar</string>
+    <string name="costumer_form_backed_negative">Tidak</string>
 
 </resources>

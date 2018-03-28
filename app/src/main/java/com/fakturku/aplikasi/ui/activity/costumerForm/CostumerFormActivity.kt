@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.view.MenuItem
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Costumer
@@ -61,6 +62,16 @@ class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
                 super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this@CostumerFormActivity)
+                .setMessage(R.string.costumer_form_backed_message)
+                .setPositiveButton(R.string.costumer_form_backed_positive,{ _ , _ ->
+                    super.onBackPressed()
+                })
+                .setNegativeButton(R.string.costumer_form_backed_negative, null)
+                .show()
     }
 
     override fun setUpdateMode(costumer: Costumer) {
