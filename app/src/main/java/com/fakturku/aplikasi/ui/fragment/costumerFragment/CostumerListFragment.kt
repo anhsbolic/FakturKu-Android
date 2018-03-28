@@ -7,16 +7,14 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Costumer
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
-import com.fakturku.aplikasi.ui.activity.costumerAdd.CostumerAddActivity
+import com.fakturku.aplikasi.ui.activity.costumerForm.CostumerFormActivity
 import com.fakturku.aplikasi.ui.activity.costumerDetails.CostumerDetailsActivity
 import com.fakturku.aplikasi.ui.adapter.CostumerListAdapter
 import kotlinx.android.synthetic.main.fragment_costumer_list.*
@@ -165,7 +163,7 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
     }
 
     override fun openAddCostumerPage() {
-        val intentAddCostumer = Intent(activity, CostumerAddActivity::class.java)
+        val intentAddCostumer = Intent(activity, CostumerFormActivity::class.java)
         startActivityForResult(intentAddCostumer, INTENT_ADD_COSTUMER_CODE)
     }
 

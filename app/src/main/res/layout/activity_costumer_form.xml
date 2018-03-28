@@ -9,7 +9,7 @@
     android:background="@color/colorBackgroundGray"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".ui.activity.costumerAdd.CostumerAddActivity">
+    tools:context=".ui.activity.costumerForm.CostumerFormActivity">
 
     <ScrollView
         android:layout_width="match_parent"

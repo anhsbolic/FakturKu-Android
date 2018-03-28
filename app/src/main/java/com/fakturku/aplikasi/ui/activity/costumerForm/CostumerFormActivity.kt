@@ -1,11 +1,11 @@
-package com.fakturku.aplikasi.ui.activity.costumerAdd
+package com.fakturku.aplikasi.ui.activity.costumerForm
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import com.fakturku.aplikasi.R
 
-class CostumerAddActivity : AppCompatActivity() {
+class CostumerFormActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
