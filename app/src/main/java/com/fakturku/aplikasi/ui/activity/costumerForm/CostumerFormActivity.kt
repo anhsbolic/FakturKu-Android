@@ -3,6 +3,8 @@ package com.fakturku.aplikasi.ui.activity.costumerForm
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.view.MenuItem
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Costumer
@@ -75,15 +77,25 @@ class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
     }
 
     override fun showAddCostumerSuccess(costumer: Costumer) {
-        val intentAddCostumerSuccess = Intent()
-        setResult(CostumerListFragment.INTENT_ADD_COSTUMER_SUCCESS, intentAddCostumerSuccess)
-        finish()
+        val msg = "${costumer.name} berhasil ditambahkan"
+        Snackbar.make(costumerFormCoordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
+
+        Handler().postDelayed({
+            val intentAddCostumerSuccess = Intent()
+            setResult(CostumerListFragment.INTENT_ADD_COSTUMER_SUCCESS, intentAddCostumerSuccess)
+            finish()
+        }, 1200)
     }
 
     override fun showUpdateCostumerSuccess(costumer: Costumer) {
-        val intentUpdateCostumerSuccess = Intent()
-        setResult(CostumerListFragment.INTENT_UPDATE_COSTUMER_SUCCESS, intentUpdateCostumerSuccess)
-        finish()
+        val msg = "${costumer.name} berhasil diupdate"
+        Snackbar.make(costumerFormCoordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
+
+        Handler().postDelayed({
+            val intentUpdateCostumerSuccess = Intent()
+            setResult(CostumerListFragment.INTENT_UPDATE_COSTUMER_SUCCESS, intentUpdateCostumerSuccess)
+            finish()
+        }, 1200)
     }
 
     companion object {
