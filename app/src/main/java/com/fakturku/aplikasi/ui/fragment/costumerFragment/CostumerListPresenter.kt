@@ -68,9 +68,14 @@ class CostumerListPresenter(private val view: CostumerListContract.View)
             costumerList.add(costumer5)
 
             //SHOW DATA
-            view.showCostumerList(costumerList)
-            view.hidePlaceholder()
-            view.hideProgress()
+            if (!costumerList.isEmpty()){
+                view.showCostumerList(costumerList)
+                view.hidePlaceholder()
+                view.hideProgress()
+            } else {
+                view.showPlaceholder()
+                view.hideProgress()
+            }
         }, 1200)
     }
 

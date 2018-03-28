@@ -4,6 +4,8 @@ import com.fakturku.aplikasi.model.Costumer
 
 interface CostumerListContract{
     interface View{
+        fun initRecyclerView()
+
         fun showProgress()
 
         fun hideProgress()
