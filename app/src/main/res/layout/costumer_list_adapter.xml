@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
+
+    <ImageView
+        android:id="@+id/costumerListAdapterImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="ContentDescription"
+        android:layout_centerVertical="true"/>
 
     <TextView
-        android:id="@+id/costumerListAdapterTxtName"
-        android:layout_width="match_parent"
+        android:id="@+id/costumerListAdapterName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:padding="20dp"/>
+        android:textSize="14sp"
+        android:layout_toEndOf="@id/costumerListAdapterImg"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/costumerListAdapterPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_below="@id/costumerListAdapterName"
+        android:layout_alignStart="@id/costumerListAdapterName"/>
+
+    <TextView
+        android:id="@+id/costumerListAdapterAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/costumerListAdapterPhone"
+        android:layout_alignStart="@id/costumerListAdapterName"/>
+
 
 </RelativeLayout>
