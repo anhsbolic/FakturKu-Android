@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Costumer
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
+import com.fakturku.aplikasi.ui.activity.costumerAdd.CostumerAddActivity
 import com.fakturku.aplikasi.ui.activity.costumerDetails.CostumerDetailsActivity
 import com.fakturku.aplikasi.ui.adapter.CostumerListAdapter
 import kotlinx.android.synthetic.main.fragment_costumer_list.*
@@ -164,7 +165,8 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
     }
 
     override fun openAddCostumerPage() {
-        Toast.makeText(activity, "TAMBAAAAAAAh", Toast.LENGTH_SHORT).show()
+        val intentAddCostumer = Intent(activity, CostumerAddActivity::class.java)
+        startActivityForResult(intentAddCostumer, INTENT_ADD_COSTUMER_CODE)
     }
 
 /*
@@ -175,6 +177,8 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
 
 */
     companion object {
+        const val INTENT_ADD_COSTUMER_CODE = 30
+
         fun newInstance(param1: String, param2: String): CostumerListFragment {
             val fragment = CostumerListFragment()
             val args = Bundle()

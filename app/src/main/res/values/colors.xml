@@ -17,6 +17,7 @@
 
     <color name="colorTextBlack">#151515</color>
     <color name="colorTextWhite">#ffffff</color>
+    <color name="colorTextPrimary">#39a3cf</color>
     <color name="colorTextGray">#d7d7d7</color>
     <color name="colorTextBlueFb">#4a4ca2</color>
     <color name="colorTextGrayGoogle">#6c6c6c</color>

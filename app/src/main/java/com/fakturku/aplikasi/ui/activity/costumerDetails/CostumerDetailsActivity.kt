@@ -18,6 +18,7 @@ class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.Vie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_costumer_details)
+        title = null
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
 
@@ -26,6 +27,7 @@ class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.Vie
 
         if (intent.hasExtra(INTENT_DATA_COSTUMER)){
             costumer = intent.getParcelableExtra(INTENT_DATA_COSTUMER)
+            title = costumer.name
             setCostumerData(costumer)
         }
     }
