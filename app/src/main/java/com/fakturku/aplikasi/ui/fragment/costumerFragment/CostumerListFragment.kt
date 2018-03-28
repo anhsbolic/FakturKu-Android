@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.model.Costumer
 import com.fakturku.aplikasi.model.CostumerList
 import com.fakturku.aplikasi.networking.NetworkService
 import com.google.gson.GsonBuilder
@@ -17,7 +18,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CostumerListFragment : Fragment() {
+class CostumerListFragment : Fragment(), CostumerListContract.View {
+
+    private lateinit var presenter: CostumerListPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,6 +30,8 @@ class CostumerListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+/*
 
         val gson = GsonBuilder().create()
 
@@ -54,12 +59,43 @@ class CostumerListFragment : Fragment() {
                         }
                 )
 
+*/
+
+
+
     }
+
+    //View Function
+    override fun showProgress() {
+    }
+
+    override fun hideProgress() {
+    }
+
+    override fun showPlaceholder() {
+    }
+
+    override fun hidePlaceholder() {
+    }
+
+    override fun showCostumerList(costumerList: MutableList<Costumer>) {
+    }
+
+    override fun showCustomerDetails(costumer: Costumer) {
+    }
+
+    override fun openAddCostumerPage() {
+    }
+
+
+
+/*
 
     private fun setData(costumerList: CostumerList) {
         Log.d("TES", costumerList.toString())
     }
 
+*/
     companion object {
         fun newInstance(param1: String, param2: String): CostumerListFragment {
             val fragment = CostumerListFragment()
