@@ -64,4 +64,7 @@
     <string name="costumer_form_backed_positive">Ya, Keluar</string>
     <string name="costumer_form_backed_negative">Tidak</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
