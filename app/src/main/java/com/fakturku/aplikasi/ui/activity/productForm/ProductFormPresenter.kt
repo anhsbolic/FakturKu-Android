@@ -9,12 +9,12 @@ class ProductFormPresenter(private val view: ProductFormContract.View)
         view.setUpdateMode(product)
     }
 
-    override fun addCostumer(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+    override fun addProduct(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
                              createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
         validateInput(id, name, buyPrice, sellPrice, notes, createdDate, updatedDate, isEditMode)
     }
 
-    override fun updateCostumer(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+    override fun updateProduct(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
                                 createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
         validateInput(id, name, buyPrice, sellPrice, notes, createdDate, updatedDate, isEditMode)
     }

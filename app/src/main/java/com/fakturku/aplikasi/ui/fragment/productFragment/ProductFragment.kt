@@ -16,6 +16,7 @@ import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Product
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
 import com.fakturku.aplikasi.ui.activity.productDetails.ProductDetailsActivity
+import com.fakturku.aplikasi.ui.activity.productForm.ProductFormActivity
 import com.fakturku.aplikasi.ui.adapter.ProductListAdapter
 import kotlinx.android.synthetic.main.fragment_product.*
 import java.util.ArrayList
@@ -131,14 +132,14 @@ class ProductFragment : Fragment(), ProductContract.View {
     }
 
     override fun openAddProductPage() {
-//        val intentAddSupplier = Intent(activity, SupplierFormActivity::class.java)
-//        startActivityForResult(intentAddSupplier, INTENT_ADD_SUPPLIER_CODE)
+        val intentAddProduct = Intent(activity, ProductFormActivity::class.java)
+        startActivityForResult(intentAddProduct, INTENT_ADD_PRODUCT_CODE)
     }
 
     override fun openUpdateProductPage(product: Product) {
-//        val intentUpdateSupplier = Intent(activity, SupplierFormActivity::class.java)
-//        intentUpdateSupplier.putExtra(SupplierFormActivity.INTENT_SUPPLIER_DATA, supplier)
-//        startActivityForResult(intentUpdateSupplier, INTENT_UPDATE_SUPPLIER_CODE)
+        val intentUpdateProduct = Intent(activity, ProductFormActivity::class.java)
+        intentUpdateProduct.putExtra(ProductFormActivity.INTENT_PRODUCT_DATA, product)
+        startActivityForResult(intentUpdateProduct, INTENT_UPDATE_PRODUCT_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
