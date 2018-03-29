@@ -26,6 +26,7 @@ import com.fakturku.aplikasi.ui.fragment.costumerFragment.CostumerListFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import android.content.Intent
 import com.fakturku.aplikasi.ui.activity.login.LoginActivity
+import com.fakturku.aplikasi.ui.fragment.productFragment.ProductFragment
 import com.fakturku.aplikasi.ui.fragment.supplierFragment.SupplierFragment
 
 
@@ -144,8 +145,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             R.id.nav_product ->{
                 showDrawer()
-                //actionBar.setTitle(R.string.report_fragment_title)
-                //currentFragment = ReportFragment()
+                actionBar.setTitle(R.string.product_title)
+                currentFragment = ProductFragment()
                 goToFragment()
             }
             R.id.nav_supplier ->{

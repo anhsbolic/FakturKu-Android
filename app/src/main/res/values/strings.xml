@@ -87,4 +87,25 @@
     <string name="supplier_form_backed_positive">Ya, Keluar</string>
     <string name="supplier_form_backed_negative">Tidak</string>
 
+    <!-- PRODUCT -->
+    <string name="product_title">Barang</string>
+
+    <!-- PRODUCT DETAILS-->
+    <string name="product_details_name">Nama Barang</string>
+    <string name="product_details_buy_price">Harga Beli</string>
+    <string name="product_details_sell_price">Harga Jual</string>
+    <string name="product_details_notes">Keterangan</string>
+    <string name="product_details_menu_update">update</string>
+    <string name="product_details_menu_delete">hapus</string>
+
+    <!-- PRODUCT FORM-->
+    <string name="product_form_name">Nama Barang</string>
+    <string name="product_form_buy_price">Harga Beli</string>
+    <string name="product_form_sell_price">Harga Jual</string>
+    <string name="product_form_notes">Keterangan</string>
+    <string name="product_form_save">Simpan</string>
+    <string name="product_form_backed_message">Anda sedang menginput data, yakin untuk keluar?</string>
+    <string name="product_form_backed_positive">Ya, Keluar</string>
+    <string name="product_form_backed_negative">Tidak</string>
+
 </resources>
