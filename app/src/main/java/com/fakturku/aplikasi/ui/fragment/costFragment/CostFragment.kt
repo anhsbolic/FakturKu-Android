@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.model.Cost
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
 
 class CostFragment : Fragment(), CostContract.View {
@@ -31,6 +32,33 @@ class CostFragment : Fragment(), CostContract.View {
 
         //Init Presenter
         presenter = CostPresenter(this@CostFragment)
+    }
+
+    override fun initRecyclerView() {
+    }
+
+    override fun showProgress() {
+    }
+
+    override fun hideProgress() {
+    }
+
+    override fun showPlaceholder() {
+    }
+
+    override fun hidePlaceholder() {
+    }
+
+    override fun showCostList(productList: MutableList<Cost>) {
+    }
+
+    override fun showCostDetails(cost: Cost) {
+    }
+
+    override fun openAddCostPage() {
+    }
+
+    override fun openUpdateCostPage(cost: Cost) {
     }
 
     companion object {
