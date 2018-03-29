@@ -11,6 +11,7 @@ import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Product
+import com.fakturku.aplikasi.utils.MyCurrencyFormat
 import kotlinx.android.synthetic.main.product_list_adapter.view.*
 
 class ProductListAdapter(private val dataProductList: List<Product>,
@@ -45,8 +46,16 @@ class ProductListAdapter(private val dataProductList: List<Product>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val productName = dataProductList[position].name!!
         holder.txtName.text = productName
-        holder.txtBuyPrice.text = dataProductList[position].buy_price
-        holder.txtSellPrice.text = dataProductList[position].sell_price
+
+        val buyPrice = dataProductList[position].buy_price
+        if (buyPrice != null){
+            holder.txtBuyPrice.text = MyCurrencyFormat.rupiah(buyPrice)
+        }
+
+        val sellPrice = dataProductList[position].sell_price
+        if (sellPrice != null){
+            holder.txtSellPrice.text = MyCurrencyFormat.rupiah(sellPrice)
+        }
 
         val initialName = productName[0].toString()
         val colorGenerator: ColorGenerator = ColorGenerator.MATERIAL
