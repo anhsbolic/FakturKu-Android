@@ -38,16 +38,17 @@ class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
         //UI handling & listener
         costumerFormBtnSave.setOnClickListener {
             val name = costumerFormName.text.toString()
-            val phone = costumerFormName.text.toString()
-            val email = costumerFormName.text.toString()
-            val city = costumerFormName.text.toString()
-            val address = costumerFormName.text.toString()
-            val costumerToAdd = Costumer(null, name, phone, email,address,city,null,null)
+            val phone = costumerFormPhone.text.toString()
+            val email = costumerFormEmail.text.toString()
+            val city = costumerFormCity.text.toString()
+            val address = costumerFormAddress.text.toString()
 
             if (!isUpdateCostumerMode){
-                presenter.addCostumer(costumerToAdd)
+                presenter.addCostumer(null, name, email, phone, city, address,
+                        null, null, isUpdateCostumerMode)
             } else {
-                presenter.updateCostumer(costumerToAdd)
+                presenter.updateCostumer(costumer.id, name, email, phone, city, address,
+                        costumer.created_date, null, isUpdateCostumerMode)
             }
         }
     }
@@ -85,6 +86,26 @@ class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
         costumerFormAddress.setText(costumer.address)
         val strUpdate = "Update"
         costumerFormBtnSave.text = strUpdate
+    }
+
+    override fun showErrorInput(isNameValid: Boolean, isPhoneValid: Boolean, isEmailValid: Boolean) {
+        if (!isNameValid){
+            costumerFormName.error = "Isi dengan Nama Lengkap"
+        } else {
+            costumerFormName.error = null
+        }
+
+        if (!isPhoneValid){
+            costumerFormPhone.error = "Isi dengan No HP"
+        } else {
+            costumerFormPhone.error = null
+        }
+
+        if (!isEmailValid){
+            costumerFormEmail.error = "Isi dengan Email"
+        } else {
+            costumerFormEmail.error = null
+        }
     }
 
     override fun showAddCostumerSuccess(costumer: Costumer) {
