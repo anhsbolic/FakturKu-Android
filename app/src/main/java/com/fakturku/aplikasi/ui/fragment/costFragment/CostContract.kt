@@ -15,7 +15,7 @@ interface CostContract{
 
         fun hidePlaceholder()
 
-        fun showCostList(productList: MutableList<Cost>)
+        fun showCostList(costList: MutableList<Cost>)
 
         fun showCostDetails(cost: Cost)
 

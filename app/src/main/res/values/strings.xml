@@ -112,6 +112,7 @@
 
     <!-- COST -->
     <string name="cost_title">Biaya</string>
+    <string name="cost_adapter_list_cost_price">Besar Biaya</string>
 
     <!-- COST DETAILS-->
     <string name="cost_details_name">Nama Biaya</string>
