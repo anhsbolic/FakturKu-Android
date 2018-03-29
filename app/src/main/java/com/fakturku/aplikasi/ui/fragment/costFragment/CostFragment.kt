@@ -1,5 +1,6 @@
 package com.fakturku.aplikasi.ui.fragment.costFragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
@@ -9,10 +10,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Cost
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
+import com.fakturku.aplikasi.ui.activity.costDetails.CostDetailsActivity
 import com.fakturku.aplikasi.ui.adapter.CostListAdapter
 import kotlinx.android.synthetic.main.fragment_cost.*
 
@@ -121,15 +124,67 @@ class CostFragment : Fragment(), CostContract.View {
     }
 
     override fun showCostDetails(cost: Cost) {
+        val intentCostDetails = Intent(activity, CostDetailsActivity::class.java)
+        intentCostDetails.putExtra(CostDetailsActivity.INTENT_DATA_COST, cost)
+        startActivityForResult(intentCostDetails, INTENT_COST_DETAILS_CODE)
     }
 
     override fun openAddCostPage() {
+//        val intentAddProduct = Intent(activity, ProductFormActivity::class.java)
+//        startActivityForResult(intentAddProduct, INTENT_ADD_PRODUCT_CODE)
     }
 
     override fun openUpdateCostPage(cost: Cost) {
+//        val intentUpdateProduct = Intent(activity, ProductFormActivity::class.java)
+//        intentUpdateProduct.putExtra(ProductFormActivity.INTENT_PRODUCT_DATA, product)
+//        startActivityForResult(intentUpdateProduct, INTENT_UPDATE_PRODUCT_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode){
+            INTENT_COST_DETAILS_CODE->{
+                when(resultCode){
+                    INTENT_COST_DETAILS_UPDATE->{
+                        if (data != null) {
+                            val cost: Cost = data.getParcelableExtra(INTENT_COST_DETAILS_UPDATE_DATA)
+                            presenter.updateCost(cost)
+                        }
+                    }
+                    INTENT_COST_DETAILS_DELETE->{
+                        Toast.makeText(activity,"DATA DELETED",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            INTENT_ADD_COST_CODE->{
+                when(resultCode){
+                    INTENT_ADD_COST_SUCCESS->{
+                        Toast.makeText(activity,"DATA ADDED", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            INTENT_UPDATE_COST_CODE->{
+                when(resultCode){
+                    INTENT_UPDATE_COST_SUCCESS->{
+                        Toast.makeText(activity,"DATA UPDATED",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            else->{ super.onActivityResult(requestCode, resultCode, data) }
+        }
+
     }
 
     companion object {
+        const val INTENT_COST_DETAILS_CODE = 20
+        const val INTENT_COST_DETAILS_UPDATE = 21
+        const val INTENT_COST_DETAILS_DELETE = 22
+        const val INTENT_COST_DETAILS_UPDATE_DATA: String = "IntentCostUpdateData"
+
+        const val INTENT_ADD_COST_CODE = 30
+        const val INTENT_ADD_COST_SUCCESS = 31
+
+        const val INTENT_UPDATE_COST_CODE = 40
+        const val INTENT_UPDATE_COST_SUCCESS = 41
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
