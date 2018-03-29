@@ -1,5 +1,6 @@
 package com.fakturku.aplikasi.ui.activity.productDetails
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -7,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Product
+import com.fakturku.aplikasi.ui.fragment.productFragment.ProductFragment
 import com.fakturku.aplikasi.utils.MyCurrencyFormat
 import kotlinx.android.synthetic.main.activity_product_details.*
 
@@ -83,10 +85,17 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
         productDetailsNotes.text = product.notes
     }
 
-    override fun delete(product: Product) {
+    override fun update(product: Product) {
+        val intentUpdate = Intent()
+        intentUpdate.putExtra(ProductFragment.INTENT_PRODUCT_DETAILS_UPDATE_DATA, product)
+        setResult(ProductFragment.INTENT_PRODUCT_DETAILS_UPDATE, intentUpdate)
+        finish()
     }
 
-    override fun update(product: Product) {
+    override fun delete(product: Product) {
+        val intentDelete = Intent()
+        setResult(ProductFragment.INTENT_PRODUCT_DETAILS_DELETE, intentDelete)
+        finish()
     }
 
     companion object {
