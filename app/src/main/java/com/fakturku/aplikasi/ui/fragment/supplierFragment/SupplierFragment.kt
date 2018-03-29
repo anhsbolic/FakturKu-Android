@@ -16,6 +16,7 @@ import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Supplier
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
 import com.fakturku.aplikasi.ui.activity.supplierDetails.SupplierDetailsActivity
+import com.fakturku.aplikasi.ui.activity.supplierForm.SupplierFormActivity
 import com.fakturku.aplikasi.ui.adapter.SupplierListAdapter
 import kotlinx.android.synthetic.main.fragment_supplier.*
 import java.util.ArrayList
@@ -56,6 +57,8 @@ class SupplierFragment : Fragment(), SupplierContract.View {
         //Load Init Data
         presenter.loadSupplierListData(1)
 
+        //UI handling & listener
+        supplierFabAddCostumer.setOnClickListener { presenter.addSupplier() }
     }
 
     override fun initRecyclerView() {
@@ -130,9 +133,14 @@ class SupplierFragment : Fragment(), SupplierContract.View {
     }
 
     override fun openAddSupplierPage() {
+        val intentAddSupplier = Intent(activity, SupplierFormActivity::class.java)
+        startActivityForResult(intentAddSupplier, INTENT_ADD_SUPPLIER_CODE)
     }
 
     override fun openUpdateSupplierPage(supplier: Supplier) {
+        val intentUpdateSupplier = Intent(activity, SupplierFormActivity::class.java)
+        intentUpdateSupplier.putExtra(SupplierFormActivity.INTENT_SUPPLIER_DATA, supplier)
+        startActivityForResult(intentUpdateSupplier, INTENT_UPDATE_SUPPLIER_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
