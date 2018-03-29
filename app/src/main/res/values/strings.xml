@@ -67,4 +67,13 @@
     <!-- SUPPLIER -->
     <string name="supplier_title">Supplier</string>
 
+    <!-- SUPPLIER DETAILS-->
+    <string name="supplier_details_name">Nama Lengkap</string>
+    <string name="supplier_details_phone">No HP</string>
+    <string name="supplier_details_email">Email</string>
+    <string name="supplier_details_address">Alamat</string>
+    <string name="supplier_details_city">Kota</string>
+    <string name="supplier_details_menu_update">update</string>
+    <string name="supplier_details_menu_delete">hapus</string>
+
 </resources>
