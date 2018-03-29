@@ -33,7 +33,7 @@
         tools:ignore="ContentDescription"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/productFabAddCostumer"
+        android:id="@+id/productFabAddProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

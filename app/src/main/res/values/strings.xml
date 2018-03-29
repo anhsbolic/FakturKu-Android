@@ -89,6 +89,8 @@
 
     <!-- PRODUCT -->
     <string name="product_title">Barang</string>
+    <string name="product_adapter_list_buy_price">Harga Beli</string>
+    <string name="product_adapter_list_sell_price">Harga Jual</string>
 
     <!-- PRODUCT DETAILS-->
     <string name="product_details_name">Nama Barang</string>
