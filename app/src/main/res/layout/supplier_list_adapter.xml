@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
+
+    <ImageView
+        android:id="@+id/supplierListAdapterImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="ContentDescription"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/supplierListAdapterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_toEndOf="@id/supplierListAdapterImg"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/supplierListAdapterPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_below="@id/supplierListAdapterName"
+        android:layout_alignStart="@id/supplierListAdapterName"/>
+
+    <TextView
+        android:id="@+id/supplierListAdapterAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/supplierListAdapterPhone"
+        android:layout_alignStart="@id/supplierListAdapterName"/>
+
+
+</RelativeLayout>
