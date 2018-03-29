@@ -1,9 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/supplierFormCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundGray"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ui.activity.supplierForm.SupplierFormActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="3dp"
+                app:contentPaddingTop="30dp"
+                app:contentPaddingBottom="10dp"
+                app:contentPaddingLeft="16dp"
+                app:contentPaddingRight="16dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/supplierFormName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/supplier_form_name"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/colorTextPrimary"
+                        android:inputType="textPersonName|textCapWords"
+                        android:theme="@style/MyTextInputLayoutStyle"
+                        android:drawableStart="@drawable/ic_form_name"
+                        android:drawablePadding="16dp"
+                        android:paddingBottom="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <EditText
+                        android:id="@+id/supplierFormPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/supplier_form_phone"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/colorTextPrimary"
+                        android:inputType="phone"
+                        android:theme="@style/MyTextInputLayoutStyle"
+                        android:drawableStart="@drawable/ic_form_phone"
+                        android:drawablePadding="16dp"
+                        android:paddingBottom="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <EditText
+                        android:id="@+id/supplierFormEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/supplier_form_email"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/colorTextPrimary"
+                        android:inputType="textEmailAddress"
+                        android:theme="@style/MyTextInputLayoutStyle"
+                        android:drawableStart="@drawable/ic_form_mail"
+                        android:drawablePadding="16dp"
+                        android:paddingBottom="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <EditText
+                        android:id="@+id/supplierFormCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/supplier_form_city"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/colorTextPrimary"
+                        android:inputType="textCapWords"
+                        android:theme="@style/MyTextInputLayoutStyle"
+                        android:drawableStart="@drawable/ic_form_city"
+                        android:drawablePadding="16dp"
+                        android:paddingBottom="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <EditText
+                        android:id="@+id/supplierFormAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/supplier_form_address"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/colorTextPrimary"
+                        android:inputType="textMultiLine"
+                        android:theme="@style/MyTextInputLayoutStyle"
+                        android:drawableStart="@drawable/ic_form_address"
+                        android:drawablePadding="16dp"
+                        android:paddingBottom="16dp"
+                        android:layout_marginBottom="16dp"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/supplierFormBtnSave"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/supplier_form_save"
+                android:textSize="16sp"
+                android:theme="@style/PrimaryButton"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
