@@ -7,13 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.ui.activity.DashboardActivity
 
-class SupplierFragment : Fragment() {
+class SupplierFragment : Fragment(), SupplierContract.View {
+
+    private lateinit var presenter: SupplierPresenter
+
+    private var isFragmentWasVisited: Boolean = false
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        if(isFragmentWasVisited){
+            (activity as DashboardActivity).setTitleBar(R.string.supplier_title)
+        }else{
+            isFragmentWasVisited = true
+        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_supplier, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     companion object {
