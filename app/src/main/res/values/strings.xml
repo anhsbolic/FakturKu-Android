@@ -139,4 +139,13 @@
     <string name="my_settings_account">Akun</string>
     <string name="my_settings_invoice">Faktur</string>
 
+    <!-- SETTING INVOICE-->
+    <string name="setting_invoice_payment_instruction">Instruksi Pembayaran</string>
+    <string name="setting_invoice_payment_choice">Pilihan Pembayaran Pelanggan</string>
+    <string name="setting_invoice_company_address">Alamat Perusahaan</string>
+    <string name="setting_invoice_save">Simpan</string>
+    <string name="setting_invoice_backed_message">Anda sedang menginput data, yakin untuk keluar?</string>
+    <string name="setting_invoice_backed_positive">Ya, Keluar</string>
+    <string name="setting_invoice_backed_negative">Tidak</string>
+
 </resources>
