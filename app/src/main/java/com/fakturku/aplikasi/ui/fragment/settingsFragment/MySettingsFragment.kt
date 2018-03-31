@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.ui.activity.settingAccount.SettingAccountActivity
 import com.fakturku.aplikasi.ui.activity.settingInvoice.SettingInvoiceActivity
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -34,7 +35,8 @@ class MySettingsFragment : Fragment(), MySettingsContract.View {
     }
 
     override fun showAccountSettings() {
-        Toast.makeText(activity, "SET AKUN", Toast.LENGTH_SHORT).show()
+        val intentSetAccount = Intent(activity, SettingAccountActivity::class.java)
+        startActivityForResult(intentSetAccount, INTENT_SET_INVOICE_CODE)
     }
 
     override fun showInvoiceSettings() {
@@ -44,6 +46,13 @@ class MySettingsFragment : Fragment(), MySettingsContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(requestCode){
+            INTENT_SET_ACCOUNT_CODE->{
+                when(resultCode){
+                    INTENT_SET_ACCOUNT_SUCCESS->{
+                        Toast.makeText(activity,"ACCOUNT SETTINGS UPDATED",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
             INTENT_SET_INVOICE_CODE->{
                 when(resultCode){
                     INTENT_SET_INVOICE_SUCCESS->{
@@ -57,6 +66,9 @@ class MySettingsFragment : Fragment(), MySettingsContract.View {
     }
 
     companion object {
+        const val INTENT_SET_ACCOUNT_CODE = 10
+        const val INTENT_SET_ACCOUNT_SUCCESS = 11
+
         const val INTENT_SET_INVOICE_CODE = 20
         const val INTENT_SET_INVOICE_SUCCESS = 21
 
