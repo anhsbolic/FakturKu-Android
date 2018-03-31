@@ -3,8 +3,11 @@ package com.fakturku.aplikasi.ui.activity.settingInvoice
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MenuItem
 import com.fakturku.aplikasi.R
+import kotlinx.android.synthetic.main.activity_setting_invoice.*
 
 class SettingInvoiceActivity : AppCompatActivity(), SettingInvoiceContract.View {
 
@@ -20,6 +23,62 @@ class SettingInvoiceActivity : AppCompatActivity(), SettingInvoiceContract.View 
 
         //Init Presenter
         presenter = SettingInvoicePresenter(this@SettingInvoiceActivity)
+
+        //UI Handling & listener
+        ///Edit Text Length Control
+        val totalLengthEtPaymentInstruction = "/50"
+        var lengthEtPaymentInstruction = settingInvoiceEtPaymentInstruction.length()
+        var txtLengthEtPaymentInstruction = "$lengthEtPaymentInstruction$totalLengthEtPaymentInstruction"
+        settingInvoiceTxtPaymentInstructionLength.text = txtLengthEtPaymentInstruction
+        settingInvoiceEtPaymentInstruction.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                lengthEtPaymentInstruction = settingInvoiceEtPaymentInstruction.length()
+                txtLengthEtPaymentInstruction = "$lengthEtPaymentInstruction$totalLengthEtPaymentInstruction"
+                settingInvoiceTxtPaymentInstructionLength.text = txtLengthEtPaymentInstruction
+            }
+        })
+
+        val totalLengthEtPaymentChoice = "/120"
+        var lengthEtPaymentChoice = settingInvoiceEtPaymentChoice.length()
+        var txtLengthEtPaymentChoice = "$lengthEtPaymentChoice$totalLengthEtPaymentChoice"
+        settingInvoiceTxtPaymentChoiceLength.text = txtLengthEtPaymentChoice
+        settingInvoiceEtPaymentChoice.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                lengthEtPaymentChoice = settingInvoiceEtPaymentChoice.length()
+                txtLengthEtPaymentChoice = "$lengthEtPaymentChoice$totalLengthEtPaymentChoice"
+                settingInvoiceTxtPaymentChoiceLength.text = txtLengthEtPaymentChoice
+            }
+        })
+
+        val totalLengthEtCompanyAddress = "/50"
+        var lengthEtCompanyAddress = settingInvoiceEtCompanyAddress.length()
+        var txtLengthEtCompanyAddress = "$lengthEtCompanyAddress$totalLengthEtCompanyAddress"
+        settingInvoiceTxtCompanyAddressLength.text = txtLengthEtCompanyAddress
+        settingInvoiceEtCompanyAddress.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                lengthEtCompanyAddress = settingInvoiceEtCompanyAddress.length()
+                txtLengthEtCompanyAddress = "$lengthEtCompanyAddress$totalLengthEtCompanyAddress"
+                settingInvoiceTxtCompanyAddressLength.text = txtLengthEtCompanyAddress
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
