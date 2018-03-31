@@ -136,9 +136,9 @@ class CostFragment : Fragment(), CostContract.View {
     }
 
     override fun openUpdateCostPage(cost: Cost) {
-//        val intentUpdateProduct = Intent(activity, ProductFormActivity::class.java)
-//        intentUpdateProduct.putExtra(ProductFormActivity.INTENT_PRODUCT_DATA, product)
-//        startActivityForResult(intentUpdateProduct, INTENT_UPDATE_PRODUCT_CODE)
+        val intentCostProduct = Intent(activity, CostFormActivity::class.java)
+        intentCostProduct.putExtra(CostFormActivity.INTENT_COST_DATA, cost)
+        startActivityForResult(intentCostProduct, INTENT_UPDATE_COST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
