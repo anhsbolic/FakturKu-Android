@@ -28,6 +28,7 @@ import android.content.Intent
 import com.fakturku.aplikasi.ui.activity.login.LoginActivity
 import com.fakturku.aplikasi.ui.fragment.costFragment.CostFragment
 import com.fakturku.aplikasi.ui.fragment.productFragment.ProductFragment
+import com.fakturku.aplikasi.ui.fragment.settingsFragment.MySettingsFragment
 import com.fakturku.aplikasi.ui.fragment.supplierFragment.SupplierFragment
 
 
@@ -171,7 +172,10 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
             //OPTION
             R.id.nav_settings ->{
-                //TODO : create settings
+                showDrawer()
+                actionBar.setTitle(R.string.my_settings_title)
+                currentFragment = MySettingsFragment()
+                goToFragment()
             }
             R.id.nav_help ->{
                 //TODO : create help

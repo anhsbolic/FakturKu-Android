@@ -134,4 +134,9 @@
     <string name="cost_form_backed_positive">Ya, Keluar</string>
     <string name="cost_form_backed_negative">Tidak</string>
 
+    <!-- MY SETTINGS -->
+    <string name="my_settings_title">Pengaturan</string>
+    <string name="my_settings_account">Akun</string>
+    <string name="my_settings_invoice">Faktur</string>
+
 </resources>
