@@ -1,12 +1,16 @@
 package com.fakturku.aplikasi.ui.activity.settingInvoice
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.ui.fragment.settingsFragment.MySettingsFragment
 import kotlinx.android.synthetic.main.activity_setting_invoice.*
 
 class SettingInvoiceActivity : AppCompatActivity(), SettingInvoiceContract.View {
@@ -79,6 +83,9 @@ class SettingInvoiceActivity : AppCompatActivity(), SettingInvoiceContract.View 
                 settingInvoiceTxtCompanyAddressLength.text = txtLengthEtCompanyAddress
             }
         })
+
+        ///Save Button
+        settingInvoiceBtnSave.setOnClickListener { presenter.settingInvoice() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -101,5 +108,16 @@ class SettingInvoiceActivity : AppCompatActivity(), SettingInvoiceContract.View 
                 })
                 .setNegativeButton(R.string.setting_invoice_backed_negative, null)
                 .show()
+    }
+
+    override fun showSetingInvoiceSuccess() {
+        val msg = "Pengaturan faktur berhasil"
+        Snackbar.make(settingInvoiceCoordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
+
+        Handler().postDelayed({
+            val intentSettingInvoiceSuccess = Intent()
+            setResult(MySettingsFragment.INTENT_SET_INVOICE_SUCCESS, intentSettingInvoiceSuccess)
+            finish()
+        }, 1200)
     }
 }
