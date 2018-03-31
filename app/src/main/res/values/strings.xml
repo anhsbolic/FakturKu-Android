@@ -54,9 +54,10 @@
     <string name="costumer_details_menu_delete">hapus</string>
 
     <!-- COSTUMER FORM-->
-    <string name="costumer_form_name">Nama Lengkap</string>
-    <string name="costumer_form_phone">No HP</string>
-    <string name="costumer_form_email">Email</string>
+    <string name="costumer_form_attention">**) harus diisi</string>
+    <string name="costumer_form_name">Nama Lengkap **</string>
+    <string name="costumer_form_phone">No HP **</string>
+    <string name="costumer_form_email">Email **</string>
     <string name="costumer_form_city">Kota</string>
     <string name="costumer_form_address">Alamat</string>
     <string name="costumer_form_save">Simpan</string>
@@ -77,9 +78,10 @@
     <string name="supplier_details_menu_delete">hapus</string>
 
     <!-- SUPPLIER FORM-->
-    <string name="supplier_form_name">Nama Lengkap</string>
-    <string name="supplier_form_phone">No HP</string>
-    <string name="supplier_form_email">Email</string>
+    <string name="supplier_form_attention">**) harus diisi</string>
+    <string name="supplier_form_name">Nama Lengkap **</string>
+    <string name="supplier_form_phone">No HP **</string>
+    <string name="supplier_form_email">Email **</string>
     <string name="supplier_form_city">Kota</string>
     <string name="supplier_form_address">Alamat</string>
     <string name="supplier_form_save">Simpan</string>
@@ -101,7 +103,8 @@
     <string name="product_details_menu_delete">hapus</string>
 
     <!-- PRODUCT FORM-->
-    <string name="product_form_name">Nama Barang</string>
+    <string name="product_form_attention">**) harus diisi</string>
+    <string name="product_form_name">Nama Barang **</string>
     <string name="product_form_buy_price">Harga Beli</string>
     <string name="product_form_sell_price">Harga Jual</string>
     <string name="product_form_notes">Keterangan</string>
@@ -115,13 +118,14 @@
     <string name="cost_adapter_list_cost_price">Besar Biaya</string>
 
     <!-- COST DETAILS-->
-    <string name="cost_details_name">Nama Biaya</string>
+    <string name="cost_details_name">Nama Biaya **</string>
     <string name="cost_details_cost_price">Besar Biaya</string>
     <string name="cost_details_notes">Keterangan</string>
     <string name="cost_details_menu_update">update</string>
     <string name="cost_details_menu_delete">hapus</string>
 
     <!-- COST FORM-->
+    <string name="cost_form_attention">**) harus diisi</string>
     <string name="cost_form_name">Nama Biaya</string>
     <string name="cost_form_cost_price">Besar Biaya</string>
     <string name="cost_form_notes">Keterangan</string>
