@@ -129,4 +129,5 @@
     <string name="cost_form_backed_message">Anda sedang menginput data, yakin untuk keluar?</string>
     <string name="cost_form_backed_positive">Ya, Keluar</string>
     <string name="cost_form_backed_negative">Tidak</string>
+
 </resources>

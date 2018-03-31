@@ -16,6 +16,7 @@ import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Cost
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
 import com.fakturku.aplikasi.ui.activity.costDetails.CostDetailsActivity
+import com.fakturku.aplikasi.ui.activity.costForm.CostFormActivity
 import com.fakturku.aplikasi.ui.adapter.CostListAdapter
 import kotlinx.android.synthetic.main.fragment_cost.*
 
@@ -130,8 +131,8 @@ class CostFragment : Fragment(), CostContract.View {
     }
 
     override fun openAddCostPage() {
-//        val intentAddProduct = Intent(activity, ProductFormActivity::class.java)
-//        startActivityForResult(intentAddProduct, INTENT_ADD_PRODUCT_CODE)
+        val intentCostProduct = Intent(activity, CostFormActivity::class.java)
+        startActivityForResult(intentCostProduct, INTENT_ADD_COST_CODE)
     }
 
     override fun openUpdateCostPage(cost: Cost) {
