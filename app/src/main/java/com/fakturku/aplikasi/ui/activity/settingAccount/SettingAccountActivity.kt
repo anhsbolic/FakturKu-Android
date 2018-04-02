@@ -3,7 +3,6 @@ package com.fakturku.aplikasi.ui.activity.settingAccount
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.fakturku.aplikasi.R
@@ -87,12 +86,34 @@ class SettingAccountActivity : AppCompatActivity(), SettingAccountContract.View 
     }
 
     override fun showEditAccount(user: User) {
-        val intent = Intent(this@SettingAccountActivity, SettingAccountFormActivity::class.java)
-        startActivity(intent)
+        val intentEdit = Intent(this@SettingAccountActivity, SettingAccountFormActivity::class.java)
+        intentEdit.putExtra(SettingAccountFormActivity.INTENT_USER_DATA, user)
+        startActivityForResult(intentEdit, INTENT_UPDATE_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode){
+            INTENT_UPDATE_CODE->{
+                when(resultCode){
+                    INTENT_UPDATE_CODE_SUCCESS->{
+                        if (data != null) {
+                            user = data.getParcelableExtra(INTENT_UPDATE_CODE_SUCCESS_DATA)
+                            presenter.setDataToUI(user)
+                        }
+                    }
+                }
+            }
+            else->{ super.onActivityResult(requestCode, resultCode, data) }
+        }
+
     }
 
     companion object {
         const val INTENT_USER_DATA : String = "IntentUserData"
+
+        const val INTENT_UPDATE_CODE = 20
+        const val INTENT_UPDATE_CODE_SUCCESS = 21
+        const val INTENT_UPDATE_CODE_SUCCESS_DATA: String = "IntentUpdateSuccessData"
     }
 
 }

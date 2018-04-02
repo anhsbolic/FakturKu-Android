@@ -96,7 +96,8 @@
                         android:drawableStart="@drawable/ic_form_mail"
                         android:drawablePadding="16dp"
                         android:paddingBottom="16dp"
-                        android:layout_marginBottom="16dp"/>
+                        android:layout_marginBottom="16dp"
+                        android:enabled="false"/>
 
                     <EditText
                         android:id="@+id/accountFormPhone"

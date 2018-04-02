@@ -9,8 +9,71 @@ class SettingAccountFormPresenter(private val view : SettingAccountFormContract.
         view.setUserDataToUI(user)
     }
 
-    override fun saveUpdateUserData(user: User) {
-        view.showUpdateDataSuccess(user)
+    override fun saveUpdateUserData(id: String?,
+                                    name : String?,
+                                    phone : String?,
+                                    email : String?,
+                                    address : String?,
+                                    city : String?,
+                                    accountNumber : String?,
+                                    companyName : String?,
+                                    companyPhone : String?,
+                                    companyEmail : String?,
+                                    companyAddress : String?,
+                                    companyCity : String?,
+                                    companyAccountNumber : String?,
+                                    createdDate : String?,
+                                    updatedDate : String?) {
+
+        if (companyEmail != null) {
+            if (companyEmail.isNotEmpty()){
+                val isInEmailFormat = android.util.Patterns.EMAIL_ADDRESS.matcher(companyEmail).matches()
+                if (!isInEmailFormat) {
+                    view.showErrorEtCompanyEmail(isInEmailFormat)
+                } else {
+                    view.showErrorEtCompanyEmail(isInEmailFormat)
+                    val user = User(
+                            id,
+                            name,
+                            phone,
+                            email,
+                            address,
+                            city,
+                            accountNumber,
+                            companyName,
+                            companyPhone,
+                            companyEmail,
+                            companyAddress,
+                            companyCity,
+                            companyAccountNumber,
+                            createdDate,
+                            updatedDate
+                    )
+                    view.showUpdateDataSuccess(user)
+                }
+            }
+
+        } else {
+            val user = User(
+                    id,
+                    name,
+                    phone,
+                    email,
+                    address,
+                    city,
+                    accountNumber,
+                    companyName,
+                    companyPhone,
+                    companyEmail,
+                    companyAddress,
+                    companyCity,
+                    companyAccountNumber,
+                    createdDate,
+                    updatedDate
+            )
+            view.showUpdateDataSuccess(user)
+        }
+
     }
 
 }
