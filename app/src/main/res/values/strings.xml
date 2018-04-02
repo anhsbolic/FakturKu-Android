@@ -148,8 +148,27 @@
     <string name="setting_invoice_backed_message">Anda sedang menginput data, yakin untuk keluar?</string>
     <string name="setting_invoice_backed_positive">Ya, Keluar</string>
     <string name="setting_invoice_backed_negative">Tidak</string>
+
+    <!-- SETTING ACCOUNT-->
     <string name="setting_account_personal_info">Info Pribadi</string>
     <string name="setting_account_info_default">-</string>
     <string name="setting_account_company_info">Info Perusahaan</string>
+
+    <!-- ACCOUNT FORM-->
+    <string name="account_form_attention">**) harus diisi</string>
+    <string name="account_form_name">Nama Lengkap **</string>
+    <string name="account_form_email">Email</string>
+    <string name="account_form_phone">No telp/HP</string>
+    <string name="account_form_address">Alamat Lengkap</string>
+    <string name="account_form_city">Kota</string>
+    <string name="account_form_company_name">Nama Perusahaan</string>
+    <string name="account_form_company_email">Email Perusahaan</string>
+    <string name="account_form_company_phone">No telp/HP Perusahaan</string>
+    <string name="account_form_company_address">Alamat Lengkap Perusahaan</string>
+    <string name="account_form_company_city">Kota</string>
+    <string name="account_form_save">Simpan</string>
+    <string name="account_form_backed_message">Anda sedang menginput data, yakin untuk keluar?</string>
+    <string name="account_form_backed_positive">Ya, Keluar</string>
+    <string name="account_form_backed_negative">Tidak</string>
 
 </resources>

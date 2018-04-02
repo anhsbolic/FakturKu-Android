@@ -1,5 +1,6 @@
 package com.fakturku.aplikasi.ui.activity.settingAccount
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -7,6 +8,7 @@ import com.amulyakhare.textdrawable.TextDrawable
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.User
+import com.fakturku.aplikasi.ui.activity.settingAccountForm.SettingAccountFormActivity
 import kotlinx.android.synthetic.main.activity_setting_account.*
 
 class SettingAccountActivity : AppCompatActivity(), SettingAccountContract.View {
@@ -85,7 +87,8 @@ class SettingAccountActivity : AppCompatActivity(), SettingAccountContract.View 
     }
 
     override fun showEditAccount(user: User) {
-        Toast.makeText(this@SettingAccountActivity, "EDIT", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this@SettingAccountActivity, SettingAccountFormActivity::class.java)
+        startActivity(intent)
     }
 
     companion object {
