@@ -25,16 +25,16 @@ import com.fakturku.aplikasi.ui.fragment.InvoiceFragment
 import com.fakturku.aplikasi.ui.fragment.costumerFragment.CostumerListFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import android.content.Intent
-import android.widget.TextView
+import com.amulyakhare.textdrawable.TextDrawable
+import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.fakturku.aplikasi.model.User
 import com.fakturku.aplikasi.ui.activity.login.LoginActivity
+import com.fakturku.aplikasi.ui.activity.settingAccountForm.SettingAccountFormActivity
 import com.fakturku.aplikasi.ui.fragment.costFragment.CostFragment
 import com.fakturku.aplikasi.ui.fragment.productFragment.ProductFragment
 import com.fakturku.aplikasi.ui.fragment.settingsFragment.MySettingsFragment
 import com.fakturku.aplikasi.ui.fragment.supplierFragment.SupplierFragment
-import kotlinx.android.synthetic.main.activity_dashboard_drawer_nav_header.*
 import kotlinx.android.synthetic.main.activity_dashboard_drawer_nav_header.view.*
-
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -49,7 +49,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private var mPendingRunnable : Runnable? = null
     private val mHandler : Handler = Handler()
 
-    private lateinit var strUserId : String
     private var isNavigationActive : Boolean = false
     private var isFirstVisit : Boolean = true
 
@@ -62,8 +61,22 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         //get intent user data
         if (intent.hasExtra(INTENT_USER_DATA)){
             user = intent.getParcelableExtra(INTENT_USER_DATA)
-            if (user.company_name != null) {
-                dashboardNavView.getHeaderView(0).dashboardNavHeaderCompanyName.text = user.company_name
+            val companyName = user.company_name
+            if (companyName != null) {
+                val navHeader = dashboardNavView.getHeaderView(0)
+                navHeader.dashboardNavHeaderTxtCompanyName.text = companyName
+
+                val initialName = companyName[0].toString()
+                val colorGenerator: ColorGenerator = ColorGenerator.MATERIAL
+                val color: Int = colorGenerator.getColor(initialName)
+                val textDrawable: TextDrawable = TextDrawable.builder().beginConfig()
+                        .width(100)
+                        .height(100)
+                        .endConfig()
+                        .buildRound(initialName, color)
+                navHeader.dashboardNavHeaderImgCompany.setImageDrawable(textDrawable)
+
+//                navHeader.dashboardNavHeaderImgCompany.setOnClickListener{editProfile()}
             }
         }
 
@@ -263,6 +276,12 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val intentLogin = Intent(this@DashboardActivity, LoginActivity::class.java)
         startActivity(intentLogin)
         finish()
+    }
+
+    private fun editProfile(){
+        val intentEdit = Intent(this@DashboardActivity, SettingAccountFormActivity::class.java)
+        intentEdit.putExtra(SettingAccountFormActivity.INTENT_USER_DATA, user)
+        startActivity(intentEdit)
     }
 
     fun showDrawer(){
