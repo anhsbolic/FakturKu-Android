@@ -148,5 +148,8 @@
     <string name="setting_invoice_backed_message">Anda sedang menginput data, yakin untuk keluar?</string>
     <string name="setting_invoice_backed_positive">Ya, Keluar</string>
     <string name="setting_invoice_backed_negative">Tidak</string>
+    <string name="setting_account_personal_info">Info Pribadi</string>
+    <string name="setting_account_info_default">-</string>
+    <string name="setting_account_company_info">Info Perusahaan</string>
 
 </resources>
