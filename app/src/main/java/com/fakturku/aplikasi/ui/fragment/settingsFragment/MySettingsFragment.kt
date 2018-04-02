@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.ui.activity.DashboardActivity
 import com.fakturku.aplikasi.ui.activity.settingAccount.SettingAccountActivity
 import com.fakturku.aplikasi.ui.activity.settingInvoice.SettingInvoiceActivity
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -35,7 +36,10 @@ class MySettingsFragment : Fragment(), MySettingsContract.View {
     }
 
     override fun showAccountSettings() {
+        //Get User Data
+        val user = (activity as DashboardActivity).getUser()
         val intentSetAccount = Intent(activity, SettingAccountActivity::class.java)
+        intentSetAccount.putExtra(SettingAccountActivity.INTENT_USER_DATA, user)
         startActivityForResult(intentSetAccount, INTENT_SET_INVOICE_CODE)
     }
 

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.model.User
 import com.fakturku.aplikasi.ui.activity.login.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -17,7 +18,23 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             if(isLogin()){
-                goToDashboard()
+                val user = User(
+                        null,
+                        "Hilman Firdaus",
+                        "+12345678910",
+                        "hilmanfirdaus@gmail.com",
+                        null,
+                        null,
+                        null,
+                        "Tani Sejahtera",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null)
+                goToDashboard(user)
             }else{
                 goToLogin()
             }
@@ -41,8 +58,9 @@ class SplashScreenActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun goToDashboard() {
+    private fun goToDashboard(user: User) {
         val intentDashboard = Intent(this@SplashScreenActivity, DashboardActivity::class.java)
+        intentDashboard.putExtra(DashboardActivity.INTENT_USER_DATA, user)
         startActivity(intentDashboard)
         finish()
     }

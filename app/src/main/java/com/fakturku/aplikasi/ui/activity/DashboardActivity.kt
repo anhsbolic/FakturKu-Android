@@ -25,11 +25,15 @@ import com.fakturku.aplikasi.ui.fragment.InvoiceFragment
 import com.fakturku.aplikasi.ui.fragment.costumerFragment.CostumerListFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import android.content.Intent
+import android.widget.TextView
+import com.fakturku.aplikasi.model.User
 import com.fakturku.aplikasi.ui.activity.login.LoginActivity
 import com.fakturku.aplikasi.ui.fragment.costFragment.CostFragment
 import com.fakturku.aplikasi.ui.fragment.productFragment.ProductFragment
 import com.fakturku.aplikasi.ui.fragment.settingsFragment.MySettingsFragment
 import com.fakturku.aplikasi.ui.fragment.supplierFragment.SupplierFragment
+import kotlinx.android.synthetic.main.activity_dashboard_drawer_nav_header.*
+import kotlinx.android.synthetic.main.activity_dashboard_drawer_nav_header.view.*
 
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
@@ -49,9 +53,19 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private var isNavigationActive : Boolean = false
     private var isFirstVisit : Boolean = true
 
+    private lateinit var user : User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        //get intent user data
+        if (intent.hasExtra(INTENT_USER_DATA)){
+            user = intent.getParcelableExtra(INTENT_USER_DATA)
+            if (user.company_name != null) {
+                dashboardNavView.getHeaderView(0).dashboardNavHeaderCompanyName.text = user.company_name
+            }
+        }
 
         //Set Dashboard UI
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -283,8 +297,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         actionBar.setTitle(title)
     }
 
-    fun getUserId() : String{
-        return strUserId
+    fun getUser() : User{
+        return user
     }
 
     fun showKeyboard(showKeyboard: Boolean){
@@ -303,6 +317,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     companion object {
-        val KEY_DASHBOARD_FRAGMENT :String = "KeyDashboardFragment"
+        const val KEY_DASHBOARD_FRAGMENT :String = "KeyDashboardFragment"
+        const val INTENT_USER_DATA : String = "IntentUserData"
     }
 }

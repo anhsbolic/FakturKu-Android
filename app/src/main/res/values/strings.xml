@@ -24,6 +24,7 @@
     <string name="dashboard_dialog_exit_message">Apakah Anda yakin untuk keluar?</string>
     <string name="dashboard_dialog_exit_positive">Ya</string>
     <string name="dashboard_dialog_exit_negative">Tidak</string>
+    <string name="dashboard_nav_header_default_company_name">Nama Perusahaan</string>
 
     <!-- DRAWER NAVIGATION -->
     <string name="drawer_nav_title_report">Laporan</string>

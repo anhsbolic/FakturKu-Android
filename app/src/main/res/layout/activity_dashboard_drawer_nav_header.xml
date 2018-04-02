@@ -9,9 +9,10 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:id="@+id/dashboardNavHeaderCompanyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nama Perusahaan"
+        android:text="@string/dashboard_nav_header_default_company_name"
         android:textAlignment="center"
         android:textSize="24sp"
         android:layout_centerInParent="true"/>
