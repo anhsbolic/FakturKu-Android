@@ -21,7 +21,7 @@ import android.view.SubMenu
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.fakturku.aplikasi.R
-import com.fakturku.aplikasi.ui.fragment.InvoiceFragment
+import com.fakturku.aplikasi.ui.fragment.invoiceFragment.InvoiceFragment
 import com.fakturku.aplikasi.ui.fragment.costumerFragment.CostumerListFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import android.content.Intent
