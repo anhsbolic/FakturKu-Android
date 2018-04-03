@@ -11,11 +11,15 @@ interface InvoiceContract{
 
         fun openAddPurchaseInvoice()
 
+        fun openAddCostInvoice()
+
     }
 
     interface Presenter{
         fun addSalesInvoice()
 
         fun addPurchaseInvoice()
+
+        fun addCostInvoice()
     }
 }

@@ -11,4 +11,7 @@ class InvoicePresenter(private val view : InvoiceContract.View)
         view.openAddPurchaseInvoice()
     }
 
+    override fun addCostInvoice() {
+        view.openAddCostInvoice()
+    }
 }

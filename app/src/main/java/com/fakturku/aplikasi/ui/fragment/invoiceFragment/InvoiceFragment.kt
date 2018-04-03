@@ -70,22 +70,31 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
             presenter.addPurchaseInvoice()
         }
 
+        invoiceFabCost.setOnClickListener {
+            hideFabSubMenu()
+            presenter.addCostInvoice()
+        }
+
     }
 
     override fun showFabSubmenu() {
         invoiceLayoutFabBuy.visibility = View.VISIBLE
         invoiceLayoutFabSell.visibility = View.VISIBLE
+        invoiceLayoutFabCost.visibility = View.VISIBLE
         invoiceFab.startAnimation(animFabShowButton)
         invoiceLayoutFabSell.startAnimation(animFabLayoutShowButton)
         invoiceLayoutFabBuy.startAnimation(animFabLayoutShowButton)
+        invoiceLayoutFabCost.startAnimation(animFabLayoutShowButton)
     }
 
     override fun hideFabSubMenu() {
         invoiceLayoutFabBuy.visibility = View.GONE
         invoiceLayoutFabSell.visibility = View.GONE
+        invoiceLayoutFabCost.visibility = View.GONE
         invoiceFab.startAnimation(animFabHideButton)
         invoiceLayoutFabSell.startAnimation(animFabLayoutHideButton)
         invoiceLayoutFabBuy.startAnimation(animFabLayoutHideButton)
+        invoiceLayoutFabCost.startAnimation(animFabLayoutHideButton)
     }
 
     override fun openAddSalesInvoice() {
@@ -94,6 +103,10 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
 
     override fun openAddPurchaseInvoice() {
         Toast.makeText(activity, "FAKTUR PEMBELIAN", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun openAddCostInvoice() {
+        Toast.makeText(activity, "FAKTUR BIAYA", Toast.LENGTH_SHORT).show()
     }
 
     companion object {

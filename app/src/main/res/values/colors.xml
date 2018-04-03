@@ -13,7 +13,7 @@
     <color name="colorFab">#eb5757</color>
     <color name="colorFabBuy">#1a8483</color>
     <color name="colorFabSell">#de7200</color>
-
+    <color name="colorFabCost">#7a00de</color>
 
     <color name="colorBgProgress">#a6c6c6c6</color>
     <color name="colorBgProgressPrimary">#9139a3cf</color>
