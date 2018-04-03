@@ -15,6 +15,14 @@
     <color name="colorFabSell">#de7200</color>
     <color name="colorFabCost">#7a00de</color>
 
+    <color name="colorInvoiceStatus">#ffe32b</color>
+    <color name="colorInvoiceId">#30fd82</color>
+    <color name="colorInvoiceDueDate">#49dfdd</color>
+    <color name="colorInvoiceBuy">#1a8483</color>
+    <color name="colorInvoiceSell">#de7200</color>
+    <color name="colorInvoiceCost">#7a00de</color>
+    <color name="colorInvoiceBg">#e1a5ff</color>
+
     <color name="colorBgProgress">#a6c6c6c6</color>
     <color name="colorBgProgressPrimary">#9139a3cf</color>
     <color name="colorBackgroundGray">#ece7e7</color>

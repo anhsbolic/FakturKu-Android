@@ -2,6 +2,10 @@ package com.fakturku.aplikasi.ui.fragment.invoiceFragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +14,9 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.model.Invoice
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
+import com.fakturku.aplikasi.ui.adapter.InvoiceListAdapter
 import kotlinx.android.synthetic.main.fragment_invoice.*
 
 class InvoiceFragment : Fragment(), InvoiceContract.View {
@@ -22,6 +28,12 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
     private lateinit var animFabLayoutHideButton : Animation
 
     private var isFragmentWasVisited: Boolean = false
+
+    private var dataInvoiceList: MutableList<Invoice> = ArrayList()
+    private lateinit var adapterRvInvoiceList: RecyclerView.Adapter<*>
+    private lateinit var lmRvInvoiceList: LinearLayoutManager
+    private lateinit var animator: DefaultItemAnimator
+    private lateinit var dividerItemDecoration: DividerItemDecoration
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -51,6 +63,12 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
         animFabLayoutHideButton = AnimationUtils.loadAnimation(activity as DashboardActivity,
                 R.anim.fab_hide_layout)
 
+        //Init RecyclerView
+        initRecyclerView()
+
+        //Load Init Data
+        presenter.loadInvoiceListData(1)
+
         //Fab Handling
         invoiceFab.setOnClickListener {
             if (invoiceLayoutFabBuy.visibility == View.GONE && invoiceLayoutFabSell.visibility == View.GONE ) {
@@ -75,6 +93,74 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
             presenter.addCostInvoice()
         }
 
+    }
+
+    override fun initRecyclerView() {
+        adapterRvInvoiceList = InvoiceListAdapter(dataInvoiceList, object : InvoiceListAdapter.OnItemClickListener{
+            override fun onItemClick(invoice: Invoice) {
+                presenter.seeInvoiceDetails(invoice)
+            }
+        })
+        lmRvInvoiceList = LinearLayoutManager(activity)
+        animator = DefaultItemAnimator()
+        animator.addDuration = 300
+        animator.removeDuration = 600
+
+        dividerItemDecoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+        invoiceRv.adapter = adapterRvInvoiceList
+        invoiceRv.layoutManager = lmRvInvoiceList
+        invoiceRv.itemAnimator = animator
+//        invoiceRv.addItemDecoration(dividerItemDecoration)
+        invoiceRv.setHasFixedSize(true)
+/*
+        val colorPrimaryDark = ContextCompat.getColor(activity as DashboardActivity, R.color.colorPrimaryDark)
+        costumerListSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
+        costumerListSwipeRefreshLayout.setOnRefreshListener {
+            if (!isLoadingData){
+                if((activity as DashboardActivity).isNetworkAvailable()){
+                    loadThenSetMosqueData(lastDataTime)
+                }else{
+                    addMosqueSwipeRefreshLayout.isRefreshing = false
+                    showSnackBar("Periksa Koneksi Internet Anda ...",
+                            Snackbar.LENGTH_LONG,300)
+                }
+            }
+        }
+*/
+    }
+
+    override fun showProgress() {
+        invoiceProgressLayout.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        invoiceProgressLayout.visibility = View.GONE
+    }
+
+    override fun showPlaceholder() {
+        invoiceImgPlaceHolder.visibility = View.VISIBLE
+    }
+
+    override fun hidePlaceholder() {
+        invoiceImgPlaceHolder.visibility = View.GONE
+    }
+
+    override fun showInvoiceList(invoiceList: MutableList<Invoice>) {
+        if (invoiceRv != null){
+            for (i in 0 until invoiceList.size){
+                dataInvoiceList.add(invoiceList[i])
+                val index = dataInvoiceList.lastIndex
+                adapterRvInvoiceList.notifyItemInserted(index)
+
+                if (index == 0){
+                    invoiceSwipeRefreshLayout.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    override fun showInvoiceDetails(invoice: Invoice) {
+        Toast.makeText(activity, "DETILL", Toast.LENGTH_SHORT).show()
     }
 
     override fun showFabSubmenu() {

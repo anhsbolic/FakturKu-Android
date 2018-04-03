@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Invoice(@SerializedName("id") @Expose var id: String?,
                    @SerializedName("due_date") @Expose var due_date : String?,
-                   @SerializedName("id_transaction_type") @Expose var id_transaction_type : String?,
+                   @SerializedName("id_transaction_type") @Expose var id_transaction_type : Int?,
                    @SerializedName("costumer") @Expose var costumer : String?,
                    @SerializedName("supplier") @Expose var supplier : String?,
                    @SerializedName("tax") @Expose var tax : Double?,
