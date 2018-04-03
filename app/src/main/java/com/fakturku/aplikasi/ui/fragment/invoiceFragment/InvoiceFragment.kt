@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 
@@ -15,6 +16,10 @@ import kotlinx.android.synthetic.main.fragment_invoice.*
 class InvoiceFragment : Fragment(), InvoiceContract.View {
 
     private lateinit var presenter: InvoicePresenter
+    private lateinit var animFabShowButton : Animation
+    private lateinit var animFabHideButton : Animation
+    private lateinit var animFabLayoutShowButton : Animation
+    private lateinit var animFabLayoutHideButton : Animation
 
     private var isFragmentWasVisited: Boolean = false
 
@@ -37,45 +42,58 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
         presenter = InvoicePresenter(this@InvoiceFragment)
 
         //Init Animation
-        val animFabShowButton = AnimationUtils.loadAnimation(activity as DashboardActivity, R.anim.fab_show_button)
-        val animFabHideButton = AnimationUtils.loadAnimation(activity as DashboardActivity, R.anim.fab_hide_button)
-        val animFabLayoutShowButton = AnimationUtils.loadAnimation(activity as DashboardActivity, R.anim.fab_show_layout)
-        val animFabLayoutHideButton = AnimationUtils.loadAnimation(activity as DashboardActivity, R.anim.fab_hide_layout)
+        animFabShowButton = AnimationUtils.loadAnimation(activity as DashboardActivity,
+                R.anim.fab_show_button)
+        animFabHideButton = AnimationUtils.loadAnimation(activity as DashboardActivity,
+                R.anim.fab_hide_button)
+        animFabLayoutShowButton = AnimationUtils.loadAnimation(activity as DashboardActivity,
+                R.anim.fab_show_layout)
+        animFabLayoutHideButton = AnimationUtils.loadAnimation(activity as DashboardActivity,
+                R.anim.fab_hide_layout)
 
         //Fab Handling
         invoiceFab.setOnClickListener {
             if (invoiceLayoutFabBuy.visibility == View.GONE && invoiceLayoutFabSell.visibility == View.GONE ) {
-                invoiceLayoutFabBuy.visibility = View.VISIBLE
-                invoiceLayoutFabSell.visibility = View.VISIBLE
-                invoiceFab.startAnimation(animFabShowButton)
-                invoiceLayoutFabSell.startAnimation(animFabLayoutShowButton)
-                invoiceLayoutFabBuy.startAnimation(animFabLayoutShowButton)
+                showFabSubmenu()
             } else{
-                invoiceLayoutFabBuy.visibility = View.GONE
-                invoiceLayoutFabSell.visibility = View.GONE
-                invoiceFab.startAnimation(animFabHideButton)
-                invoiceLayoutFabSell.startAnimation(animFabLayoutHideButton)
-                invoiceLayoutFabBuy.startAnimation(animFabLayoutHideButton)
+                hideFabSubMenu()
             }
         }
 
-        invoiceFabBuy.setOnClickListener {
-            invoiceLayoutFabBuy.visibility = View.GONE
-            invoiceLayoutFabSell.visibility = View.GONE
-            invoiceFab.startAnimation(animFabHideButton)
-            invoiceLayoutFabSell.startAnimation(animFabLayoutHideButton)
-            invoiceLayoutFabBuy.startAnimation(animFabLayoutHideButton)
-            Toast.makeText(activity, "FAKTUR BELI", Toast.LENGTH_SHORT).show()
+        invoiceFabSell.setOnClickListener {
+            hideFabSubMenu()
+            presenter.addSalesInvoice()
         }
 
-        invoiceFabSell.setOnClickListener {
-            invoiceLayoutFabBuy.visibility = View.GONE
-            invoiceLayoutFabSell.visibility = View.GONE
-            invoiceFab.startAnimation(animFabHideButton)
-            invoiceLayoutFabSell.startAnimation(animFabLayoutHideButton)
-            invoiceLayoutFabBuy.startAnimation(animFabLayoutHideButton)
-            Toast.makeText(activity, "FAKTUR JUAL", Toast.LENGTH_SHORT).show()
+        invoiceFabBuy.setOnClickListener {
+            hideFabSubMenu()
+            presenter.addPurchaseInvoice()
         }
+
+    }
+
+    override fun showFabSubmenu() {
+        invoiceLayoutFabBuy.visibility = View.VISIBLE
+        invoiceLayoutFabSell.visibility = View.VISIBLE
+        invoiceFab.startAnimation(animFabShowButton)
+        invoiceLayoutFabSell.startAnimation(animFabLayoutShowButton)
+        invoiceLayoutFabBuy.startAnimation(animFabLayoutShowButton)
+    }
+
+    override fun hideFabSubMenu() {
+        invoiceLayoutFabBuy.visibility = View.GONE
+        invoiceLayoutFabSell.visibility = View.GONE
+        invoiceFab.startAnimation(animFabHideButton)
+        invoiceLayoutFabSell.startAnimation(animFabLayoutHideButton)
+        invoiceLayoutFabBuy.startAnimation(animFabLayoutHideButton)
+    }
+
+    override fun openAddSalesInvoice() {
+        Toast.makeText(activity, "FAKTUR PENJUALAN", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun openAddPurchaseInvoice() {
+        Toast.makeText(activity, "FAKTUR PEMBELIAN", Toast.LENGTH_SHORT).show()
     }
 
     companion object {
