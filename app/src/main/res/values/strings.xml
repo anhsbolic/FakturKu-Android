@@ -41,6 +41,8 @@
 
     <!-- INVOICE -->
     <string name="invoice_title">Faktur</string>
+    <string name="invoice_fab_sell">Penjualan</string>
+    <string name="invoice_fab_buy">Pembelian</string>
 
     <!-- COSTUMER -->
     <string name="costumer_title">Pelanggan</string>

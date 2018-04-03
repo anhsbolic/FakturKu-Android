@@ -32,17 +32,87 @@
         tools:ignore="ContentDescription"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/invoiceFabAddProduct"
+        android:id="@+id/invoiceFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_add_fab"
-        app:fabSize="auto"
+        app:fabSize="normal"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
         app:backgroundTint="@color/colorFab"/>
+
+    <LinearLayout
+        android:id="@+id/invoiceLayoutFabSell"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|end"
+        android:gravity="center"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="100dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorFabSell"
+            android:text="@string/invoice_fab_sell"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextWhite"
+            android:layout_marginEnd="15dp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/invoiceFabSell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fab_sell"
+            app:fabSize="mini"
+            app:backgroundTint="@color/colorFabSell"
+            android:layout_marginEnd="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/invoiceLayoutFabBuy"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|end"
+        android:gravity="center"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="160dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorFabBuy"
+            android:text="@string/invoice_fab_buy"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextWhite"
+            android:layout_marginEnd="15dp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/invoiceFabBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fab_buy"
+            app:fabSize="mini"
+            app:backgroundTint="@color/colorFabBuy"
+            android:layout_marginEnd="10dp"/>
+
+    </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:id="@+id/invoiceProgressLayout"
@@ -59,7 +129,5 @@
             android:layout_gravity="center"/>
 
     </android.support.v7.widget.CardView>
-
-
 
 </android.support.design.widget.CoordinatorLayout>
