@@ -4,12 +4,11 @@ import java.text.NumberFormat
 import java.util.*
 
 object MyCurrencyFormat {
-    val rupiahCent= ",-"
 
     fun rupiah(intRupiah: Int): String {
         val localeID = Locale("in", "ID")
         val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
 
-        return formatRupiah.format(intRupiah.toDouble()) + rupiahCent
+        return formatRupiah.format(intRupiah.toDouble())
     }
 }

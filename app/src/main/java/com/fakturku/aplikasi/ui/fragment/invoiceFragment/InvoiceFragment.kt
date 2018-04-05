@@ -110,7 +110,7 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
         invoiceRv.adapter = adapterRvInvoiceList
         invoiceRv.layoutManager = lmRvInvoiceList
         invoiceRv.itemAnimator = animator
-//        invoiceRv.addItemDecoration(dividerItemDecoration)
+        invoiceRv.addItemDecoration(dividerItemDecoration)
         invoiceRv.setHasFixedSize(true)
 /*
         val colorPrimaryDark = ContextCompat.getColor(activity as DashboardActivity, R.color.colorPrimaryDark)

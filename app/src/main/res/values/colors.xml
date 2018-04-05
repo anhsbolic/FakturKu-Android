@@ -6,6 +6,7 @@
 
     <color name="colorBgCyan">#90d6f5</color>
     <color name="colorBgGray">#ededed</color>
+    <color name="colorBgSoftGray">#e6e6e6</color>
 
     <color name="colorButtonRed">#f33d3d</color>
     <color name="colorButtonGreen">#569b11</color>
@@ -34,6 +35,9 @@
     <color name="colorTextBlueFb">#4a4ca2</color>
     <color name="colorTextGrayGoogle">#6c6c6c</color>
     <color name="colorTextSoftGray">#848484</color>
+    <color name="colorTextInvoiceDebt">#af8700</color>
+    <color name="colorTextInvoicePaid">#0d8300</color>
+    <color name="colorTextInvoiceDraft">#4e4e4e</color>
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorLineSeparator">#a2a9a9a9</color>

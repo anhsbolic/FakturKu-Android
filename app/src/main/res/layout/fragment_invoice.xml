@@ -5,6 +5,7 @@
     android:id="@+id/invoiceCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBgSoftGray"
     tools:context="com.fakturku.aplikasi.ui.fragment.invoiceFragment.InvoiceFragment">
 
     <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
