@@ -6,9 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -34,6 +32,11 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
     private lateinit var lmRvInvoiceList: LinearLayoutManager
     private lateinit var animator: DefaultItemAnimator
     private lateinit var dividerItemDecoration: DividerItemDecoration
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -93,6 +96,60 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
             presenter.addCostInvoice()
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
+        menuInflater!!.inflate(R.menu.fragment_invoice_menu, menu)
+        super.onCreateOptionsMenu(menu, menuInflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+
+            R.id.invoiceMenuAll->{
+                if (dataInvoiceList.isNotEmpty()) {
+                    dataInvoiceList.clear()
+                    adapterRvInvoiceList.notifyDataSetChanged()
+                }
+
+                presenter.loadInvoiceListData(1)
+                return true
+            }
+
+            R.id.invoiceMenuDebt->{
+                if (dataInvoiceList.isNotEmpty()) {
+                    dataInvoiceList.clear()
+                    adapterRvInvoiceList.notifyDataSetChanged()
+                }
+
+                presenter.loadInvoiceDebtListData(1)
+                return true
+            }
+
+            R.id.invoiceMenuPaid->{
+                if (dataInvoiceList.isNotEmpty()) {
+                    dataInvoiceList.clear()
+                    adapterRvInvoiceList.notifyDataSetChanged()
+                }
+
+                presenter.loadInvoicePaidListData(1)
+                return true
+            }
+
+            R.id.invoiceMenuDraft->{
+                if (dataInvoiceList.isNotEmpty()) {
+                    dataInvoiceList.clear()
+                    adapterRvInvoiceList.notifyDataSetChanged()
+                }
+
+                presenter.loadInvoiceDraftListData(1)
+                return true
+            }
+
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 
     override fun initRecyclerView() {

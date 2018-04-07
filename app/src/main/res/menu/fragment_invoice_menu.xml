@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/invoiceMenuAll"
+        android:enabled="true"
+        android:title="@string/invoice_menu_all"/>
+
+    <item
+        android:id="@+id/invoiceMenuDebt"
+        android:enabled="true"
+        android:title="@string/invoice_menu_debt"/>
+
+    <item
+        android:id="@+id/invoiceMenuPaid"
+        android:enabled="true"
+        android:title="@string/invoice_menu_paid"/>
+
+    <item
+        android:id="@+id/invoiceMenuDraft"
+        android:enabled="true"
+        android:title="@string/invoice_menu_draft"/>
+
+</menu>

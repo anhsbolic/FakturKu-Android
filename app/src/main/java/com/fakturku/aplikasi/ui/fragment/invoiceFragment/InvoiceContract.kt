@@ -34,6 +34,12 @@ interface InvoiceContract{
     interface Presenter{
         fun loadInvoiceListData(page: Int)
 
+        fun loadInvoiceDebtListData(page: Int)
+
+        fun loadInvoicePaidListData(page: Int)
+
+        fun loadInvoiceDraftListData(page: Int)
+
         fun seeInvoiceDetails(invoice: Invoice)
 
         fun addSalesInvoice()

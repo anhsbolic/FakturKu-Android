@@ -44,6 +44,10 @@
     <string name="invoice_fab_sell">Penjualan</string>
     <string name="invoice_fab_buy">Pembelian</string>
     <string name="invoice_fab_cost">Biaya</string>
+    <string name="invoice_menu_all">Semua</string>
+    <string name="invoice_menu_debt">Belum lunas</string>
+    <string name="invoice_menu_paid">Lunas</string>
+    <string name="invoice_menu_draft">Draft</string>
 
     <!-- COSTUMER -->
     <string name="costumer_title">Pelanggan</string>
