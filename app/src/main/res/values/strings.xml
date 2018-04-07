@@ -49,6 +49,15 @@
     <string name="invoice_menu_paid">Lunas</string>
     <string name="invoice_menu_draft">Draft</string>
 
+    <!-- INVOICE DETAILS -->
+    <string name="invoice_details_due_date">Batas Akhir</string>
+    <string name="invoice_details_item">ITEM</string>
+    <string name="invoice_details_total">Total</string>
+    <string name="invoice_details_subtotal">Subtotal</string>
+    <string name="invoice_details_tax">Pajak</string>
+    <string name="invoice_details_paid">Sudah dibayar</string>
+    <string name="invoice_details_due_amount">SISA</string>
+
     <!-- COSTUMER -->
     <string name="costumer_title">Pelanggan</string>
 

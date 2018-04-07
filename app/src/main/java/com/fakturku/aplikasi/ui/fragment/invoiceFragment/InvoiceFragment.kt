@@ -1,5 +1,6 @@
 package com.fakturku.aplikasi.ui.fragment.invoiceFragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
@@ -14,6 +15,7 @@ import android.widget.Toast
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Invoice
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
+import com.fakturku.aplikasi.ui.activity.invoiceDetails.InvoiceDetailsActivity
 import com.fakturku.aplikasi.ui.adapter.InvoiceListAdapter
 import kotlinx.android.synthetic.main.fragment_invoice.*
 
@@ -217,7 +219,9 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
     }
 
     override fun showInvoiceDetails(invoice: Invoice) {
-        Toast.makeText(activity, "DETILL", Toast.LENGTH_SHORT).show()
+        val intentInvoiceDetails = Intent(activity, InvoiceDetailsActivity::class.java)
+        intentInvoiceDetails.putExtra(InvoiceDetailsActivity.INTENT_DATA_INVOICE, invoice)
+        startActivityForResult(intentInvoiceDetails, INTENT_INVOICE_DETAILS_CODE)
     }
 
     override fun showFabSubmenu() {
@@ -252,7 +256,23 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
         Toast.makeText(activity, "FAKTUR BIAYA", Toast.LENGTH_SHORT).show()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(requestCode){
+            INTENT_INVOICE_DETAILS_CODE->{
+                when(resultCode){
+                    INTENT_INVOICE_DETAILS_UPDATE->{
+
+                    }
+                }
+            }
+            else->{ super.onActivityResult(requestCode, resultCode, data) }
+        }
+
+    }
+
     companion object {
+        const val INTENT_INVOICE_DETAILS_CODE = 20
+        const val INTENT_INVOICE_DETAILS_UPDATE = 21
 
         fun newInstance(param1: String, param2: String): InvoiceFragment {
             val fragment = InvoiceFragment()

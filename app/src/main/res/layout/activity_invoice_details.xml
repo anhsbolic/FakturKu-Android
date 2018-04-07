@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.invoiceDetails.InvoiceDetailsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/invoiceDetailsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@color/colorPrimary"
+            android:layout_alignParentTop="true">
+
+            <TextView
+                android:id="@+id/invoiceDetailsTxtDueDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/invoice_details_due_date"
+                android:textSize="16sp"
+                android:textColor="@color/colorTextWhite"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/invoiceDetailsTxtDueDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorTextWhite"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/invoiceDetailsTxtDueDateTitle"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/invoiceDetailsTxtStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_invoice_debt"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/colorTextBlack"
+                android:layout_alignBottom="@id/invoiceDetailsTxtDueDate"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/invoiceDetailsTxtId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorTextWhite"
+                android:layout_alignParentEnd="true"
+                android:layout_above="@id/invoiceDetailsTxtStatus"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextBlack"
+            android:layout_below="@id/invoiceDetailsHeader"/>
+
+        <View
+            android:id="@+id/invoiceDetailsLineItemOne"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLineSeparator"
+            android:layout_below="@id/invoiceDetailsTxtName"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBgGray"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/invoice_details_item"
+            android:textAllCaps="true"
+            android:gravity="start"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextBlack"
+            android:textStyle="bold"
+            android:layout_below="@id/invoiceDetailsLineItemOne"/>
+
+        <View
+            android:id="@+id/invoiceDetailsLineItemTwo"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLineSeparator"
+            android:layout_below="@id/invoiceDetailsTxtItemTitle"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/invoiceDetailsRvItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/invoiceDetailsLineItemTwo"/>
+
+        <View
+            android:id="@+id/invoiceDetailsLineOne"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLineSeparator"
+            android:layout_below="@id/invoiceDetailsRvItem"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtTotalTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBgGray"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/invoice_details_total"
+            android:textAllCaps="true"
+            android:gravity="start"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextBlack"
+            android:textStyle="bold"
+            android:layout_below="@id/invoiceDetailsLineOne"/>
+
+        <View
+            android:id="@+id/invoiceDetailsLineTwo"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLineSeparator"
+            android:layout_below="@id/invoiceDetailsTxtTotalTitle"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtSubTotalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/invoice_details_subtotal"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextBlack"
+            android:layout_below="@id/invoiceDetailsLineTwo"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtSubTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextGrayGoogle"
+            android:layout_below="@id/invoiceDetailsLineTwo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_alignBaseline="@id/invoiceDetailsTxtSubTotalTitle"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtTaxTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/invoice_details_tax"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextBlack"
+            android:layout_below="@id/invoiceDetailsTxtSubTotalTitle"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtTaxPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextBlack"
+            android:layout_toEndOf="@id/invoiceDetailsTxtTaxTitle"
+            android:layout_alignBaseline="@id/invoiceDetailsTxtTaxTitle"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtTax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextGrayGoogle"
+            android:layout_below="@id/invoiceDetailsLineTwo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_alignBaseline="@id/invoiceDetailsTxtTaxTitle"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtTotalValueTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/invoice_details_total"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextBlack"
+            android:layout_below="@id/invoiceDetailsTxtTaxTitle"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextGrayGoogle"
+            android:layout_below="@id/invoiceDetailsLineTwo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_alignBaseline="@id/invoiceDetailsTxtTotalValueTitle"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtPaidTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/invoice_details_paid"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextBlack"
+            android:layout_below="@id/invoiceDetailsTxtTotalValueTitle"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/invoiceDetailsTxtPaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/colorTextGrayGoogle"
+            android:layout_below="@id/invoiceDetailsLineTwo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_alignBaseline="@id/invoiceDetailsTxtPaidTitle"/>
+
+        <View
+            android:id="@+id/invoiceDetailsLineThree"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLineSeparator"
+            android:layout_below="@id/invoiceDetailsTxtPaidTitle"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/invoiceDetailsTxtDueAmountLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="@color/colorBgGray"
+            android:layout_below="@id/invoiceDetailsLineThree">
+
+            <TextView
+                android:id="@+id/invoiceDetailsTxtDueAmountTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/invoice_details_due_amount"
+                android:textSize="16sp"
+                android:textColor="@color/colorTextBlack"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/invoiceDetailsTxtDueAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textSize="16sp"
+                android:textColor="@color/colorTextInvoiceDebt"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/invoiceDetailsLineFour"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLineSeparator"
+            android:layout_below="@id/invoiceDetailsTxtDueAmountLayout"/>
+
+    </RelativeLayout>
+
+</ScrollView>
