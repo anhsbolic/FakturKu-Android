@@ -57,6 +57,11 @@
     <string name="invoice_details_tax">Pajak</string>
     <string name="invoice_details_paid">Sudah dibayar</string>
     <string name="invoice_details_due_amount">SISA</string>
+    <string name="invoice_details_bottom_menu_send">Kirim</string>
+    <string name="invoice_details_bottom_menu_edit">Ubah</string>
+    <string name="invoice_details_bottom_menu_details">Detil</string>
+    <string name="invoice_details_bottom_menu_pay">Bayar</string>
+    <string name="invoice_details_bottom_menu_more">Lainnya</string>
 
     <!-- COSTUMER -->
     <string name="costumer_title">Pelanggan</string>

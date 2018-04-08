@@ -4,9 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.helper.BottomNavigationViewHelper
 import com.fakturku.aplikasi.model.Invoice
 import com.fakturku.aplikasi.model.Product
 import com.fakturku.aplikasi.ui.adapter.InvoiceItemListAdapter
@@ -34,6 +35,13 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invoice_details)
 
+        //Init Bottom Nav View
+        BottomNavigationViewHelper.disableShiftMode(invoiceDetailsBottomNav)
+        invoiceDetailsBottomNav.setOnNavigationItemSelectedListener {item: MenuItem ->
+            navActions(item.itemId)
+            return@setOnNavigationItemSelectedListener true
+        }
+
         //Init Presenter
         presenter = InvoiceDetailsPresenter(this@InvoiceDetailsActivity)
 
@@ -41,6 +49,29 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
         if (intent.hasExtra(INTENT_DATA_INVOICE)) {
             invoice = intent.getParcelableExtra(INTENT_DATA_INVOICE)
             presenter.setDataToUI(invoice)
+        }
+    }
+
+    private fun navActions(itemId: Int) {
+        when(itemId){
+            R.id.invoice_bottom_menu_send ->{
+                Toast.makeText(this@InvoiceDetailsActivity, "KIRIM", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.invoice_bottom_menu_edit ->{
+                Toast.makeText(this@InvoiceDetailsActivity, "UBAH", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.invoice_bottom_menu_details ->{
+            }
+
+            R.id.invoice_bottom_menu_pay ->{
+                Toast.makeText(this@InvoiceDetailsActivity, "BAYAR", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.invoice_bottom_menu_more ->{
+                Toast.makeText(this@InvoiceDetailsActivity, "LAINNYA", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

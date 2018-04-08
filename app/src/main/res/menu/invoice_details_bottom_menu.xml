@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/invoice_bottom_menu_send"
+        android:enabled="true"
+        android:icon="@drawable/ic_invoice_bottom_nav_send"
+        android:title="@string/invoice_details_bottom_menu_send"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/invoice_bottom_menu_edit"
+        android:enabled="true"
+        android:icon="@drawable/ic_invoice_bottom_nav_edit"
+        android:title="@string/invoice_details_bottom_menu_edit"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/invoice_bottom_menu_details"
+        android:enabled="true"
+        android:icon="@drawable/ic_invoice_bottom_nav_details"
+        android:title="@string/invoice_details_bottom_menu_details"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/invoice_bottom_menu_pay"
+        android:enabled="true"
+        android:icon="@drawable/ic_invoice_bottom_nav_pay"
+        android:title="@string/invoice_details_bottom_menu_pay"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/invoice_bottom_menu_more"
+        android:enabled="true"
+        android:icon="@drawable/ic_invoice_bottom_nav_more"
+        android:title="@string/invoice_details_bottom_menu_more"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>
