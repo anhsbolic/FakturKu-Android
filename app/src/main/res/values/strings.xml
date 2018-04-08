@@ -62,6 +62,8 @@
     <string name="invoice_details_bottom_menu_details">Detil</string>
     <string name="invoice_details_bottom_menu_pay">Bayar</string>
     <string name="invoice_details_bottom_menu_more">Lainnya</string>
+    <string name="invoice_details_bottom_sheet_title">Pilhan Lainnya</string>
+    <string name="invoice_details_bottom_sheet_delete">Hapus</string>
 
     <!-- COSTUMER -->
     <string name="costumer_title">Pelanggan</string>

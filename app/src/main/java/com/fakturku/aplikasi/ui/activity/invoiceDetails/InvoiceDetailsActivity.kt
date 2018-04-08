@@ -1,7 +1,9 @@
 package com.fakturku.aplikasi.ui.activity.invoiceDetails
 
+import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialog
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
@@ -15,6 +17,7 @@ import com.fakturku.aplikasi.utils.InvoiceStatus
 import com.fakturku.aplikasi.utils.MyCurrencyFormat
 import com.fakturku.aplikasi.utils.MyDateFormatter
 import kotlinx.android.synthetic.main.activity_invoice_details.*
+import kotlinx.android.synthetic.main.invoice_details_bottom_sheet.view.*
 
 class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View {
 
@@ -50,8 +53,10 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
             invoice = intent.getParcelableExtra(INTENT_DATA_INVOICE)
             presenter.setDataToUI(invoice)
         }
+
     }
 
+    @SuppressLint("InflateParams")
     private fun navActions(itemId: Int) {
         when(itemId){
             R.id.invoice_bottom_menu_send ->{
@@ -70,7 +75,14 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
             }
 
             R.id.invoice_bottom_menu_more ->{
-                Toast.makeText(this@InvoiceDetailsActivity, "LAINNYA", Toast.LENGTH_SHORT).show()
+                val view = layoutInflater.inflate(R.layout.invoice_details_bottom_sheet,null)
+                val bottomSheetDialog = BottomSheetDialog(this@InvoiceDetailsActivity)
+                bottomSheetDialog.setContentView(view)
+                bottomSheetDialog.show()
+                view.invoiceDetailsBottomSheetDelete.setOnClickListener {
+                    Toast.makeText(this@InvoiceDetailsActivity, "HAPUS", Toast.LENGTH_SHORT).show()
+                    bottomSheetDialog.dismiss()
+                }
             }
         }
     }
@@ -166,6 +178,56 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "Harga per Kg",
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
+        val producta1 = Product(
+                "1",
+                "Paprika Merah",
+                20000,
+                35000,
+                "Harga per Kg",
+                "2018-03-26 11:43:00",
+                "2018-03-26 11:43:00")
+        val producta2 = Product(
+                "2",
+                "Paprika Hijau",
+                15000,
+                25000,
+                "Harga per Kg",
+                "2018-03-26 11:43:00",
+                "2018-03-26 11:43:00")
+        val producta3 = Product(
+                "3",
+                "Tomat Cherry",
+                10000,
+                15000,
+                "Harga per Kg",
+                "2018-03-26 11:43:00",
+                "2018-03-26 11:43:00")
+        val producta4 = Product(
+                "4",
+                "Lolorosa",
+                18000,
+                25000,
+                "Harga per Kg",
+                "2018-03-26 11:43:00",
+                "2018-03-26 11:43:00")
+        val producta5 = Product(
+                "5",
+                "Butterhead",
+                8000,
+                15000,
+                "Harga per Kg",
+                "2018-03-26 11:43:00",
+                "2018-03-26 11:43:00")
+        productList.add(product1)
+        productList.add(product2)
+        productList.add(product3)
+        productList.add(product4)
+        productList.add(product5)
+        productList.add(producta1)
+        productList.add(producta2)
+        productList.add(producta3)
+        productList.add(producta4)
+        productList.add(producta5)
         productList.add(product1)
         productList.add(product2)
         productList.add(product3)
