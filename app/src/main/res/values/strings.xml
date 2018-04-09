@@ -65,6 +65,13 @@
     <string name="invoice_details_bottom_sheet_title">Pilhan Lainnya</string>
     <string name="invoice_details_bottom_sheet_delete">Hapus</string>
 
+    <!-- INVOICE FORM-->
+    <string name="invoice_form_attention">**) harus diisi</string>
+    <string name="invoice_form_save">Simpan</string>
+    <string name="invoice_form_backed_message">Anda sedang menginput data, yakin untuk keluar?</string>
+    <string name="invoice_form_backed_positive">Ya, Keluar</string>
+    <string name="invoice_form_backed_negative">Tidak</string>
+
     <!-- COSTUMER -->
     <string name="costumer_title">Pelanggan</string>
 

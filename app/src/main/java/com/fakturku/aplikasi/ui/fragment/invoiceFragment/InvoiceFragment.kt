@@ -16,6 +16,7 @@ import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Invoice
 import com.fakturku.aplikasi.ui.activity.DashboardActivity
 import com.fakturku.aplikasi.ui.activity.invoiceDetails.InvoiceDetailsActivity
+import com.fakturku.aplikasi.ui.activity.invoiceForm.InvoiceFormActivity
 import com.fakturku.aplikasi.ui.adapter.InvoiceListAdapter
 import kotlinx.android.synthetic.main.fragment_invoice.*
 
@@ -245,15 +246,21 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
     }
 
     override fun openAddSalesInvoice() {
-        Toast.makeText(activity, "FAKTUR PENJUALAN", Toast.LENGTH_SHORT).show()
+        val intentAddSalesInvoice = Intent(activity, InvoiceFormActivity::class.java)
+        intentAddSalesInvoice.putExtra(InvoiceFormActivity.INTENT_TRANSACTION_MODE, InvoiceFormActivity.MODE_SALES)
+        startActivity(intentAddSalesInvoice)
     }
 
     override fun openAddPurchaseInvoice() {
-        Toast.makeText(activity, "FAKTUR PEMBELIAN", Toast.LENGTH_SHORT).show()
+        val intentAddPurchaseInvoice = Intent(activity, InvoiceFormActivity::class.java)
+        intentAddPurchaseInvoice.putExtra(InvoiceFormActivity.INTENT_TRANSACTION_MODE, InvoiceFormActivity.MODE_BUY)
+        startActivity(intentAddPurchaseInvoice)
     }
 
     override fun openAddCostInvoice() {
-        Toast.makeText(activity, "FAKTUR BIAYA", Toast.LENGTH_SHORT).show()
+        val intentAddCostInvoice = Intent(activity, InvoiceFormActivity::class.java)
+        intentAddCostInvoice.putExtra(InvoiceFormActivity.INTENT_TRANSACTION_MODE, InvoiceFormActivity.MODE_COST)
+        startActivity(intentAddCostInvoice)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
