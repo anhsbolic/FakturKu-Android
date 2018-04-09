@@ -85,4 +85,39 @@ object MyDateFormatter {
 
         return "$strDayNumber $strMonthName $strYear"
     }
+
+    fun dateToDateMonthYearBahasa(date: Date): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val strDate = dateFormat.format(date)
+
+        //Month Formatter
+        val strYear = (strDate[0].toString() + strDate[1].toString()
+                + strDate[2].toString() + strDate[3].toString())
+        val strMonth = strDate[5].toString() + strDate[6].toString()
+        val strDayNumber = strDate[8].toString() + strDate[9].toString()
+
+        var strMonthName = ""
+        when (strMonth) {
+            JANUARY_NUMBER -> strMonthName = JANUARY_BAHASA
+            FEBRUARY_NUMBER -> strMonthName = FEBRUARY_BAHASA
+            MARCH_NUMBER -> strMonthName = MARCH_BAHASA
+            APRIL_NUMBER -> strMonthName = APRIL_BAHASA
+            MAY_NUMBER -> strMonthName = MAY_BAHASA
+            JUNE_NUMBER -> strMonthName = JUNE_BAHASA
+            JULY_NUMBER -> strMonthName = JULY_BAHASA
+            AUGUST_NUMBER -> strMonthName = AUGUST_BAHASA
+            SEPTEMBER_NUMBER -> strMonthName = SEPTEMBER_BAHASA
+            OCTOBER_NUMBER -> strMonthName = OCTOBER_BAHASA
+            NOVEMBER_NUMBER -> strMonthName = NOVEMBER_BAHASA
+            DECEMBER_NUMBER -> strMonthName = DECEMBER_BAHASA
+        }
+
+        return "$strDayNumber $strMonthName $strYear"
+    }
+
+    fun dateToYMDHM(date: Date): String {
+        val dateFormat = SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault())
+
+        return dateFormat.format(date)
+    }
 }

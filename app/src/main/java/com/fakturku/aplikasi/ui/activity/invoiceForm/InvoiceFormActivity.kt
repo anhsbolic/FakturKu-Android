@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.MenuItem
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.utils.MyDateFormatter
 import kotlinx.android.synthetic.main.activity_invoice_form.*
+import java.util.*
 
 class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
@@ -25,31 +27,30 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         //Init Presenter
         presenter = InvoiceFormPresenter(this@InvoiceFormActivity)
 
+        //Set Date
+        val dateNow = Date()
+        val strDateNow = MyDateFormatter.dateToDateMonthYearBahasa(dateNow)
+        invoiceFormTxtDueDate.text = strDateNow
+
         //Get ID
         if (intent.hasExtra(INTENT_TRANSACTION_MODE)) {
             transactionMode = intent.getIntExtra(INTENT_TRANSACTION_MODE, 0)
-            updateUI(transactionMode)
+            updateUI(transactionMode, dateNow)
         }
-
 
     }
 
-    private fun updateUI(transactionMode: Int) {
-        when(transactionMode){
-            MODE_SALES ->{
-                idTransaction = "#S201809041010"
-                invoiceFormTxtId.text = idTransaction
-            }
-            MODE_BUY ->{
-                idTransaction = "#B201809041010"
-                invoiceFormTxtId.text = idTransaction
-            }
-            MODE_COST ->{
-                idTransaction = "#C201809041010"
-                invoiceFormTxtId.text = idTransaction
-            }
-
+    private fun updateUI(transactionMode: Int, date: Date) {
+        val id = when(transactionMode){
+            MODE_SALES ->{ "#S" }
+            MODE_BUY ->{ "#B" }
+            MODE_COST ->{ "#C" }
+            else ->{ "" }
         }
+
+        val strDate = MyDateFormatter.dateToYMDHM(date)
+        idTransaction = "$id$strDate"
+        invoiceFormTxtId.text = idTransaction
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
