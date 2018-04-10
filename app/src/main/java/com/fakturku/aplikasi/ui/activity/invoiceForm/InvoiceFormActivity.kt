@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.MenuItem
+import android.widget.DatePicker
+import android.widget.Toast
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.utils.MyDateFormatter
 import kotlinx.android.synthetic.main.activity_invoice_form.*
@@ -15,6 +17,9 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
     private lateinit var idTransaction: String
     private var transactionMode: Int = 0
+
+    private lateinit var dueDate: Date
+    private lateinit var strDueDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +33,61 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         presenter = InvoiceFormPresenter(this@InvoiceFormActivity)
 
         //Set Date
-        val dateNow = Date()
-        val strDateNow = MyDateFormatter.dateToDateMonthYearBahasa(dateNow)
-        invoiceFormTxtDueDate.text = strDateNow
+        dueDate = Date()
+        updateDueDate(dueDate)
 
         //Get ID
         if (intent.hasExtra(INTENT_TRANSACTION_MODE)) {
             transactionMode = intent.getIntExtra(INTENT_TRANSACTION_MODE, 0)
-            updateUI(transactionMode, dateNow)
+            updateUI(transactionMode, Date())
         }
 
+        //Get Date
+        invoiceFormBtnDueDate.setOnClickListener {
+            val builder = AlertDialog.Builder(this@InvoiceFormActivity)
+            val myDatePicker = DatePicker(this@InvoiceFormActivity)
+            val currentYear = MyDateFormatter.getYearFromDate(dueDate)
+            val currentMonth = MyDateFormatter.getMonthFromDate(dueDate)
+            val currentDay = MyDateFormatter.getDayOfMonthFromDate(dueDate)
+            myDatePicker.updateDate(currentYear, currentMonth, currentDay)
+            builder.setView(myDatePicker)
+            builder.setPositiveButton("Set Tanggal", { _ , _ ->
+                val selectedDay = myDatePicker.dayOfMonth
+                val selectedMonth = myDatePicker.month
+                val selectedYear = myDatePicker.year
+
+                if (selectedYear > currentYear) {
+                    dueDate = MyDateFormatter.getDate(selectedDay, selectedMonth, selectedYear)
+                    updateDueDate(dueDate)
+                } else if (selectedYear == currentYear) {
+                    if (selectedMonth > currentMonth){
+                        dueDate = MyDateFormatter.getDate(selectedDay, selectedMonth, selectedYear)
+                        updateDueDate(dueDate)
+                    } else if (selectedMonth == currentMonth) {
+                        if (selectedDay >= currentDay){
+                            dueDate = MyDateFormatter.getDate(selectedDay, selectedMonth, selectedYear)
+                            updateDueDate(dueDate)
+                        } else {
+                            showDueDateError(strDueDate)
+                        }
+                    } else {
+                        showDueDateError(strDueDate)
+                    }
+                } else {
+                    showDueDateError(strDueDate)
+                }
+            })
+            builder.show()
+        }
+    }
+
+    private fun updateDueDate(date: Date){
+        strDueDate = MyDateFormatter.dateToDateMonthYearBahasa(date)
+        invoiceFormTxtDueDate.text = strDueDate
+    }
+
+    private fun showDueDateError(strDueDate: String){
+        Toast.makeText(this@InvoiceFormActivity,"Pilih setelah tanggal $strDueDate", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateUI(transactionMode: Int, date: Date) {

@@ -120,4 +120,31 @@ object MyDateFormatter {
 
         return dateFormat.format(date)
     }
+
+    fun getDayOfMonthFromDate(date: Date): Int {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        calendar.clear()
+
+        return day
+    }
+
+    fun getMonthFromDate(date: Date): Int {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        val month = calendar.get(Calendar.MONTH)
+        calendar.clear()
+
+        return month
+    }
+
+    fun getYearFromDate(date: Date): Int {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        val year = calendar.get(Calendar.YEAR)
+        calendar.clear()
+
+        return year
+    }
 }
