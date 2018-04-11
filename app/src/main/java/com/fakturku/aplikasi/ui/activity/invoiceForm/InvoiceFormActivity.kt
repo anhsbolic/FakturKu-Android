@@ -19,7 +19,11 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     private var transactionType: Int = 0
 
     private lateinit var dueDate: Date
-    private lateinit var strDueDate: String
+    private lateinit var currentDate: Date
+    private lateinit var strCurrentDate: String
+    private var currentYear: Int = 0
+    private var currentMonth: Int = 0
+    private var currentDay: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +36,20 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         //Init Presenter
         presenter = InvoiceFormPresenter(this@InvoiceFormActivity)
 
-        //Set Date
-        dueDate = Date()
-        presenter.updateDueDate(dueDate)
+        //Set Current Date
+        currentDate = Date()
+        presenter.updateDueDate(currentDate)
+        strCurrentDate = MyDateFormatter.dateToDateMonthYearBahasa(currentDate)
+        currentYear = MyDateFormatter.getYearFromDate(currentDate)
+        currentMonth = MyDateFormatter.getMonthFromDate(currentDate)
+        currentDay = MyDateFormatter.getDayOfMonthFromDate(currentDate)
+
+        //Set Due Date
+        dueDate = currentDate
 
         //Get ID
         if (intent.hasExtra(INTENT_TRANSACTION_MODE)) {
             transactionType = intent.getIntExtra(INTENT_TRANSACTION_MODE, 0)
-            val currentDate = Date()
             presenter.updateTransactionId(transactionType, currentDate)
             presenter.updateItemType(transactionType)
         }
@@ -48,10 +58,10 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         invoiceFormBtnDueDate.setOnClickListener {
             val builder = AlertDialog.Builder(this@InvoiceFormActivity)
             val myDatePicker = DatePicker(this@InvoiceFormActivity)
-            val currentYear = MyDateFormatter.getYearFromDate(dueDate)
-            val currentMonth = MyDateFormatter.getMonthFromDate(dueDate)
-            val currentDay = MyDateFormatter.getDayOfMonthFromDate(dueDate)
-            myDatePicker.updateDate(currentYear, currentMonth, currentDay)
+            val dueDateYear = MyDateFormatter.getYearFromDate(dueDate)
+            val dueDateMonth = MyDateFormatter.getMonthFromDate(dueDate)
+            val dueDateDay = MyDateFormatter.getDayOfMonthFromDate(dueDate)
+            myDatePicker.updateDate(dueDateYear, dueDateMonth, dueDateDay)
             builder.setView(myDatePicker)
             builder.setPositiveButton("Set Tanggal", { _ , _ ->
                 val selectedDay = myDatePicker.dayOfMonth
@@ -70,13 +80,13 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
                             dueDate = MyDateFormatter.getDate(selectedDay, selectedMonth, selectedYear)
                             presenter.updateDueDate(dueDate)
                         } else {
-                            showDueDateError(strDueDate)
+                            showDueDateError(strCurrentDate)
                         }
                     } else {
-                        showDueDateError(strDueDate)
+                        showDueDateError(strCurrentDate)
                     }
                 } else {
-                    showDueDateError(strDueDate)
+                    showDueDateError(strCurrentDate)
                 }
             })
             builder.show()
@@ -120,7 +130,6 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     }
 
     override fun updateDueDate(strDueDate: String) {
-        this.strDueDate = strDueDate
         invoiceFormTxtDueDate.text = strDueDate
     }
 
