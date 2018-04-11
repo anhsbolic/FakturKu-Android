@@ -41,6 +41,9 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorTextWhite"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
                     android:layout_alignParentStart="true"
                     android:layout_below="@id/invoiceFormTxtDueDateTitle"
                     android:layout_marginTop="10dp"/>
@@ -52,7 +55,7 @@
                     android:layout_alignTop="@id/invoiceFormTxtDueDate"
                     android:layout_toEndOf="@id/invoiceFormTxtDueDate"
                     android:layout_marginStart="20dp"
-                    android:src="@drawable/ic_calendar"
+                    android:src="@drawable/ic_dropdown"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     tools:ignore="ContentDescription" />
 
