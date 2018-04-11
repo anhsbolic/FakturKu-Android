@@ -79,6 +79,11 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
             })
             builder.show()
         }
+
+        //Add Costumer or Supplier
+        invoiceFormBtnAddPerson.setOnClickListener {
+            presenter.addPerson()
+        }
     }
 
     private fun updateDueDate(date: Date){
@@ -132,6 +137,10 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
                 })
                 .setNegativeButton(R.string.invoice_form_backed_negative, null)
                 .show()
+    }
+
+    override fun showAddPersonPage() {
+
     }
 
     companion object {
