@@ -91,16 +91,25 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     }
 
     private fun updateUI(transactionMode: Int, date: Date) {
-        val id = when(transactionMode){
-            MODE_SALES ->{ "#S" }
-            MODE_BUY ->{ "#B" }
-            MODE_COST ->{ "#C" }
-            else ->{ "" }
+        var id = ""
+        var itemTitle = "ITEM"
+        when(transactionMode){
+            MODE_SALES ->{
+                id = "#S"
+                itemTitle = "BARANG"
+            }
+            MODE_BUY ->{
+                id = "#B"
+                itemTitle = "BARANG"}
+            MODE_COST ->{
+                id = "#C"
+                itemTitle = "BIAYA"}
         }
 
         val strDate = MyDateFormatter.dateToYMDHM(date)
         idTransaction = "$id$strDate"
         invoiceFormTxtId.text = idTransaction
+        invoiceFormTxtItemTitle.text = itemTitle
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
