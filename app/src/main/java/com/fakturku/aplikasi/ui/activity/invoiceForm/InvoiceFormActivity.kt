@@ -1,5 +1,6 @@
 package com.fakturku.aplikasi.ui.activity.invoiceForm
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -7,6 +8,7 @@ import android.view.MenuItem
 import android.widget.DatePicker
 import android.widget.Toast
 import com.fakturku.aplikasi.R
+import com.fakturku.aplikasi.ui.activity.search.SearchActivity
 import com.fakturku.aplikasi.utils.MyDateFormatter
 import kotlinx.android.synthetic.main.activity_invoice_form.*
 import java.util.*
@@ -139,7 +141,27 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     }
 
     override fun showAddPersonPage() {
+        val intentAddPersonPage = Intent(this@InvoiceFormActivity, SearchActivity::class.java)
+        intentAddPersonPage.putExtra(SearchActivity.INTENT_SEARCH_MODE, SearchActivity.SEARCH_COSTUMER)
+        startActivityForResult(intentAddPersonPage, INTENT_ADD_COSTUMER)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            INTENT_ADD_COSTUMER->{
+                when (resultCode) {
+                    INTENT_ADD_COSTUMER_SUCCESS -> {
+                        if (data != null) {
+                            val name = data.getStringExtra(INTENT_ADD_COSTUMER_DATA)
+                            invoiceFormTxtName.text = name
+                        }
+                    }
+                }
+            }
+            else -> {
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
     }
 
     companion object {
@@ -148,5 +170,11 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         const val SALES_TRANSACTION = 0
         const val BUY_TRANSACTION = 1
         const val COST_TRANSACTION = 2
+
+        const val INTENT_ADD_COSTUMER = 10
+        const val INTENT_ADD_COSTUMER_SUCCESS = 11
+        const val INTENT_ADD_COSTUMER_DATA = "AddCostumerData"
+
+
     }
 }
