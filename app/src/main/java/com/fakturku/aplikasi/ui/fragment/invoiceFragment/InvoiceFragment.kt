@@ -247,19 +247,19 @@ class InvoiceFragment : Fragment(), InvoiceContract.View {
 
     override fun openAddSalesInvoice() {
         val intentAddSalesInvoice = Intent(activity, InvoiceFormActivity::class.java)
-        intentAddSalesInvoice.putExtra(InvoiceFormActivity.INTENT_TRANSACTION_MODE, InvoiceFormActivity.MODE_SALES)
+        intentAddSalesInvoice.putExtra(InvoiceFormActivity.INTENT_TRANSACTION_MODE, InvoiceFormActivity.SALES_TRANSACTION)
         startActivity(intentAddSalesInvoice)
     }
 
     override fun openAddPurchaseInvoice() {
         val intentAddPurchaseInvoice = Intent(activity, InvoiceFormActivity::class.java)
-        intentAddPurchaseInvoice.putExtra(InvoiceFormActivity.INTENT_TRANSACTION_MODE, InvoiceFormActivity.MODE_BUY)
+        intentAddPurchaseInvoice.putExtra(InvoiceFormActivity.INTENT_TRANSACTION_MODE, InvoiceFormActivity.BUY_TRANSACTION)
         startActivity(intentAddPurchaseInvoice)
     }
 
     override fun openAddCostInvoice() {
         val intentAddCostInvoice = Intent(activity, InvoiceFormActivity::class.java)
-        intentAddCostInvoice.putExtra(InvoiceFormActivity.INTENT_TRANSACTION_MODE, InvoiceFormActivity.MODE_COST)
+        intentAddCostInvoice.putExtra(InvoiceFormActivity.INTENT_TRANSACTION_MODE, InvoiceFormActivity.COST_TRANSACTION)
         startActivity(intentAddCostInvoice)
     }
 

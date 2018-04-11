@@ -16,7 +16,7 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     private lateinit var presenter: InvoiceFormPresenter
 
     private lateinit var idTransaction: String
-    private var transactionMode: Int = 0
+    private var transactionType: Int = 0
 
     private lateinit var dueDate: Date
     private lateinit var strDueDate: String
@@ -34,12 +34,14 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
         //Set Date
         dueDate = Date()
-        updateDueDate(dueDate)
+        presenter.updateDueDate(dueDate)
 
         //Get ID
         if (intent.hasExtra(INTENT_TRANSACTION_MODE)) {
-            transactionMode = intent.getIntExtra(INTENT_TRANSACTION_MODE, 0)
-            updateUI(transactionMode, Date())
+            transactionType = intent.getIntExtra(INTENT_TRANSACTION_MODE, 0)
+            val currentDate = Date()
+            presenter.updateTransactionId(transactionType, currentDate)
+            presenter.updateItemType(transactionType)
         }
 
         //Get Date
@@ -58,15 +60,15 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
                 if (selectedYear > currentYear) {
                     dueDate = MyDateFormatter.getDate(selectedDay, selectedMonth, selectedYear)
-                    updateDueDate(dueDate)
+                    presenter.updateDueDate(dueDate)
                 } else if (selectedYear == currentYear) {
                     if (selectedMonth > currentMonth){
                         dueDate = MyDateFormatter.getDate(selectedDay, selectedMonth, selectedYear)
-                        updateDueDate(dueDate)
+                        presenter.updateDueDate(dueDate)
                     } else if (selectedMonth == currentMonth) {
                         if (selectedDay >= currentDay){
                             dueDate = MyDateFormatter.getDate(selectedDay, selectedMonth, selectedYear)
-                            updateDueDate(dueDate)
+                            presenter.updateDueDate(dueDate)
                         } else {
                             showDueDateError(strDueDate)
                         }
@@ -84,37 +86,6 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         invoiceFormBtnAddPerson.setOnClickListener {
             presenter.addPerson()
         }
-    }
-
-    private fun updateDueDate(date: Date){
-        strDueDate = MyDateFormatter.dateToDateMonthYearBahasa(date)
-        invoiceFormTxtDueDate.text = strDueDate
-    }
-
-    private fun showDueDateError(strDueDate: String){
-        Toast.makeText(this@InvoiceFormActivity,"Pilih setelah tanggal $strDueDate", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun updateUI(transactionMode: Int, date: Date) {
-        var id = ""
-        var itemTitle = "ITEM"
-        when(transactionMode){
-            MODE_SALES ->{
-                id = "#S"
-                itemTitle = "BARANG"
-            }
-            MODE_BUY ->{
-                id = "#B"
-                itemTitle = "BARANG"}
-            MODE_COST ->{
-                id = "#C"
-                itemTitle = "BIAYA"}
-        }
-
-        val strDate = MyDateFormatter.dateToYMDHM(date)
-        idTransaction = "$id$strDate"
-        invoiceFormTxtId.text = idTransaction
-        invoiceFormTxtItemTitle.text = itemTitle
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -139,6 +110,25 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
                 .show()
     }
 
+    override fun updateTransactionId(strTransactionId: String) {
+        idTransaction = strTransactionId
+        invoiceFormTxtId.text = strTransactionId
+    }
+
+    override fun updateItemTitle(strItemTitle: String) {
+        invoiceFormTxtItemTitle.text = strItemTitle
+    }
+
+    override fun updateDueDate(strDueDate: String) {
+        this.strDueDate = strDueDate
+        invoiceFormTxtDueDate.text = strDueDate
+    }
+
+    private fun showDueDateError(strDueDate: String){
+        Toast.makeText(this@InvoiceFormActivity,"Pilih setelah tanggal $strDueDate",
+                Toast.LENGTH_SHORT).show()
+    }
+
     override fun showAddPersonPage() {
 
     }
@@ -146,9 +136,8 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     companion object {
         const val INTENT_TRANSACTION_MODE = "TransactionMode"
 
-        const val MODE_SALES = 0
-        const val MODE_BUY = 1
-        const val MODE_COST = 2
-
+        const val SALES_TRANSACTION = 0
+        const val BUY_TRANSACTION = 1
+        const val COST_TRANSACTION = 2
     }
 }
