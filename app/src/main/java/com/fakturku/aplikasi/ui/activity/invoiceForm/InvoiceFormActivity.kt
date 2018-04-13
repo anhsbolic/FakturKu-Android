@@ -152,7 +152,7 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
                 when (resultCode) {
                     INTENT_ADD_COSTUMER_SUCCESS -> {
                         if (data != null) {
-                            val name = data.getStringExtra(INTENT_ADD_COSTUMER_DATA)
+                            val name: String = data.extras.getString(INTENT_ADD_COSTUMER_DATA)
                             invoiceFormTxtName.text = name
                         }
                     }
@@ -173,7 +173,7 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
         const val INTENT_ADD_COSTUMER = 10
         const val INTENT_ADD_COSTUMER_SUCCESS = 11
-        const val INTENT_ADD_COSTUMER_DATA = "AddCostumerData"
+        const val INTENT_ADD_COSTUMER_DATA: String = "AddCostumerData"
 
 
     }
