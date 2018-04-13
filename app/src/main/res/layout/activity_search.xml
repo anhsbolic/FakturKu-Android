@@ -44,7 +44,6 @@
 
         </RelativeLayout>
 
-
     </android.support.v7.widget.Toolbar>
 
     <TextView
@@ -64,5 +63,10 @@
         android:paddingEnd="10dp"
         android:clickable="true"
         android:focusable="true"/>
+
+    <ListView
+        android:id="@+id/searchLVResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

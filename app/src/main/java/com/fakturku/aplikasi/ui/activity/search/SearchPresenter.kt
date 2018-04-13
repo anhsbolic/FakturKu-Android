@@ -7,4 +7,8 @@ class SearchPresenter(private val view: SearchContract.View)
         view.showNewForm(name)
     }
 
+    override fun search(queryName: String) {
+        view.showNewForm(queryName)
+    }
+
 }

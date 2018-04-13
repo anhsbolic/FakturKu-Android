@@ -2,6 +2,8 @@ package com.fakturku.aplikasi.ui.activity.search
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import com.fakturku.aplikasi.R
 import kotlinx.android.synthetic.main.activity_search.*
@@ -45,6 +47,28 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
                 presenter.addNew(name)
             }
         }
+
+        //Query Search
+        searchEt.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(editable: Editable?) {
+                if (editable != null) {
+                    if (editable.toString().trim().isNotEmpty()) {
+                        val queryName = editable.toString().trim()
+                        presenter.search(queryName)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+    }
+
+    override fun showSearchResult(queryName: String) {
+        Toast.makeText(this@SearchActivity,queryName, Toast.LENGTH_SHORT).show()
     }
 
     override fun showNewForm(name: String) {
