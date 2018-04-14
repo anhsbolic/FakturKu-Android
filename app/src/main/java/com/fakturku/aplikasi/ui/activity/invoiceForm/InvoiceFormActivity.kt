@@ -125,11 +125,15 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 //        dataItemList.add(product1)
 //        dataItemList.add(product1)
 
-        adapterRvItemList = AddItemListAdapter(dataItemList)
+        adapterRvItemList = AddItemListAdapter(dataItemList, object : AddItemListAdapter.OnItemUpdateListener {
+            override fun deleteItem(product: Product, adapterPosition: Int) {
+                presenter.deleteProduct(product, adapterPosition)
+            }
+        })
         lmRvItemList= LinearLayoutManager(this@InvoiceFormActivity)
         animator = DefaultItemAnimator()
         animator.addDuration = 300
-        animator.removeDuration = 600
+        animator.removeDuration = 300
 
         dividerItemDecoration = DividerItemDecoration(this@InvoiceFormActivity,
                 DividerItemDecoration.VERTICAL)
@@ -137,8 +141,9 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         invoiceFormRvItem.layoutManager = lmRvItemList
         invoiceFormRvItem.itemAnimator = animator
         invoiceFormRvItem.addItemDecoration(dividerItemDecoration)
-        invoiceFormRvItem.setHasFixedSize(false)
+//        invoiceFormRvItem.minimumHeight = 320
         invoiceFormRvItem.setItemViewCacheSize(dataItemList.size)
+        invoiceFormRvItem.setHasFixedSize(false)
 
         //Add Item
         invoiceFormTxtAddItem.setOnClickListener {
@@ -202,6 +207,13 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     override fun addSelectedItem(product: Product) {
         dataItemList.add(product)
         adapterRvItemList.notifyItemInserted(dataItemList.lastIndex)
+        invoiceFormRvItem.setItemViewCacheSize(dataItemList.size)
+    }
+
+    override fun clearProduct(product: Product, adapterPosition: Int) {
+        dataItemList.removeAt(adapterPosition)
+        adapterRvItemList.notifyItemRemoved(adapterPosition)
+        adapterRvItemList.notifyItemRangeChanged(adapterPosition, dataItemList.lastIndex)
         invoiceFormRvItem.setItemViewCacheSize(dataItemList.size)
     }
 

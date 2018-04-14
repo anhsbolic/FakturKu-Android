@@ -47,6 +47,10 @@ class InvoiceFormPresenter(private val view : InvoiceFormContract.View)
         view.addSelectedItem(product)
     }
 
+    override fun deleteProduct(product: Product, adapterPosition: Int) {
+        view.clearProduct(product, adapterPosition)
+    }
+
     companion object {
         const val SALES_TRANSACTION  = 0
         const val BUY_TRANSACTION  = 1

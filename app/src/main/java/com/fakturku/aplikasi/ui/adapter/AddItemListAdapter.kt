@@ -6,22 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Product
 import com.fakturku.aplikasi.utils.MyCurrencyFormat
 import kotlinx.android.synthetic.main.add_item_list_adapter.view.*
 
-class AddItemListAdapter(private val dataItemList: List<Product>)
+class AddItemListAdapter(private val dataItemList: List<Product>,
+                         private val onItemUpdate: AddItemListAdapter.OnItemUpdateListener)
     : RecyclerView.Adapter<AddItemListAdapter.ViewHolder>(){
 
     private lateinit var mContext: Context
+
+    interface OnItemUpdateListener{
+        fun deleteItem(product: Product, adapterPosition: Int)
+    }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         internal var txtName: TextView = itemView.addItemListAdapterTxtName
         internal var etTotalItem: EditText = itemView.addItemListAdapterEtTotalItem
         internal var etPrice: EditText = itemView.addItemListAdapterEtPrice
         internal var txtTotal: TextView = itemView.addItemListAdapterTxtTotal
+        internal var btnDelete: ImageButton = itemView.addItemListAdapterBtnDelete
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,6 +47,11 @@ class AddItemListAdapter(private val dataItemList: List<Product>)
         val total = totalItem * price
         val strTotal = MyCurrencyFormat.rupiah(total)
         holder.txtTotal.text = strTotal
+
+        //Delete Item
+        holder.btnDelete.setOnClickListener {
+            onItemUpdate.deleteItem(dataItemList[holder.adapterPosition], holder.adapterPosition)
+        }
     }
 
     override fun getItemCount(): Int {

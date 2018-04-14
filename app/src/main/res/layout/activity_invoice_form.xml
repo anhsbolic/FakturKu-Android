@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="80dp"
-            android:clipToPadding="false">
+            android:clipToPadding="false"
+            android:animateLayoutChanges="true">
 
             <RelativeLayout
                 android:id="@+id/invoiceFormHeader"
@@ -139,8 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLineSeparator"
-                android:layout_below="@id/invoiceFormRvItem"
-                android:layout_marginTop="5dp"/>
+                android:layout_below="@id/invoiceFormRvItem"/>
 
             <TextView
                 android:id="@+id/invoiceFormTxtAddItem"

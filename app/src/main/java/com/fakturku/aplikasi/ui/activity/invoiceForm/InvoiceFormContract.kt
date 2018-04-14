@@ -17,6 +17,8 @@ interface InvoiceFormContract{
         fun showAddItemPage()
 
         fun addSelectedItem(product: Product)
+
+        fun clearProduct(product: Product, adapterPosition: Int)
     }
 
     interface Presenter{
@@ -31,5 +33,7 @@ interface InvoiceFormContract{
         fun addItem()
 
         fun addSelectedItem(product: Product)
+
+        fun deleteProduct(product: Product, adapterPosition: Int)
     }
 }
