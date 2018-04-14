@@ -1,5 +1,6 @@
 package com.fakturku.aplikasi.ui.activity.invoiceForm
 
+import com.fakturku.aplikasi.model.Product
 import java.util.*
 
 interface InvoiceFormContract{
@@ -12,6 +13,10 @@ interface InvoiceFormContract{
         fun updateItemTitle(strItemTitle: String)
 
         fun updateDueDate(strDueDate: String)
+
+        fun showAddItemPage()
+
+        fun addSelectedItem(product: Product)
     }
 
     interface Presenter{
@@ -22,5 +27,9 @@ interface InvoiceFormContract{
         fun updateItemType(transactionType: Int)
 
         fun updateDueDate(dueDate: Date)
+
+        fun addItem()
+
+        fun addSelectedItem(product: Product)
     }
 }

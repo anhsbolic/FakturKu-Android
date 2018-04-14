@@ -133,12 +133,41 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/invoiceFormLineItemTwo"/>
 
+
+            <View
+                android:id="@+id/invoiceFormLineItem"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLineSeparator"
+                android:layout_below="@id/invoiceFormRvItem"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/invoiceFormTxtAddItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tambah"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:drawableEnd="@drawable/ic_add_primary"
+                android:drawablePadding="10dp"
+                android:gravity="end"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_below="@id/invoiceFormLineItem"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"/>
+
             <View
                 android:id="@+id/invoiceFormLineOne"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLineSeparator"
-                android:layout_below="@id/invoiceFormRvItem"
+                android:layout_below="@id/invoiceFormTxtAddItem"
                 android:layout_marginTop="5dp"/>
 
             <TextView

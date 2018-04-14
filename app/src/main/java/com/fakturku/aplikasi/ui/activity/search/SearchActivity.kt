@@ -9,12 +9,15 @@ import android.widget.Toast
 import com.fakturku.aplikasi.R
 import kotlinx.android.synthetic.main.activity_search.*
 import android.widget.ArrayAdapter
+import com.fakturku.aplikasi.model.Product
 import com.fakturku.aplikasi.ui.activity.invoiceForm.InvoiceFormActivity
 
 
 class SearchActivity : AppCompatActivity(), SearchContract.View {
 
     private lateinit var presenter: SearchPresenter
+
+    private var productListResult: MutableList<Product> = ArrayList()
 
     private var searchMode: Int = 0
 
@@ -56,6 +59,9 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
                             SEARCH_COSTUMER -> {
                                 presenter.searchCostumer(queryName)
                             }
+                            SEARCH_PRODUCT -> {
+                                presenter.searchProduct(queryName)
+                            }
                         }
                     }
                 }
@@ -70,8 +76,16 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
 
         //ListView listener
         searchLVResult.setOnItemClickListener { parent, _, position, _ ->
-            val selectedItem = parent.getItemAtPosition(position).toString()
-            presenter.selectItem(selectedItem)
+            when (searchMode) {
+                SEARCH_COSTUMER -> {
+                    val selectedItem = parent.getItemAtPosition(position).toString()
+                    presenter.selectItem(selectedItem)
+                }
+                SEARCH_PRODUCT -> {
+                    presenter.selectProduct(productListResult[position])
+                }
+            }
+
         }
 
     }
@@ -93,6 +107,28 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         finish()
     }
 
+    override fun showSearchProductResult(productList: List<Product>) {
+        if (productListResult.isNotEmpty()) {
+            productListResult.clear()
+        }
+        productListResult = productList.toMutableList()
+
+        //Fake ListView
+        val listItems = arrayOfNulls<String>(productListResult.size)
+        for (i in 0 until productListResult.size) {
+            listItems[i] = productListResult[i].name!!
+        }
+        val queryAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
+        searchLVResult.adapter = queryAdapter
+    }
+
+    override fun showSelectedProduct(product: Product) {
+        val intent = Intent()
+        intent.putExtra(InvoiceFormActivity.INTENT_ADD_PRODUCT_DATA, product)
+        setResult(InvoiceFormActivity.INTENT_ADD_PRODUCT_SUCCESS, intent)
+        finish()
+    }
+
     override fun showNewForm(name: String) {
         Toast.makeText(this@SearchActivity,name, Toast.LENGTH_SHORT).show()
     }
@@ -101,5 +137,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         const val INTENT_SEARCH_MODE = "SearchMode"
 
         const val SEARCH_COSTUMER = 1
+        const val SEARCH_PRODUCT = 2
+
     }
 }

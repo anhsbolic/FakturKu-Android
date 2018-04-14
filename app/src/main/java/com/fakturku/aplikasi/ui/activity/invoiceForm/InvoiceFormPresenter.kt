@@ -1,5 +1,6 @@
 package com.fakturku.aplikasi.ui.activity.invoiceForm
 
+import com.fakturku.aplikasi.model.Product
 import com.fakturku.aplikasi.utils.MyDateFormatter
 import java.util.*
 
@@ -36,6 +37,14 @@ class InvoiceFormPresenter(private val view : InvoiceFormContract.View)
 
     override fun addPerson() {
         view.showAddPersonPage()
+    }
+
+    override fun addItem() {
+        view.showAddItemPage()
+    }
+
+    override fun addSelectedItem(product: Product) {
+        view.addSelectedItem(product)
     }
 
     companion object {
