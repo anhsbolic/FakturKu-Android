@@ -112,19 +112,7 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
             presenter.addPerson()
         }
 
-        //Init RecyclerView Item List
-//        val product1 = Product(
-//                "1",
-//                "Paprika Merah",
-//                20000,
-//                35000,
-//                "Harga per Kg",
-//                "2018-03-26 11:43:00",
-//                "2018-03-26 11:43:00")
-//        dataItemList.add(product1)
-//        dataItemList.add(product1)
-//        dataItemList.add(product1)
-
+        //Set RecyclerView
         adapterRvItemList = AddItemListAdapter(dataItemList, object : AddItemListAdapter.OnItemUpdateListener {
             override fun deleteItem(product: Product, adapterPosition: Int) {
                 presenter.deleteProduct(product, adapterPosition)

@@ -2,6 +2,8 @@ package com.fakturku.aplikasi.ui.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +49,70 @@ class AddItemListAdapter(private val dataItemList: List<Product>,
         val total = totalItem * price
         val strTotal = MyCurrencyFormat.rupiah(total)
         holder.txtTotal.text = strTotal
+
+        //Calculate Total
+        holder.etTotalItem.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                if (editable != null) {
+                    val strTotalItem = editable.toString()
+                    val intTotalItem = if (strTotalItem.isNotEmpty()) {
+                        strTotalItem.toInt()
+                    } else{
+                        0
+                    }
+
+                    val strPrice = holder.etPrice.text.toString()
+                    val intPrice = if (strPrice.isNotEmpty()){
+                        strPrice.toInt()
+                    } else {
+                        0
+                    }
+
+                    val intTotal = intTotalItem * intPrice
+                    val txtTotal = MyCurrencyFormat.rupiah(intTotal)
+                    holder.txtTotal.text = txtTotal
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
+        holder.etPrice.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                if (editable != null) {
+
+                    val strPrice = editable.toString()
+                    val intPrice = if (strPrice.isNotEmpty()){
+                        strPrice.toInt()
+                    } else {
+                        0
+                    }
+
+                    val strTotalItem = holder.etTotalItem.text.toString()
+                    val intTotalItem = if (strTotalItem.isNotEmpty()) {
+                        strTotalItem.toInt()
+                    } else{
+                        0
+                    }
+
+                    val intTotal = intTotalItem * intPrice
+                    val txtTotal = MyCurrencyFormat.rupiah(intTotal)
+                    holder.txtTotal.text = txtTotal
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
 
         //Delete Item
         holder.btnDelete.setOnClickListener {
