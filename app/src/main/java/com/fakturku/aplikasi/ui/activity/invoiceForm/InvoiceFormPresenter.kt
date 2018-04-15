@@ -1,7 +1,6 @@
 package com.fakturku.aplikasi.ui.activity.invoiceForm
 
 import com.fakturku.aplikasi.model.Product
-import com.fakturku.aplikasi.utils.MyCurrencyFormat
 import com.fakturku.aplikasi.utils.MyDateFormatter
 import java.util.*
 
@@ -73,6 +72,10 @@ class InvoiceFormPresenter(private val view : InvoiceFormContract.View)
     override fun calculateDueAmount(total: Int, paid: Int) {
         val dueAmount = total - paid
         view.showDueAmount(dueAmount)
+    }
+
+    override fun save() {
+        view.showSaveSuccess()
     }
 
     companion object {

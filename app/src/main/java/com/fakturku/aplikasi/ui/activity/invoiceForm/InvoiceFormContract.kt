@@ -25,6 +25,8 @@ interface InvoiceFormContract{
         fun showTotal(intTotal: Int)
 
         fun showDueAmount(intDueAmount: Int)
+
+        fun showSaveSuccess()
     }
 
     interface Presenter{
@@ -47,5 +49,7 @@ interface InvoiceFormContract{
         fun calculateTotal(subTotal: Int, tax: Int)
 
         fun calculateDueAmount(total: Int, paid: Int)
+
+        fun save()
     }
 }

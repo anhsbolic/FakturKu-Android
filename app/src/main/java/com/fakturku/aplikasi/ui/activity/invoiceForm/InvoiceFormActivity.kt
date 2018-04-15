@@ -3,6 +3,7 @@ package com.fakturku.aplikasi.ui.activity.invoiceForm
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
@@ -11,11 +12,13 @@ import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.DatePicker
 import android.widget.Toast
 import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Product
+import com.fakturku.aplikasi.ui.activity.DashboardActivity
 import com.fakturku.aplikasi.ui.activity.search.SearchActivity
 import com.fakturku.aplikasi.ui.adapter.AddItemListAdapter
 import com.fakturku.aplikasi.utils.MyCurrencyFormat
@@ -208,12 +211,23 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_invoice_form_menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             android.R.id.home ->{
                 onBackPressed()
                 true
             }
+
+            R.id.invoiceFormMenuSave -> {
+                presenter.save()
+                true
+            }
+
             else -> {
                 super.onOptionsItemSelected(item)
             }
@@ -343,6 +357,15 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
                 super.onActivityResult(requestCode, resultCode, data)
             }
         }
+    }
+
+    override fun showSaveSuccess() {
+        Toast.makeText(this@InvoiceFormActivity, "Faktur Berhasil disimpan", Toast.LENGTH_SHORT).show()
+        Handler().postDelayed({
+            val intent = Intent(this@InvoiceFormActivity, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+        },1200)
     }
 
     companion object {
