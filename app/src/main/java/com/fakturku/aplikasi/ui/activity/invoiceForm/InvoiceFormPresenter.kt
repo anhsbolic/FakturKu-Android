@@ -51,6 +51,18 @@ class InvoiceFormPresenter(private val view : InvoiceFormContract.View)
         view.clearProduct(product, adapterPosition)
     }
 
+    override fun calculateSubtotal(totalItemPriceList: List<Int>) {
+        var intSubtotal = 0
+
+        if (totalItemPriceList.isNotEmpty()) {
+            for (i in 0 until totalItemPriceList.size) {
+                intSubtotal += totalItemPriceList[i]
+            }
+        }
+
+        view.showSubtotal(intSubtotal)
+    }
+
     companion object {
         const val SALES_TRANSACTION  = 0
         const val BUY_TRANSACTION  = 1

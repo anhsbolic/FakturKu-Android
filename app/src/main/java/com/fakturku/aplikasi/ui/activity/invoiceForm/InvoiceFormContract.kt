@@ -19,6 +19,8 @@ interface InvoiceFormContract{
         fun addSelectedItem(product: Product)
 
         fun clearProduct(product: Product, adapterPosition: Int)
+
+        fun showSubtotal(intSubtotal: Int)
     }
 
     interface Presenter{
@@ -35,5 +37,7 @@ interface InvoiceFormContract{
         fun addSelectedItem(product: Product)
 
         fun deleteProduct(product: Product, adapterPosition: Int)
+
+        fun calculateSubtotal(totalItemPriceList: List<Int>)
     }
 }

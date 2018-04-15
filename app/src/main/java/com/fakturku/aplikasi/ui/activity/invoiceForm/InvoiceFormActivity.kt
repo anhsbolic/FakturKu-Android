@@ -16,9 +16,11 @@ import com.fakturku.aplikasi.R
 import com.fakturku.aplikasi.model.Product
 import com.fakturku.aplikasi.ui.activity.search.SearchActivity
 import com.fakturku.aplikasi.ui.adapter.AddItemListAdapter
+import com.fakturku.aplikasi.utils.MyCurrencyFormat
 import com.fakturku.aplikasi.utils.MyDateFormatter
 import kotlinx.android.synthetic.main.activity_invoice_form.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
@@ -41,6 +43,8 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     private lateinit var dividerItemDecoration: DividerItemDecoration
 
     private val rvItemSize: Int = 90
+
+    private var totalItemPriceList: MutableList<Int> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,6 +122,19 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         adapterRvItemList = AddItemListAdapter(dataItemList, object : AddItemListAdapter.OnItemUpdateListener {
             override fun deleteItem(product: Product, adapterPosition: Int) {
                 presenter.deleteProduct(product, adapterPosition)
+
+//                totalItemPriceList.removeAt(adapterPosition)
+                presenter.calculateSubtotal(totalItemPriceList)
+            }
+
+            override fun onTotalUpdate(intTotal: Int, position: Int) {
+                if (totalItemPriceList.lastIndex < position) {
+                    totalItemPriceList.add(intTotal)
+                    presenter.calculateSubtotal(totalItemPriceList)
+                } else {
+                    totalItemPriceList[position] = intTotal
+                    presenter.calculateSubtotal(totalItemPriceList)
+                }
             }
         })
         lmRvItemList= LinearLayoutManager(this@InvoiceFormActivity)
@@ -133,6 +150,9 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         invoiceFormRvItem.addItemDecoration(dividerItemDecoration)
         invoiceFormRvItem.setItemViewCacheSize(dataItemList.size)
         invoiceFormRvItem.setHasFixedSize(false)
+
+        //Calculate total
+        presenter.calculateSubtotal(totalItemPriceList)
 
         //Add Item
         invoiceFormTxtAddItem.setOnClickListener {
@@ -224,6 +244,11 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         adapterRvItemList.notifyItemRemoved(adapterPosition)
         adapterRvItemList.notifyItemRangeChanged(adapterPosition, dataItemList.size)
         invoiceFormRvItem.setItemViewCacheSize(dataItemList.size)
+    }
+
+    override fun showSubtotal(intSubtotal: Int) {
+        val subtotal = MyCurrencyFormat.rupiah(intSubtotal)
+        invoiceFormTxtSubTotal.text = subtotal
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

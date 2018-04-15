@@ -23,6 +23,7 @@ class AddItemListAdapter(private val dataItemList: List<Product>,
 
     interface OnItemUpdateListener{
         fun deleteItem(product: Product, adapterPosition: Int)
+        fun onTotalUpdate(intTotal: Int, position: Int)
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -47,6 +48,7 @@ class AddItemListAdapter(private val dataItemList: List<Product>,
         val totalItem = 0
         val price = holder.etPrice.text.toString().toInt()
         val total = totalItem * price
+        onItemUpdate.onTotalUpdate(total, position)
         val strTotal = MyCurrencyFormat.rupiah(total)
         holder.txtTotal.text = strTotal
 
@@ -69,6 +71,7 @@ class AddItemListAdapter(private val dataItemList: List<Product>,
                     }
 
                     val intTotal = intTotalItem * intPrice
+                    onItemUpdate.onTotalUpdate(intTotal, position)
                     val txtTotal = MyCurrencyFormat.rupiah(intTotal)
                     holder.txtTotal.text = txtTotal
                 }
@@ -101,6 +104,7 @@ class AddItemListAdapter(private val dataItemList: List<Product>,
                     }
 
                     val intTotal = intTotalItem * intPrice
+                    onItemUpdate.onTotalUpdate(intTotal, position)
                     val txtTotal = MyCurrencyFormat.rupiah(intTotal)
                     holder.txtTotal.text = txtTotal
                 }
