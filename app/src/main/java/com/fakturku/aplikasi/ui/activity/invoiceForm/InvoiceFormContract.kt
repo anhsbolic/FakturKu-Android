@@ -21,6 +21,8 @@ interface InvoiceFormContract{
         fun clearProduct(product: Product, adapterPosition: Int)
 
         fun showSubtotal(intSubtotal: Int)
+
+        fun showTotal(strTotal: String)
     }
 
     interface Presenter{
@@ -39,5 +41,7 @@ interface InvoiceFormContract{
         fun deleteProduct(product: Product, adapterPosition: Int)
 
         fun calculateSubtotal(totalItemPriceList: List<Int>)
+
+        fun calculateTotal(subTotal:Int, tax: Int)
     }
 }

@@ -8,6 +8,8 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.widget.DatePicker
@@ -45,6 +47,8 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     private val rvItemSize: Int = 90
 
     private var totalItemPriceList: MutableList<Int> = ArrayList()
+    private var tax = 0
+    private var subtotal = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -153,6 +157,26 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
         //Calculate total
         presenter.calculateSubtotal(totalItemPriceList)
+        invoiceFormEtTax.setText(tax.toString())
+        invoiceFormEtTax.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(editable: Editable?) {
+                if (editable != null) {
+                    if (editable.toString().isNotEmpty()) {
+                        tax = editable.toString().toInt()
+                        presenter.calculateTotal(subtotal, tax)
+                    } else {
+                        tax = 0
+                        presenter.calculateTotal(subtotal, tax)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
 
         //Add Item
         invoiceFormTxtAddItem.setOnClickListener {
@@ -247,8 +271,14 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     }
 
     override fun showSubtotal(intSubtotal: Int) {
-        val subtotal = MyCurrencyFormat.rupiah(intSubtotal)
-        invoiceFormTxtSubTotal.text = subtotal
+        subtotal = intSubtotal
+        val strSubtotal = MyCurrencyFormat.rupiah(intSubtotal)
+        invoiceFormTxtSubTotal.text = strSubtotal
+        presenter.calculateTotal(subtotal, tax)
+    }
+
+    override fun showTotal(strTotal: String) {
+        invoiceFormTxtTotal.text = strTotal
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

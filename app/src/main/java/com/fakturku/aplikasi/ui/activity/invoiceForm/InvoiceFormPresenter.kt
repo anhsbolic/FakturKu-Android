@@ -1,6 +1,7 @@
 package com.fakturku.aplikasi.ui.activity.invoiceForm
 
 import com.fakturku.aplikasi.model.Product
+import com.fakturku.aplikasi.utils.MyCurrencyFormat
 import com.fakturku.aplikasi.utils.MyDateFormatter
 import java.util.*
 
@@ -61,6 +62,13 @@ class InvoiceFormPresenter(private val view : InvoiceFormContract.View)
         }
 
         view.showSubtotal(intSubtotal)
+    }
+
+    override fun calculateTotal(subTotal: Int, tax: Int) {
+        val dblTax = 0.01 * tax * subTotal
+        val total = subTotal - dblTax
+        val strTotal = MyCurrencyFormat.rupiah(total.toInt())
+        view.showTotal(strTotal)
     }
 
     companion object {
