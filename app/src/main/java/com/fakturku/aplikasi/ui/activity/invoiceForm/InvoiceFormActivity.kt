@@ -40,6 +40,8 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     private lateinit var animator: DefaultItemAnimator
     private lateinit var dividerItemDecoration: DividerItemDecoration
 
+    private val rvItemSize: Int = 90
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invoice_form)
@@ -120,8 +122,8 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         })
         lmRvItemList= LinearLayoutManager(this@InvoiceFormActivity)
         animator = DefaultItemAnimator()
-        animator.addDuration = 300
-        animator.removeDuration = 300
+        animator.addDuration = 0
+        animator.removeDuration = 0
 
         dividerItemDecoration = DividerItemDecoration(this@InvoiceFormActivity,
                 DividerItemDecoration.VERTICAL)
@@ -129,7 +131,6 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         invoiceFormRvItem.layoutManager = lmRvItemList
         invoiceFormRvItem.itemAnimator = animator
         invoiceFormRvItem.addItemDecoration(dividerItemDecoration)
-//        invoiceFormRvItem.minimumHeight = 320
         invoiceFormRvItem.setItemViewCacheSize(dataItemList.size)
         invoiceFormRvItem.setHasFixedSize(false)
 
@@ -194,14 +195,34 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
     override fun addSelectedItem(product: Product) {
         dataItemList.add(product)
+
+        val size = dataItemList.size * rvItemSize
+        val density : Float = resources
+                .displayMetrics
+                .density
+        val dpSize =  Math.round(size.toFloat() * density)
+        val params = invoiceFormRvItem.layoutParams
+        params.height = dpSize
+        invoiceFormRvItem.layoutParams = params
+
         adapterRvItemList.notifyItemInserted(dataItemList.lastIndex)
         invoiceFormRvItem.setItemViewCacheSize(dataItemList.size)
     }
 
     override fun clearProduct(product: Product, adapterPosition: Int) {
         dataItemList.removeAt(adapterPosition)
+
+        val size = dataItemList.size * rvItemSize
+        val density : Float = resources
+                .displayMetrics
+                .density
+        val dpSize =  Math.round(size.toFloat() * density)
+        val params = invoiceFormRvItem.layoutParams
+        params.height = dpSize
+        invoiceFormRvItem.layoutParams = params
+
         adapterRvItemList.notifyItemRemoved(adapterPosition)
-        adapterRvItemList.notifyItemRangeChanged(adapterPosition, dataItemList.lastIndex)
+        adapterRvItemList.notifyItemRangeChanged(adapterPosition, dataItemList.size)
         invoiceFormRvItem.setItemViewCacheSize(dataItemList.size)
     }
 
