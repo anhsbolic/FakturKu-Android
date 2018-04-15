@@ -22,7 +22,9 @@ interface InvoiceFormContract{
 
         fun showSubtotal(intSubtotal: Int)
 
-        fun showTotal(strTotal: String)
+        fun showTotal(intTotal: Int)
+
+        fun showDueAmount(intDueAmount: Int)
     }
 
     interface Presenter{
@@ -42,6 +44,8 @@ interface InvoiceFormContract{
 
         fun calculateSubtotal(totalItemPriceList: List<Int>)
 
-        fun calculateTotal(subTotal:Int, tax: Int)
+        fun calculateTotal(subTotal: Int, tax: Int)
+
+        fun calculateDueAmount(total: Int, paid: Int)
     }
 }

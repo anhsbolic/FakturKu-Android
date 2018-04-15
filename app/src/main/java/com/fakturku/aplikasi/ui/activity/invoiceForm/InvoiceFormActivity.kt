@@ -47,8 +47,11 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
     private val rvItemSize: Int = 90
 
     private var totalItemPriceList: MutableList<Int> = ArrayList()
-    private var tax = 0
     private var subtotal = 0
+    private var tax = 0
+    private var total = 0
+    private var paid = 0
+    private var dueAmount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -178,6 +181,27 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
             }
         })
 
+        presenter.calculateDueAmount(total, paid)
+        invoiceFormEtPaid.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(editable: Editable?) {
+                if (editable != null) {
+                    if (editable.isNotEmpty()) {
+                        paid = editable.toString().toInt()
+                        presenter.calculateDueAmount(total, paid)
+                    } else {
+                        paid = 0
+                        presenter.calculateDueAmount(total, paid)
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+
         //Add Item
         invoiceFormTxtAddItem.setOnClickListener {
             presenter.addItem()
@@ -277,8 +301,17 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
         presenter.calculateTotal(subtotal, tax)
     }
 
-    override fun showTotal(strTotal: String) {
+    override fun showTotal(intTotal: Int) {
+        total = intTotal
+        val strTotal = MyCurrencyFormat.rupiah(total)
         invoiceFormTxtTotal.text = strTotal
+        presenter.calculateDueAmount(total, paid)
+    }
+
+    override fun showDueAmount(intDueAmount: Int) {
+        dueAmount = intDueAmount
+        val strDueAmount = MyCurrencyFormat.rupiah(dueAmount)
+        invoiceFormTxtDueAmount.text = strDueAmount
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -67,8 +67,12 @@ class InvoiceFormPresenter(private val view : InvoiceFormContract.View)
     override fun calculateTotal(subTotal: Int, tax: Int) {
         val dblTax = 0.01 * tax * subTotal
         val total = subTotal - dblTax
-        val strTotal = MyCurrencyFormat.rupiah(total.toInt())
-        view.showTotal(strTotal)
+        view.showTotal(total.toInt())
+    }
+
+    override fun calculateDueAmount(total: Int, paid: Int) {
+        val dueAmount = total - paid
+        view.showDueAmount(dueAmount)
     }
 
     companion object {

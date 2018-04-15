@@ -243,7 +243,7 @@
 
             <EditText
                 android:id="@+id/invoiceFormEtTax"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:textSize="14sp"
@@ -284,20 +284,35 @@
                 android:textSize="14sp"
                 android:textColor="@color/colorTextBlack"
                 android:layout_below="@id/invoiceFormTxtTotalValueTitle"
+                android:layout_toStartOf="@id/invoiceFormTxtPaidCurrency"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"/>
 
-            <TextView
-                android:id="@+id/invoiceFormTxtPaid"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/invoiceFormEtPaid"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:textSize="14sp"
                 android:textColor="@color/colorTextGrayGoogle"
+                android:gravity="end"
                 android:layout_below="@id/invoiceFormLineTwo"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="20dp"
-                android:layout_alignBaseline="@id/invoiceFormTxtPaidTitle"/>
+                android:layout_alignBaseline="@id/invoiceFormTxtPaidTitle"
+                tools:ignore="LabelFor"/>
+
+            <TextView
+                android:id="@+id/invoiceFormTxtPaidCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp"
+                android:textSize="14sp"
+                android:textColor="@color/colorTextBlack"
+                android:layout_alignBaseline="@id/invoiceFormEtPaid"
+                android:layout_toStartOf="@id/invoiceFormEtPaid"/>
 
             <View
                 android:id="@+id/invoiceFormLineThree"
