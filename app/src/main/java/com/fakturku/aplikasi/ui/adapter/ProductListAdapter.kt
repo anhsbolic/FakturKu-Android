@@ -47,7 +47,7 @@ class ProductListAdapter(private val dataProductList: List<Product>,
         val productName = dataProductList[position].name!!
         holder.txtName.text = productName
 
-        val buyPrice = dataProductList[position].buy_price
+        val buyPrice = dataProductList[position].purchase_price
         if (buyPrice != null){
             holder.txtBuyPrice.text = MyCurrencyFormat.rupiah(buyPrice)
         }

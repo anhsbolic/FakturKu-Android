@@ -57,7 +57,7 @@ class ProductFormActivity : AppCompatActivity(), ProductFormContract.View {
                         null, null, isUpdateProductMode)
             } else {
                 presenter.updateProduct(product.id, name, intBuyPrice, intSellPrice, notes,
-                        product.created_date, null, isUpdateProductMode)
+                        product.created_at, null, isUpdateProductMode)
             }
         }
     }
@@ -89,9 +89,9 @@ class ProductFormActivity : AppCompatActivity(), ProductFormContract.View {
 
         //Update UI
         productFormName.setText(product.name)
-        productFormBuyPrice.setText(product.buy_price.toString())
+        productFormBuyPrice.setText(product.purchase_price.toString())
         productFormSellPrice.setText(product.sell_price.toString())
-        productFormNotes.setText(product.notes)
+        productFormNotes.setText(product.info)
         val strUpdate = "Update"
         productFormBtnSave.text = strUpdate
     }

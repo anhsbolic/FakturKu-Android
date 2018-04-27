@@ -74,7 +74,7 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
 
     override fun setProductData(product: Product) {
         productDetailsName.text = product.name
-        val buyPrice = product.buy_price
+        val buyPrice = product.purchase_price
         if (buyPrice != null){
             productDetailsBuyPrice.text = MyCurrencyFormat.rupiah(buyPrice)
         }
@@ -82,7 +82,7 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
         if (sellPrice != null){
             productDetailsSellPrice.text = MyCurrencyFormat.rupiah(sellPrice)
         }
-        productDetailsNotes.text = product.notes
+        productDetailsNotes.text = product.info
     }
 
     override fun update(product: Product) {
