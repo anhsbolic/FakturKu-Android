@@ -1,11 +1,12 @@
 package com.fakturku.aplikasi.networking
 
-import com.fakturku.aplikasi.model.CostumerList
+import com.fakturku.aplikasi.model.ProductList
 import io.reactivex.Observable
 import retrofit2.http.GET
+import retrofit2.http.Query
 
-interface NetworkService{
+interface ApiService{
 
-    @GET("costumers")
-    fun getCostumerList(): Observable<CostumerList>
+    @GET("product")
+    fun getProductList(@Query("page") page: Int): Observable<ProductList>
 }
