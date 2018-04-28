@@ -25,6 +25,9 @@ interface ApiService{
                       @Field("sell_price") sellPrice: Int,
                       @Field("info") info: String): Observable<Product>
 
+    @DELETE("product/{id}")
+    fun deleteProduct(@Path("id") id: Long): Observable<Product>
+
 }
 
 //TODO : change int to long
