@@ -2,6 +2,8 @@ package com.fakturku.aplikasi.ui.fragment.productFragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DefaultItemAnimator
@@ -89,19 +91,16 @@ class ProductFragment : Fragment(), ProductContract.View {
             if (!isLoadingData){
                 if((activity as DashboardActivity).isNetworkAvailable()){
                     page++
-
                     if (page <= maxPage) {
                         presenter.loadProductListData(page)
                     } else {
                         productSwipeRefreshLayout.isRefreshing = false
-                        Toast.makeText(activity, "Semua data sudah ditampilkan",
-                                Toast.LENGTH_SHORT).show()
+                        showSnackBar("Semua data sudah ditampilkan", 300)
                         productSwipeRefreshLayout.isEnabled = false
                     }
                 }else{
                     productSwipeRefreshLayout.isRefreshing = false
-                    //                    showSnackBar("Periksa Koneksi Internet Anda ...",
-                    //                            Snackbar.LENGTH_LONG,300)
+                    showSnackBar("Periksa Koneksi Internet Anda ...",300)
                 }
             }
         }
@@ -198,6 +197,12 @@ class ProductFragment : Fragment(), ProductContract.View {
             else->{ super.onActivityResult(requestCode, resultCode, data) }
         }
 
+    }
+
+    private fun showSnackBar(msg: String, delayTime: Long){
+        Handler().postDelayed({
+            Snackbar.make(productCoordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
+        }, delayTime)
     }
 
     companion object {
