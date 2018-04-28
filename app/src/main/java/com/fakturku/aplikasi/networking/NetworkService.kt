@@ -16,6 +16,15 @@ interface ApiService{
                     @Field("purchase_price") purchasePrice: Int,
                     @Field("sell_price") sellPrice: Int,
                     @Field("info") info: String): Observable<Product>
+
+    @FormUrlEncoded
+    @PUT("product/{id}")
+    fun updateProduct(@Path("id") id: Long,
+                      @Field("name") name: String,
+                      @Field("purchase_price") purchasePrice: Int,
+                      @Field("sell_price") sellPrice: Int,
+                      @Field("info") info: String): Observable<Product>
+
 }
 
 //TODO : change int to long

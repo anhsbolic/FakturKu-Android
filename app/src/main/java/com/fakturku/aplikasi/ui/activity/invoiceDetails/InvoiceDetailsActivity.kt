@@ -139,7 +139,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
         //FAKE ITEM
         val productList: MutableList<Product> = ArrayList()
         val product1 = Product(
-                "1",
+                1,
                 "Paprika Merah",
                 20000,
                 35000,
@@ -147,7 +147,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
         val product2 = Product(
-                "2",
+                2,
                 "Paprika Hijau",
                 15000,
                 25000,
@@ -155,7 +155,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
         val product3 = Product(
-                "3",
+                3,
                 "Tomat Cherry",
                 10000,
                 15000,
@@ -163,7 +163,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
         val product4 = Product(
-                "4",
+                4,
                 "Lolorosa",
                 18000,
                 25000,
@@ -171,7 +171,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
         val product5 = Product(
-                "5",
+                5,
                 "Butterhead",
                 8000,
                 15000,
@@ -179,7 +179,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
         val producta1 = Product(
-                "1",
+                1,
                 "Paprika Merah",
                 20000,
                 35000,
@@ -187,7 +187,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
         val producta2 = Product(
-                "2",
+                2,
                 "Paprika Hijau",
                 15000,
                 25000,
@@ -195,7 +195,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
         val producta3 = Product(
-                "3",
+                3,
                 "Tomat Cherry",
                 10000,
                 15000,
@@ -203,7 +203,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
         val producta4 = Product(
-                "4",
+                4,
                 "Lolorosa",
                 18000,
                 25000,
@@ -211,7 +211,7 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
                 "2018-03-26 11:43:00",
                 "2018-03-26 11:43:00")
         val producta5 = Product(
-                "5",
+                5,
                 "Butterhead",
                 8000,
                 15000,

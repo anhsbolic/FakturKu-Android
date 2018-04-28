@@ -32,17 +32,17 @@ class ProductFormPresenter(private val view: ProductFormContract.View)
         view.setUpdateMode(product)
     }
 
-    override fun addProduct(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+    override fun addProduct(id:  Long?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
                              createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
         validateInput(id, name, buyPrice, sellPrice, notes, createdDate, updatedDate, isEditMode)
     }
 
-    override fun updateProduct(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+    override fun updateProduct(id: Long?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
                                 createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
         validateInput(id, name, buyPrice, sellPrice, notes, createdDate, updatedDate, isEditMode)
     }
 
-    override fun validateInput(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+    override fun validateInput(id: Long?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
                                createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
 
         var isNameValidate = false
@@ -54,24 +54,33 @@ class ProductFormPresenter(private val view: ProductFormContract.View)
 
         if (isNameValidate ) {
             val product = Product(id, name, buyPrice, sellPrice, notes, createdDate, updatedDate)
+            Log.d("TES", product.toString())
 
-            apiService.saveProduct(product.name!!, product.purchase_price!!, product.sell_price!!, product.info!!)
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            {savedProduct->
-                                if (!isEditMode){
+            if (!isEditMode){
+                apiService.saveProduct(product.name!!, product.purchase_price!!, product.sell_price!!, product.info!!)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {savedProduct->
                                     view.showAddProductSuccess(savedProduct)
-                                } else {
-                                    view.showUpdateProductSuccess(savedProduct)
-                                }
-                            },
-                            {error->
-                                Log.e("Error", error.message)
-                            })
+                                },
+                                {error->
+                                    Log.e("Error", error.message)
+                                })
+            } else {
+                apiService.updateProduct(product.id!!, product.name!!, product.purchase_price!!, product.sell_price!!, product.info!!)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {updatedProduct->
+                                    view.showUpdateProductSuccess(updatedProduct)
+                                },
+                                {error->
+                                    Log.e("Error", error.message)
+                                })
+            }
         } else {
             view.showErrorInput(isNameValidate)
         }
     }
-
 }
