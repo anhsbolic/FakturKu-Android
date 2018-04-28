@@ -39,6 +39,7 @@ class ProductPresenter(private val view: ProductContract.View)
                             { productList ->
                                 //SHOW DATA
                                 if (!productList.data.isEmpty()){
+                                    view.setTotalPage(productList.lastPage)
                                     view.showProductList(productList.data)
                                     view.hidePlaceholder()
                                     view.hideProgress()

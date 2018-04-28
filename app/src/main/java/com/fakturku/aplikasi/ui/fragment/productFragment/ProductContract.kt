@@ -17,6 +17,8 @@ interface ProductContract{
 
         fun showProductList(productList: MutableList<Product>)
 
+        fun setTotalPage(totalPage: Int)
+
         fun showProductDetails(product: Product)
 
         fun openAddProductPage()

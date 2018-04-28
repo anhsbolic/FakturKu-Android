@@ -3,6 +3,7 @@ package com.fakturku.aplikasi.ui.fragment.productFragment
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -32,6 +33,10 @@ class ProductFragment : Fragment(), ProductContract.View {
     private lateinit var animator: DefaultItemAnimator
     private lateinit var dividerItemDecoration: DividerItemDecoration
 
+    private var isLoadingData: Boolean = false
+    private var page: Int = 1
+    private var maxPage: Int = 0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         if(isFragmentWasVisited){
@@ -54,7 +59,7 @@ class ProductFragment : Fragment(), ProductContract.View {
         initRecyclerView()
 
         //Load Init Data
-        presenter.loadProductListData(1)
+        presenter.loadProductListData(page)
 
         //UI handling & listener
         productFabAddProduct.setOnClickListener { presenter.addProduct()}
@@ -77,30 +82,45 @@ class ProductFragment : Fragment(), ProductContract.View {
         productRv.itemAnimator = animator
         productRv.addItemDecoration(dividerItemDecoration)
         productRv.setHasFixedSize(true)
-/*
+
         val colorPrimaryDark = ContextCompat.getColor(activity as DashboardActivity, R.color.colorPrimaryDark)
-        costumerListSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
-        costumerListSwipeRefreshLayout.setOnRefreshListener {
+        productSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
+        productSwipeRefreshLayout.setOnRefreshListener {
             if (!isLoadingData){
                 if((activity as DashboardActivity).isNetworkAvailable()){
-                    loadThenSetMosqueData(lastDataTime)
+                    page++
+
+                    if (page <= maxPage) {
+                        presenter.loadProductListData(page)
+                    } else {
+                        productSwipeRefreshLayout.isRefreshing = false
+                        Toast.makeText(activity, "Semua data sudah ditampilkan",
+                                Toast.LENGTH_SHORT).show()
+                        productSwipeRefreshLayout.isEnabled = false
+                    }
                 }else{
-                    addMosqueSwipeRefreshLayout.isRefreshing = false
-                    showSnackBar("Periksa Koneksi Internet Anda ...",
-                            Snackbar.LENGTH_LONG,300)
+                    productSwipeRefreshLayout.isRefreshing = false
+                    //                    showSnackBar("Periksa Koneksi Internet Anda ...",
+                    //                            Snackbar.LENGTH_LONG,300)
                 }
             }
         }
-
-*/
     }
 
     override fun showProgress() {
-        productProgressLayout.visibility = View.VISIBLE
+        isLoadingData = true
+        if (page < 2) {
+            productProgressLayout.visibility = View.VISIBLE
+        }
     }
 
     override fun hideProgress() {
-        productProgressLayout.visibility = View.GONE
+        isLoadingData = false
+        if (page > 1) {
+            productSwipeRefreshLayout.isRefreshing = false
+        } else {
+            productProgressLayout.visibility = View.GONE
+        }
     }
 
     override fun showPlaceholder() {
@@ -123,6 +143,10 @@ class ProductFragment : Fragment(), ProductContract.View {
                 }
             }
         }
+    }
+
+    override fun setTotalPage(totalPage: Int) {
+        maxPage = totalPage
     }
 
     override fun showProductDetails(product: Product) {
