@@ -13,7 +13,7 @@ interface ProductDetailsContract{
     }
 
     interface Presenter{
-        fun delete(product: Product)
+        fun delete(userId: Long, product: Product)
 
         fun update(product: Product)
     }

@@ -29,8 +29,8 @@ class ProductDetailsPresenter(private val view : ProductDetailsContract.View)
             ApiService::class.java)
 
 
-    override fun delete(product: Product) {
-        apiService.deleteProduct(product.id!!)
+    override fun delete(userId: Long, product: Product) {
+        apiService.deleteProduct(userId, product.id!!)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

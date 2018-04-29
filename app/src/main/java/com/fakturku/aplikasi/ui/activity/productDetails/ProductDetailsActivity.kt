@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_product_details.*
 class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View {
 
     private lateinit var presenter: ProductDetailsPresenter
+    private var userId: Long = 0
     private lateinit var product: Product
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,11 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
 
         //init presenter
         presenter = ProductDetailsPresenter(this@ProductDetailsActivity)
+
+        //Get User Id
+        if (intent.hasExtra(INTENT_USER_ID)) {
+            userId = intent.getLongExtra(INTENT_USER_ID, 0)
+        }
 
         //Get Intent Data
         if (intent.hasExtra(INTENT_DATA_PRODUCT)) {
@@ -59,7 +65,7 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
                 AlertDialog.Builder(this@ProductDetailsActivity)
                         .setMessage(strMsg)
                         .setPositiveButton(yesMsg,{ _ , _ ->
-                            presenter.delete(product)
+                            presenter.delete(userId, product)
                         })
                         .setNegativeButton(noMsg, null)
                         .show()
@@ -99,6 +105,7 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
     }
 
     companion object {
+        const val INTENT_USER_ID: String = "IntentUserId"
         const val INTENT_DATA_PRODUCT: String = "IntentDataProduct"
     }
 }

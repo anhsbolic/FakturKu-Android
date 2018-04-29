@@ -7,26 +7,30 @@ import retrofit2.http.*
 
 interface ApiService{
 
-    @GET("product")
-    fun getProductList(@Query("page") page: Int): Observable<ProductList>
+    @GET("user/{userId}/product")
+    fun getProductList(@Path("userId") userId: Long,
+                       @Query("page") page: Int): Observable<ProductList>
 
     @FormUrlEncoded
-    @POST("product")
-    fun saveProduct(@Field("name") name: String,
+    @POST("user/{userId}/product")
+    fun saveProduct(@Path("userId") userId: Long,
+                    @Field("name") name: String,
                     @Field("purchase_price") purchasePrice: Int,
                     @Field("sell_price") sellPrice: Int,
                     @Field("info") info: String): Observable<Product>
 
     @FormUrlEncoded
-    @PUT("product/{id}")
-    fun updateProduct(@Path("id") id: Long,
+    @PUT("user/{userId}/product/{productId}")
+    fun updateProduct(@Path("userId") userId: Long,
+                      @Path("productId") productId: Long,
                       @Field("name") name: String,
                       @Field("purchase_price") purchasePrice: Int,
                       @Field("sell_price") sellPrice: Int,
                       @Field("info") info: String): Observable<Product>
 
-    @DELETE("product/{id}")
-    fun deleteProduct(@Path("id") id: Long): Observable<Product>
+    @DELETE("user/{userId}/product/{productId}")
+    fun deleteProduct(@Path("userId") userId: Long,
+                      @Path("productId") productId: Long): Observable<Product>
 
 }
 

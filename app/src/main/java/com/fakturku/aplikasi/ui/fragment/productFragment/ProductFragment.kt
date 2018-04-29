@@ -29,6 +29,8 @@ class ProductFragment : Fragment(), ProductContract.View {
     private lateinit var presenter: ProductPresenter
     private var isFragmentWasVisited: Boolean = false
 
+    private var userId: Long = 0
+
     private var dataProductList: MutableList<Product> = ArrayList()
     private lateinit var adapterRvProductList: RecyclerView.Adapter<*>
     private lateinit var lmRvProductList: LinearLayoutManager
@@ -54,6 +56,9 @@ class ProductFragment : Fragment(), ProductContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //get User Id
+        userId = (activity as DashboardActivity).getUserId()
+
         //init presenter
         presenter = ProductPresenter(this@ProductFragment)
 
@@ -61,16 +66,16 @@ class ProductFragment : Fragment(), ProductContract.View {
         initRecyclerView()
 
         //Load Init Data
-        presenter.loadProductListData(page)
+        presenter.loadProductListData(userId, page)
 
         //UI handling & listener
-        productFabAddProduct.setOnClickListener { presenter.addProduct()}
+        productFabAddProduct.setOnClickListener { presenter.addProduct(userId)}
     }
 
     override fun initRecyclerView() {
         adapterRvProductList = ProductListAdapter(dataProductList, object : ProductListAdapter.OnItemClickListener{
             override fun onItemClick(product: Product) {
-                presenter.seeProductDetails(product)
+                presenter.seeProductDetails(userId, product)
             }
         })
         lmRvProductList = LinearLayoutManager(activity)
@@ -92,7 +97,7 @@ class ProductFragment : Fragment(), ProductContract.View {
                 if((activity as DashboardActivity).isNetworkAvailable()){
                     page++
                     if (page <= maxPage) {
-                        presenter.loadProductListData(page)
+                        presenter.loadProductListData(userId, page)
                     } else {
                         productSwipeRefreshLayout.isRefreshing = false
                         showSnackBar("Semua data sudah ditampilkan", 300)
@@ -148,19 +153,22 @@ class ProductFragment : Fragment(), ProductContract.View {
         maxPage = totalPage
     }
 
-    override fun showProductDetails(product: Product) {
+    override fun showProductDetails(userId: Long, product: Product) {
         val intentSupplierDetails = Intent(activity, ProductDetailsActivity::class.java)
+        intentSupplierDetails.putExtra(ProductDetailsActivity.INTENT_USER_ID, userId)
         intentSupplierDetails.putExtra(ProductDetailsActivity.INTENT_DATA_PRODUCT, product)
         startActivityForResult(intentSupplierDetails, INTENT_PRODUCT_DETAILS_CODE)
     }
 
-    override fun openAddProductPage() {
+    override fun openAddProductPage(userId: Long) {
         val intentAddProduct = Intent(activity, ProductFormActivity::class.java)
+        intentAddProduct.putExtra(ProductFormActivity.INTENT_USER_ID, userId)
         startActivityForResult(intentAddProduct, INTENT_ADD_PRODUCT_CODE)
     }
 
-    override fun openUpdateProductPage(product: Product) {
+    override fun openUpdateProductPage(userId: Long, product: Product) {
         val intentUpdateProduct = Intent(activity, ProductFormActivity::class.java)
+        intentUpdateProduct.putExtra(ProductFormActivity.INTENT_USER_ID, userId)
         intentUpdateProduct.putExtra(ProductFormActivity.INTENT_PRODUCT_DATA, product)
         startActivityForResult(intentUpdateProduct, INTENT_UPDATE_PRODUCT_CODE)
     }
@@ -172,7 +180,7 @@ class ProductFragment : Fragment(), ProductContract.View {
                     INTENT_PRODUCT_DETAILS_UPDATE->{
                         if (data != null) {
                             val product: Product = data.getParcelableExtra(INTENT_PRODUCT_DETAILS_UPDATE_DATA)
-                            presenter.updateProduct(product)
+                            presenter.updateProduct(userId, product)
                         }
                     }
                     INTENT_PRODUCT_DETAILS_DELETE->{

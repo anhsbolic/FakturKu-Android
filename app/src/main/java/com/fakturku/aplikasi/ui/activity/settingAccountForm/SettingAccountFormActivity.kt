@@ -121,7 +121,7 @@ class SettingAccountFormActivity : AppCompatActivity(), SettingAccountFormContra
         }
 
         presenter.saveUpdateUserData(
-                id,
+                id.toString(),
                 name,
                 phone,
                 email,

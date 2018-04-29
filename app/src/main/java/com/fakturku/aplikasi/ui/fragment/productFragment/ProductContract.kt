@@ -19,20 +19,20 @@ interface ProductContract{
 
         fun setTotalPage(totalPage: Int)
 
-        fun showProductDetails(product: Product)
+        fun showProductDetails(userId: Long, product: Product)
 
-        fun openAddProductPage()
+        fun openAddProductPage(userId: Long)
 
-        fun openUpdateProductPage(product: Product)
+        fun openUpdateProductPage(userId: Long, product: Product)
     }
 
     interface Presenter{
-        fun loadProductListData(page: Int)
+        fun loadProductListData(userId: Long, page: Int)
 
-        fun addProduct()
+        fun addProduct(userId: Long)
 
-        fun updateProduct(product: Product)
+        fun updateProduct(userId: Long, product: Product)
 
-        fun seeProductDetails(product: Product)
+        fun seeProductDetails(userId: Long, product: Product)
     }
 }

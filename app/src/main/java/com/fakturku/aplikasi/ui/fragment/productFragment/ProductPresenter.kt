@@ -28,11 +28,11 @@ class ProductPresenter(private val view: ProductContract.View)
     private val apiService: ApiService = retrofit.create(
             ApiService::class.java)
 
-    override fun loadProductListData(page: Int) {
+    override fun loadProductListData(userId: Long, page: Int) {
         view.showProgress()
 
         Handler().postDelayed({
-            apiService.getProductList(page)
+            apiService.getProductList(userId, page)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -54,16 +54,16 @@ class ProductPresenter(private val view: ProductContract.View)
         }, 1200)
     }
 
-    override fun addProduct() {
-        view.openAddProductPage()
+    override fun addProduct(userId: Long) {
+        view.openAddProductPage(userId)
     }
 
-    override fun updateProduct(product: Product) {
-        view.openUpdateProductPage(product)
+    override fun updateProduct(userId: Long, product: Product) {
+        view.openUpdateProductPage(userId, product)
     }
 
-    override fun seeProductDetails(product: Product) {
-        view.showProductDetails(product)
+    override fun seeProductDetails(userId: Long, product: Product) {
+        view.showProductDetails(userId, product)
     }
 
     companion object {
