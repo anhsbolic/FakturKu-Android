@@ -320,6 +320,10 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return user
     }
 
+    fun getUserId(): Long{
+        return user.id!!
+    }
+
     fun showKeyboard(showKeyboard: Boolean){
         (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
                 .hideSoftInputFromWindow(currentFocus!!.windowToken,

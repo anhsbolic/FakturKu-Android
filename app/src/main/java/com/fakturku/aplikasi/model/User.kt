@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Keep
 @Parcelize
-data class User(@SerializedName("id") @Expose var id: String?,
+data class User(@SerializedName("id") @Expose var id: Long?,
                 @SerializedName("name") @Expose var name : String?,
                 @SerializedName("phone") @Expose var phone : String?,
                 @SerializedName("email") @Expose var email : String?,
