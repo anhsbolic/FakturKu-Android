@@ -19,13 +19,13 @@ interface ProductFormContract{
 
         fun setUpdateMode(product: Product)
 
-        fun addProduct(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+        fun addProduct(userId: Long, productId: Long?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
                         createdDate: String?, updatedDate: String?, isEditMode: Boolean)
 
-        fun updateProduct(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+        fun updateProduct(userId: Long, productId: Long?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
                            createdDate: String?, updatedDate: String?, isEditMode: Boolean)
 
-        fun validateInput(id: String?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+        fun validateInput(userId: Long, productId: Long?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
                           createdDate: String?, updatedDate: String?, isEditMode: Boolean)
 
     }

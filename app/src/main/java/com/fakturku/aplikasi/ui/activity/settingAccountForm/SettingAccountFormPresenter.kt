@@ -33,7 +33,7 @@ class SettingAccountFormPresenter(private val view : SettingAccountFormContract.
                 } else {
                     view.showErrorEtCompanyEmail(isInEmailFormat)
                     val user = User(
-                            id,
+                            id!!.toLong(),
                             name,
                             phone,
                             email,
@@ -55,7 +55,7 @@ class SettingAccountFormPresenter(private val view : SettingAccountFormContract.
 
         } else {
             val user = User(
-                    id,
+                    id!!.toLong(),
                     name,
                     phone,
                     email,

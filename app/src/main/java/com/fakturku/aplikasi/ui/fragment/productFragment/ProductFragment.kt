@@ -2,7 +2,10 @@ package com.fakturku.aplikasi.ui.fragment.productFragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -26,11 +29,17 @@ class ProductFragment : Fragment(), ProductContract.View {
     private lateinit var presenter: ProductPresenter
     private var isFragmentWasVisited: Boolean = false
 
+    private var userId: Long = 0
+
     private var dataProductList: MutableList<Product> = ArrayList()
     private lateinit var adapterRvProductList: RecyclerView.Adapter<*>
     private lateinit var lmRvProductList: LinearLayoutManager
     private lateinit var animator: DefaultItemAnimator
     private lateinit var dividerItemDecoration: DividerItemDecoration
+
+    private var isLoadingData: Boolean = false
+    private var page: Int = 1
+    private var maxPage: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -47,6 +56,9 @@ class ProductFragment : Fragment(), ProductContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //get User Id
+        userId = (activity as DashboardActivity).getUserId()
+
         //init presenter
         presenter = ProductPresenter(this@ProductFragment)
 
@@ -54,16 +66,16 @@ class ProductFragment : Fragment(), ProductContract.View {
         initRecyclerView()
 
         //Load Init Data
-        presenter.loadProductListData(1)
+        presenter.loadProductListData(userId, page)
 
         //UI handling & listener
-        productFabAddProduct.setOnClickListener { presenter.addProduct()}
+        productFabAddProduct.setOnClickListener { presenter.addProduct(userId)}
     }
 
     override fun initRecyclerView() {
         adapterRvProductList = ProductListAdapter(dataProductList, object : ProductListAdapter.OnItemClickListener{
             override fun onItemClick(product: Product) {
-                presenter.seeProductDetails(product)
+                presenter.seeProductDetails(userId, product)
             }
         })
         lmRvProductList = LinearLayoutManager(activity)
@@ -77,30 +89,42 @@ class ProductFragment : Fragment(), ProductContract.View {
         productRv.itemAnimator = animator
         productRv.addItemDecoration(dividerItemDecoration)
         productRv.setHasFixedSize(true)
-/*
+
         val colorPrimaryDark = ContextCompat.getColor(activity as DashboardActivity, R.color.colorPrimaryDark)
-        costumerListSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
-        costumerListSwipeRefreshLayout.setOnRefreshListener {
+        productSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
+        productSwipeRefreshLayout.setOnRefreshListener {
             if (!isLoadingData){
                 if((activity as DashboardActivity).isNetworkAvailable()){
-                    loadThenSetMosqueData(lastDataTime)
+                    page++
+                    if (page <= maxPage) {
+                        presenter.loadProductListData(userId, page)
+                    } else {
+                        productSwipeRefreshLayout.isRefreshing = false
+                        showSnackBar("Semua data sudah ditampilkan", 300)
+                        productSwipeRefreshLayout.isEnabled = false
+                    }
                 }else{
-                    addMosqueSwipeRefreshLayout.isRefreshing = false
-                    showSnackBar("Periksa Koneksi Internet Anda ...",
-                            Snackbar.LENGTH_LONG,300)
+                    productSwipeRefreshLayout.isRefreshing = false
+                    showSnackBar("Periksa Koneksi Internet Anda ...",300)
                 }
             }
         }
-
-*/
     }
 
     override fun showProgress() {
-        productProgressLayout.visibility = View.VISIBLE
+        isLoadingData = true
+        if (page < 2) {
+            productProgressLayout.visibility = View.VISIBLE
+        }
     }
 
     override fun hideProgress() {
-        productProgressLayout.visibility = View.GONE
+        isLoadingData = false
+        if (page > 1) {
+            productSwipeRefreshLayout.isRefreshing = false
+        } else {
+            productProgressLayout.visibility = View.GONE
+        }
     }
 
     override fun showPlaceholder() {
@@ -125,19 +149,26 @@ class ProductFragment : Fragment(), ProductContract.View {
         }
     }
 
-    override fun showProductDetails(product: Product) {
+    override fun setTotalPage(totalPage: Int) {
+        maxPage = totalPage
+    }
+
+    override fun showProductDetails(userId: Long, product: Product) {
         val intentSupplierDetails = Intent(activity, ProductDetailsActivity::class.java)
+        intentSupplierDetails.putExtra(ProductDetailsActivity.INTENT_USER_ID, userId)
         intentSupplierDetails.putExtra(ProductDetailsActivity.INTENT_DATA_PRODUCT, product)
         startActivityForResult(intentSupplierDetails, INTENT_PRODUCT_DETAILS_CODE)
     }
 
-    override fun openAddProductPage() {
+    override fun openAddProductPage(userId: Long) {
         val intentAddProduct = Intent(activity, ProductFormActivity::class.java)
+        intentAddProduct.putExtra(ProductFormActivity.INTENT_USER_ID, userId)
         startActivityForResult(intentAddProduct, INTENT_ADD_PRODUCT_CODE)
     }
 
-    override fun openUpdateProductPage(product: Product) {
+    override fun openUpdateProductPage(userId: Long, product: Product) {
         val intentUpdateProduct = Intent(activity, ProductFormActivity::class.java)
+        intentUpdateProduct.putExtra(ProductFormActivity.INTENT_USER_ID, userId)
         intentUpdateProduct.putExtra(ProductFormActivity.INTENT_PRODUCT_DATA, product)
         startActivityForResult(intentUpdateProduct, INTENT_UPDATE_PRODUCT_CODE)
     }
@@ -149,7 +180,7 @@ class ProductFragment : Fragment(), ProductContract.View {
                     INTENT_PRODUCT_DETAILS_UPDATE->{
                         if (data != null) {
                             val product: Product = data.getParcelableExtra(INTENT_PRODUCT_DETAILS_UPDATE_DATA)
-                            presenter.updateProduct(product)
+                            presenter.updateProduct(userId, product)
                         }
                     }
                     INTENT_PRODUCT_DETAILS_DELETE->{
@@ -174,6 +205,12 @@ class ProductFragment : Fragment(), ProductContract.View {
             else->{ super.onActivityResult(requestCode, resultCode, data) }
         }
 
+    }
+
+    private fun showSnackBar(msg: String, delayTime: Long){
+        Handler().postDelayed({
+            Snackbar.make(productCoordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
+        }, delayTime)
     }
 
     companion object {

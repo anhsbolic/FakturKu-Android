@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_product_form.*
 
 class ProductFormActivity : AppCompatActivity(), ProductFormContract.View {
 
+    private var userId: Long = 0
     private lateinit var presenter: ProductFormPresenter
     private var isUpdateProductMode: Boolean = false
     private lateinit var product: Product
@@ -28,6 +29,11 @@ class ProductFormActivity : AppCompatActivity(), ProductFormContract.View {
 
         //Init Presenter
         presenter = ProductFormPresenter(this@ProductFormActivity)
+
+        //Get User Id
+        if (intent.hasExtra(INTENT_USER_ID)) {
+            userId = intent.getLongExtra(INTENT_USER_ID,0)
+        }
 
         //check intent data & mode
         if (intent.hasExtra(INTENT_PRODUCT_DATA)) {
@@ -53,11 +59,11 @@ class ProductFormActivity : AppCompatActivity(), ProductFormContract.View {
             }
 
             if (!isUpdateProductMode) {
-                presenter.addProduct(null, name, intBuyPrice, intSellPrice, notes,
+                presenter.addProduct(userId, null, name, intBuyPrice, intSellPrice, notes,
                         null, null, isUpdateProductMode)
             } else {
-                presenter.updateProduct(product.id, name, intBuyPrice, intSellPrice, notes,
-                        product.created_date, null, isUpdateProductMode)
+                presenter.updateProduct(userId, product.id, name, intBuyPrice, intSellPrice, notes,
+                        product.created_at, null, isUpdateProductMode)
             }
         }
     }
@@ -89,9 +95,9 @@ class ProductFormActivity : AppCompatActivity(), ProductFormContract.View {
 
         //Update UI
         productFormName.setText(product.name)
-        productFormBuyPrice.setText(product.buy_price.toString())
+        productFormBuyPrice.setText(product.purchase_price.toString())
         productFormSellPrice.setText(product.sell_price.toString())
-        productFormNotes.setText(product.notes)
+        productFormNotes.setText(product.info)
         val strUpdate = "Update"
         productFormBtnSave.text = strUpdate
     }
@@ -127,6 +133,7 @@ class ProductFormActivity : AppCompatActivity(), ProductFormContract.View {
     }
 
     companion object {
+        const val INTENT_USER_ID: String = "IntentUserId"
         const val INTENT_PRODUCT_DATA: String = "IntentProductData"
     }
 }

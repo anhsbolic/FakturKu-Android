@@ -19,10 +19,10 @@ class SplashScreenActivity : AppCompatActivity() {
         Handler().postDelayed({
             if(isLogin()){
                 val user = User(
-                        null,
-                        "Hilman Firdaus",
+                        1,
+                        "Anhar Solehudin",
                         "+12345678910",
-                        "hilmanfirdaus@gmail.com",
+                        "anharsolehudin@gmail.com",
                         null,
                         null,
                         null,

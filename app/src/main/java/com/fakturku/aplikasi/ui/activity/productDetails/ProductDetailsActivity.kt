@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_product_details.*
 class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View {
 
     private lateinit var presenter: ProductDetailsPresenter
+    private var userId: Long = 0
     private lateinit var product: Product
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,11 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
 
         //init presenter
         presenter = ProductDetailsPresenter(this@ProductDetailsActivity)
+
+        //Get User Id
+        if (intent.hasExtra(INTENT_USER_ID)) {
+            userId = intent.getLongExtra(INTENT_USER_ID, 0)
+        }
 
         //Get Intent Data
         if (intent.hasExtra(INTENT_DATA_PRODUCT)) {
@@ -59,7 +65,7 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
                 AlertDialog.Builder(this@ProductDetailsActivity)
                         .setMessage(strMsg)
                         .setPositiveButton(yesMsg,{ _ , _ ->
-                            presenter.delete(product)
+                            presenter.delete(userId, product)
                         })
                         .setNegativeButton(noMsg, null)
                         .show()
@@ -74,7 +80,7 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
 
     override fun setProductData(product: Product) {
         productDetailsName.text = product.name
-        val buyPrice = product.buy_price
+        val buyPrice = product.purchase_price
         if (buyPrice != null){
             productDetailsBuyPrice.text = MyCurrencyFormat.rupiah(buyPrice)
         }
@@ -82,7 +88,7 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
         if (sellPrice != null){
             productDetailsSellPrice.text = MyCurrencyFormat.rupiah(sellPrice)
         }
-        productDetailsNotes.text = product.notes
+        productDetailsNotes.text = product.info
     }
 
     override fun update(product: Product) {
@@ -99,6 +105,7 @@ class ProductDetailsActivity : AppCompatActivity(), ProductDetailsContract.View 
     }
 
     companion object {
+        const val INTENT_USER_ID: String = "IntentUserId"
         const val INTENT_DATA_PRODUCT: String = "IntentDataProduct"
     }
 }
