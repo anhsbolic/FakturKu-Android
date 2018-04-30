@@ -49,7 +49,7 @@ class AddItemListAdapter(private val dataItemList: List<Product>,
         val price = holder.etPrice.text.toString().toInt()
         val total = totalItem * price
         onItemUpdate.onTotalUpdate(total, position)
-        val strTotal = MyCurrencyFormat.rupiah(total)
+        val strTotal = MyCurrencyFormat.rupiah(total.toLong())
         holder.txtTotal.text = strTotal
 
         //Calculate Total
@@ -72,7 +72,7 @@ class AddItemListAdapter(private val dataItemList: List<Product>,
 
                     val intTotal = intTotalItem * intPrice
                     onItemUpdate.onTotalUpdate(intTotal, position)
-                    val txtTotal = MyCurrencyFormat.rupiah(intTotal)
+                    val txtTotal = MyCurrencyFormat.rupiah(intTotal.toLong())
                     holder.txtTotal.text = txtTotal
                 }
             }
@@ -105,7 +105,7 @@ class AddItemListAdapter(private val dataItemList: List<Product>,
 
                     val intTotal = intTotalItem * intPrice
                     onItemUpdate.onTotalUpdate(intTotal, position)
-                    val txtTotal = MyCurrencyFormat.rupiah(intTotal)
+                    val txtTotal = MyCurrencyFormat.rupiah(intTotal.toLong())
                     holder.txtTotal.text = txtTotal
                 }
             }

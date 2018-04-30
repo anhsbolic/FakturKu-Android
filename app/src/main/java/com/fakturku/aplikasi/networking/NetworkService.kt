@@ -15,8 +15,8 @@ interface ApiService{
     @POST("user/{userId}/product")
     fun saveProduct(@Path("userId") userId: Long,
                     @Field("name") name: String,
-                    @Field("purchase_price") purchasePrice: Int,
-                    @Field("sell_price") sellPrice: Int,
+                    @Field("purchase_price") purchasePrice: Long,
+                    @Field("sell_price") sellPrice: Long,
                     @Field("info") info: String): Observable<Product>
 
     @FormUrlEncoded
@@ -24,8 +24,8 @@ interface ApiService{
     fun updateProduct(@Path("userId") userId: Long,
                       @Path("productId") productId: Long,
                       @Field("name") name: String,
-                      @Field("purchase_price") purchasePrice: Int,
-                      @Field("sell_price") sellPrice: Int,
+                      @Field("purchase_price") purchasePrice: Long,
+                      @Field("sell_price") sellPrice: Long,
                       @Field("info") info: String): Observable<Product>
 
     @DELETE("user/{userId}/product/{productId}")

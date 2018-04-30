@@ -48,21 +48,21 @@ class ProductFormActivity : AppCompatActivity(), ProductFormContract.View {
             val sellPrice = productFormSellPrice.text.toString()
             val notes = productFormNotes.text.toString()
 
-            var intBuyPrice: Int? = null
+            var longBuyPrice: Long? = null
             if (buyPrice.isNotEmpty()){
-                intBuyPrice = buyPrice.toInt()
+                longBuyPrice = buyPrice.toLong()
             }
 
-            var intSellPrice: Int? = null
+            var longSellPrice: Long? = null
             if (sellPrice.isNotEmpty()){
-                intSellPrice = sellPrice.toInt()
+                longSellPrice = sellPrice.toLong()
             }
 
             if (!isUpdateProductMode) {
-                presenter.addProduct(userId, null, name, intBuyPrice, intSellPrice, notes,
+                presenter.addProduct(userId, null, name, longBuyPrice, longSellPrice, notes,
                         null, null, isUpdateProductMode)
             } else {
-                presenter.updateProduct(userId, product.id, name, intBuyPrice, intSellPrice, notes,
+                presenter.updateProduct(userId, product.id, name, longBuyPrice, longSellPrice, notes,
                         product.created_at, null, isUpdateProductMode)
             }
         }

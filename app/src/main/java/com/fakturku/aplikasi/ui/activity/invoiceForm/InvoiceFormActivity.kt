@@ -310,21 +310,21 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
     override fun showSubtotal(intSubtotal: Int) {
         subtotal = intSubtotal
-        val strSubtotal = MyCurrencyFormat.rupiah(intSubtotal)
+        val strSubtotal = MyCurrencyFormat.rupiah(intSubtotal.toLong())
         invoiceFormTxtSubTotal.text = strSubtotal
         presenter.calculateTotal(subtotal, tax)
     }
 
     override fun showTotal(intTotal: Int) {
         total = intTotal
-        val strTotal = MyCurrencyFormat.rupiah(total)
+        val strTotal = MyCurrencyFormat.rupiah(total.toLong())
         invoiceFormTxtTotal.text = strTotal
         presenter.calculateDueAmount(total, paid)
     }
 
     override fun showDueAmount(intDueAmount: Int) {
         dueAmount = intDueAmount
-        val strDueAmount = MyCurrencyFormat.rupiah(dueAmount)
+        val strDueAmount = MyCurrencyFormat.rupiah(dueAmount.toLong())
         invoiceFormTxtDueAmount.text = strDueAmount
     }
 
@@ -386,3 +386,4 @@ class InvoiceFormActivity : AppCompatActivity(), InvoiceFormContract.View {
 
     }
 }
+//TODO : Change Int To Long

@@ -128,13 +128,13 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
             2->{ invoiceDetailsTxtName.text = invoice.supplier }
         }
 
-        invoiceDetailsTxtSubTotal.text = MyCurrencyFormat.rupiah(total!!)
+        invoiceDetailsTxtSubTotal.text = MyCurrencyFormat.rupiah(total!!.toLong())
         val taxPercent = "$tax%"
         invoiceDetailsTxtTaxPercent.text = taxPercent
-        invoiceDetailsTxtTotal.text = MyCurrencyFormat.rupiah(total!!)
+        invoiceDetailsTxtTotal.text = MyCurrencyFormat.rupiah(total!!.toLong())
         invoiceDetailsTxtTax.text = MyCurrencyFormat.rupiah(0)
         invoiceDetailsTxtPaid.text = MyCurrencyFormat.rupiah(0)
-        invoiceDetailsTxtDueAmount.text = MyCurrencyFormat.rupiah(total!!)
+        invoiceDetailsTxtDueAmount.text = MyCurrencyFormat.rupiah(total!!.toLong())
 
         //FAKE ITEM
         val productList: MutableList<Product> = ArrayList()
@@ -245,3 +245,4 @@ class InvoiceDetailsActivity : AppCompatActivity(), InvoiceDetailsContract.View 
         const val INTENT_DATA_INVOICE = "IntentDataInvoice"
     }
 }
+//TODO : Change int to Long
