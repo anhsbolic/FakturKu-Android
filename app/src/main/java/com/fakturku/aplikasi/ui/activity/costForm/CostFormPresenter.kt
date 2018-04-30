@@ -9,15 +9,18 @@ class CostFormPresenter(private val view : CostFormContract.View)
         view.setUpdateMode(cost)
     }
 
-    override fun addCost(id: String?, name: String, costPrice: Int?, notes: String?, createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
-        validateInput(id, name, costPrice, notes, createdDate, updatedDate, isEditMode)
+    override fun addCost(id: Long?, name: String, unitPrice: Long?, info: String?, createdDate: String?,
+                         updatedDate: String?, isEditMode: Boolean) {
+        validateInput(id, name, unitPrice, info, createdDate, updatedDate, isEditMode)
     }
 
-    override fun updateCost(id: String?, name: String, costPrice: Int?, notes: String?, createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
-        validateInput(id, name, costPrice, notes, createdDate, updatedDate, isEditMode)
+    override fun updateCost(id: Long?, name: String, unitPrice: Long?, info: String?, createdDate: String?,
+                            updatedDate: String?, isEditMode: Boolean) {
+        validateInput(id, name, unitPrice, info, createdDate, updatedDate, isEditMode)
     }
 
-    override fun validateInput(id: String?, name: String, costPrice: Int?, notes: String?, createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
+    override fun validateInput(id: Long?, name: String, unitPrice: Long?, info: String?, createdDate: String?,
+                               updatedDate: String?, isEditMode: Boolean) {
         var isNameValid = false
 
         if (name.isNotEmpty()){
@@ -25,7 +28,7 @@ class CostFormPresenter(private val view : CostFormContract.View)
         }
 
         if (isNameValid ) {
-            val cost = Cost(id, name, costPrice, notes, createdDate, updatedDate)
+            val cost = Cost(id, name, unitPrice, info, createdDate, updatedDate)
 
             if (!isEditMode){
                 view.showAddCostSuccess(cost)

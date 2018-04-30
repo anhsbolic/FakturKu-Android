@@ -38,20 +38,20 @@ class CostFormActivity : AppCompatActivity(), CostFormContract.View {
         //UI handling & listener
         costFormBtnSave.setOnClickListener {
             val name = costFormName.text.toString()
-            val costPrice = costFormCostPrice.text.toString()
-            val notes = costFormNotes.text.toString()
+            val unitPrice = costFormCostPrice.text.toString()
+            val info = costFormNotes.text.toString()
 
-            var intCostPrice: Int? = null
-            if (costPrice.isNotEmpty()){
-                intCostPrice = costPrice.toInt()
+            var longCostPrice: Long? = null
+            if (unitPrice.isNotEmpty()){
+                longCostPrice = unitPrice.toLong()
             }
 
             if (!isUpdateCostMode) {
-                presenter.addCost(null, name, intCostPrice, notes,
+                presenter.addCost(null, name, longCostPrice, info,
                         null, null, isUpdateCostMode)
             } else {
-                presenter.updateCost(cost.id, name, intCostPrice, notes,
-                        cost.created_date, null, isUpdateCostMode)
+                presenter.updateCost(cost.id, name, longCostPrice, info,
+                        cost.created_at, null, isUpdateCostMode)
             }
         }
 
@@ -84,8 +84,8 @@ class CostFormActivity : AppCompatActivity(), CostFormContract.View {
 
         //Update UI
         costFormName.setText(cost.name)
-        costFormCostPrice.setText(cost.cost_price.toString())
-        costFormNotes.setText(cost.notes)
+        costFormCostPrice.setText(cost.unit_cost.toString())
+        costFormNotes.setText(cost.info)
         val strUpdate = "Update"
         costFormBtnSave.text = strUpdate
     }

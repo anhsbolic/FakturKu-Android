@@ -95,11 +95,11 @@ class CostFragment : Fragment(), CostContract.View {
     }
 
     override fun showProgress() {
-        costProgressLayout.visibility = View.VISIBLE
+        costProgressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        costProgressLayout.visibility = View.GONE
+        costProgressBar.visibility = View.GONE
     }
 
     override fun showPlaceholder() {

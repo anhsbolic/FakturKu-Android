@@ -74,12 +74,11 @@ class CostDetailsActivity : AppCompatActivity(), CostDetailsContract.View {
 
     override fun setCostData(cost: Cost) {
         costDetailsName.text = cost.name
-        val costPrice = cost.cost_price
+        val costPrice = cost.unit_cost
         if (costPrice != null){
-            costDetailsCostPrice.text = MyCurrencyFormat.rupiah(costPrice.toLong())
-//TODO : Change int to long
+            costDetailsCostPrice.text = MyCurrencyFormat.rupiah(costPrice)
         }
-        costDetailsNotes.text = cost.notes
+        costDetailsNotes.text = cost.info
     }
 
     override fun update(cost: Cost) {

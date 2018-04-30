@@ -8,12 +8,12 @@ import kotlinx.android.parcel.Parcelize
 
 @Keep
 @Parcelize
-data class Cost(@SerializedName("id") @Expose var id: String?,
+data class Cost(@SerializedName("id") @Expose var id: Long?,
                 @SerializedName("name") @Expose var name : String?,
-                @SerializedName("cost_price") @Expose var cost_price : Int?,
-                @SerializedName("notes") @Expose var notes : String?,
-                @SerializedName("created_date") @Expose var created_date : String?,
-                @SerializedName("updated_date") @Expose var updated_date : String?) : Parcelable {
+                @SerializedName("unit_cost") @Expose var unit_cost : Long?,
+                @SerializedName("info") @Expose var info : String?,
+                @SerializedName("created_at") @Expose var created_at : String?,
+                @SerializedName("updated_at") @Expose var updated_at : String?) : Parcelable {
     constructor(): this(
             null,
             null,
