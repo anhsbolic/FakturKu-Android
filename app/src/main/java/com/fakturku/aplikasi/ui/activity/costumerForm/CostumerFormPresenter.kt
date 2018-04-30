@@ -88,7 +88,6 @@ class CostumerFormPresenter(private val view: CostumerFormContract.View)
                                 },
                                 {error->
                                     Log.e("Error", error.message)
-
                                 })
             }
         } else {

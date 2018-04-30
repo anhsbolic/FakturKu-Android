@@ -80,6 +80,8 @@ interface ApiService{
                        @Field("city") city: String?,
                        @Field("address") address: String?): Observable<Costumer>
 
+    //TODO: fix error when update when null value
+
     @DELETE("user/{userId}/costumer/{costumerId}")
     fun deleteCostumer(@Path("userId") userId: Long,
                        @Path("costumerId") costumerId: Long): Observable<Costumer>
