@@ -10,20 +10,20 @@ class CostumerFormPresenter(private val view: CostumerFormContract.View)
         view.setUpdateMode(costumer)
     }
 
-    override fun updateCostumer(id: String?, name: String, email: String, phone: String, city: String?,
-                                address: String?, createdDate: String?, updatedDate: String?,
+    override fun updateCostumer(id: Long?, name: String, email: String, phone: String, city: String?,
+                                address: String?, createdAt: String?, updatedAt: String?,
                                 isEditMode: Boolean) {
-        validateInput(id, name, email, phone, city, address, createdDate, updatedDate, isEditMode)
+        validateInput(id, name, email, phone, city, address, createdAt, updatedAt, isEditMode)
     }
 
-    override fun addCostumer(id: String?, name: String, email: String, phone: String, city: String?,
-                             address: String?, createdDate: String?, updatedDate: String?,
+    override fun addCostumer(id: Long?, name: String, email: String, phone: String, city: String?,
+                             address: String?, createdAt: String?, updatedAt: String?,
                              isEditMode: Boolean) {
-        validateInput(id, name, email, phone, city, address, createdDate, updatedDate, isEditMode)
+        validateInput(id, name, email, phone, city, address, createdAt, updatedAt, isEditMode)
     }
 
-    override fun validateInput(id: String?, name: String, email: String, phone: String, city: String?,
-                               address: String?, createdDate: String?, updatedDate: String?,
+    override fun validateInput(id: Long?, name: String, email: String, phone: String, city: String?,
+                               address: String?, createdAt: String?, updatedAt: String?,
                                isEditMode: Boolean) {
         var isNameValidate = false
         var isPhoneValidate = false
@@ -42,7 +42,7 @@ class CostumerFormPresenter(private val view: CostumerFormContract.View)
         }
 
         if (isNameValidate && isPhoneValidate && isEmailValidate) {
-            val costumer = Costumer(id, name, phone, email, address, city, createdDate, updatedDate)
+            val costumer = Costumer(id, name, phone, email, city, address, createdAt, updatedAt)
 
             if (!isEditMode){
                 view.showAddCostumerSuccess(costumer)

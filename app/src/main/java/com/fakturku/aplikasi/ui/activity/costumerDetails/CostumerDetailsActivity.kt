@@ -74,8 +74,8 @@ class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.Vie
         costumerDetailsName.text = costumer.name
         costumerDetailsEmail.text = costumer.email
         costumerDetailsPhone.text = costumer.phone
-        costumerDetailsAddress.text = costumer.address
         costumerDetailsCity.text = costumer.city
+        costumerDetailsAddress.text = costumer.address
     }
 
     override fun update(costumer: Costumer) {

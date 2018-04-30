@@ -48,7 +48,7 @@ class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
                         null, null, isUpdateCostumerMode)
             } else {
                 presenter.updateCostumer(costumer.id, name, email, phone, city, address,
-                        costumer.created_date, null, isUpdateCostumerMode)
+                        costumer.created_at, null, isUpdateCostumerMode)
             }
         }
     }
