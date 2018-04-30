@@ -17,6 +17,8 @@ interface CostContract{
 
         fun showCostList(costList: MutableList<Cost>)
 
+        fun setLastPage(lastPage: Int)
+
         fun showCostDetails(cost: Cost)
 
         fun openAddCostPage(userId: Long)
@@ -25,7 +27,7 @@ interface CostContract{
     }
 
     interface Presenter{
-        fun loadCostListData(page: Int)
+        fun loadCostListData(userId: Long, page: Int)
 
         fun addCost(userId: Long)
 

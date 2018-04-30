@@ -2,7 +2,10 @@ package com.fakturku.aplikasi.ui.fragment.costFragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -33,6 +36,10 @@ class CostFragment : Fragment(), CostContract.View {
     private lateinit var animator: DefaultItemAnimator
     private lateinit var dividerItemDecoration: DividerItemDecoration
 
+    private var isLoadingData: Boolean = false
+    private var page: Int = 1
+    private var lastPage: Int = 0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         if(isFragmentWasVisited){
@@ -58,7 +65,7 @@ class CostFragment : Fragment(), CostContract.View {
         initRecyclerView()
 
         //Load Init Data
-        presenter.loadCostListData(1)
+        presenter.loadCostListData(userId, page)
 
         //UI handling & listener
         costFabAddCost.setOnClickListener { presenter.addCost(userId)}
@@ -81,30 +88,42 @@ class CostFragment : Fragment(), CostContract.View {
         costRv.itemAnimator = animator
         costRv.addItemDecoration(dividerItemDecoration)
         costRv.setHasFixedSize(true)
-/*
+
         val colorPrimaryDark = ContextCompat.getColor(activity as DashboardActivity, R.color.colorPrimaryDark)
-        costumerListSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
-        costumerListSwipeRefreshLayout.setOnRefreshListener {
+        costSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
+        costSwipeRefreshLayout.setOnRefreshListener {
             if (!isLoadingData){
                 if((activity as DashboardActivity).isNetworkAvailable()){
-                    loadThenSetMosqueData(lastDataTime)
+                    page++
+                    if (page <= lastPage) {
+                        presenter.loadCostListData(userId, page)
+                    } else {
+                        costSwipeRefreshLayout.isRefreshing = false
+                        showSnackBar("Semua data sudah ditampilkan", 300)
+                        costSwipeRefreshLayout.isEnabled = false
+                    }
                 }else{
-                    addMosqueSwipeRefreshLayout.isRefreshing = false
-                    showSnackBar("Periksa Koneksi Internet Anda ...",
-                            Snackbar.LENGTH_LONG,300)
+                    costSwipeRefreshLayout.isRefreshing = false
+                    showSnackBar("Periksa Koneksi Internet Anda ...",300)
                 }
             }
         }
-
-*/
     }
 
     override fun showProgress() {
-        costProgressBar.visibility = View.VISIBLE
+        isLoadingData = true
+        if (page < 2) {
+            costProgressBar.visibility = View.VISIBLE
+        }
     }
 
     override fun hideProgress() {
-        costProgressBar.visibility = View.GONE
+        isLoadingData = false
+        if (page > 1) {
+            costSwipeRefreshLayout.isRefreshing = false
+        } else {
+            costProgressBar.visibility = View.GONE
+        }
     }
 
     override fun showPlaceholder() {
@@ -127,6 +146,10 @@ class CostFragment : Fragment(), CostContract.View {
                 }
             }
         }
+    }
+
+    override fun setLastPage(lastPage: Int) {
+        this.lastPage = lastPage
     }
 
     override fun showCostDetails(cost: Cost) {
@@ -180,6 +203,12 @@ class CostFragment : Fragment(), CostContract.View {
             else->{ super.onActivityResult(requestCode, resultCode, data) }
         }
 
+    }
+
+    private fun showSnackBar(msg: String, delayTime: Long){
+        Handler().postDelayed({
+            Snackbar.make(costCoordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
+        }, delayTime)
     }
 
     companion object {
