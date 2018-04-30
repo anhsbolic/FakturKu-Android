@@ -27,6 +27,8 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
 
     private var isFragmentWasVisited: Boolean = false
 
+    private var userId: Long = 0
+
     private var dataCostumerList: MutableList<Costumer> = ArrayList()
     private lateinit var adapterRvCostumerList: RecyclerView.Adapter<*>
     private lateinit var lmRvCostumerList: LinearLayoutManager
@@ -48,35 +50,9 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-/*
+        //Get User Id
+        userId = (activity as DashboardActivity).getUserId()
 
-        val gson = GsonBuilder().create()
-
-        val retrofit: Retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("http://localhost:8000/")
-                .build()
-
-        val networkService: NetworkService = retrofit.create(
-                NetworkService::class.java
-        )
-
-        networkService.getCostumerList()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {costumerList: CostumerList? ->
-                            if (costumerList != null){
-                                setData(costumerList)
-                            }
-                        },
-                        { error: Throwable? ->
-                            Log.e("Error", error!!.message)
-                        }
-                )
-
-*/
         //Init Presenter
         presenter = CostumerListPresenter(this@CostumerListFragment)
 
@@ -87,7 +63,7 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
         presenter.loadCostumerListData(1)
 
         //UI handling & listener
-        costumerListFabAddCostumer.setOnClickListener{presenter.addCostumer()}
+        costumerListFabAddCostumer.setOnClickListener{presenter.addCostumer(userId)}
     }
 
     override fun initRecyclerView() {
@@ -163,13 +139,15 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
         startActivityForResult(intentCostumerDetails, INTENT_COSTUMER_DETAILS_CODE)
     }
 
-    override fun openAddCostumerPage() {
+    override fun openAddCostumerPage(userId: Long) {
         val intentAddCostumer = Intent(activity, CostumerFormActivity::class.java)
+        intentAddCostumer.putExtra(CostumerFormActivity.INTENT_USER_ID, userId)
         startActivityForResult(intentAddCostumer, INTENT_ADD_COSTUMER_CODE)
     }
 
-    override fun openUpdateCostumerPage(costumer: Costumer) {
+    override fun openUpdateCostumerPage(userId: Long, costumer: Costumer) {
         val intentUpdateCostumer = Intent(activity, CostumerFormActivity::class.java)
+        intentUpdateCostumer.putExtra(CostumerFormActivity.INTENT_USER_ID, userId)
         intentUpdateCostumer.putExtra(CostumerFormActivity.INTENT_COSTUMER_DATA, costumer)
         startActivityForResult(intentUpdateCostumer, INTENT_UPDATE_COSTUMER_CODE)
     }
@@ -181,7 +159,7 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
                     INTENT_COSTUMER_DETAILS_UPDATE->{
                         if (data != null) {
                             val costumer: Costumer = data.getParcelableExtra(INTENT_COSTUMER_DETAILS_UPDATE_DATA)
-                            presenter.updateCostumer(costumer)
+                            presenter.updateCostumer(userId, costumer)
                         }
                     }
                     INTENT_COSTUMER_DETAILS_DELETE->{

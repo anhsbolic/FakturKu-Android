@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_costumer_form.*
 
 class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
 
+    private var userId: Long = 0
     private lateinit var presenter: CostumerFormPresenter
     private var isUpdateCostumerMode: Boolean = false
     private lateinit var costumer: Costumer
@@ -25,6 +26,11 @@ class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu_clear)
+
+        //Get User Id
+        if (intent.hasExtra(INTENT_USER_ID)) {
+            userId = intent.getLongExtra(INTENT_USER_ID,0)
+        }
 
         //init presenter
         presenter = CostumerFormPresenter(this@CostumerFormActivity)
@@ -38,16 +44,28 @@ class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
         //UI handling & listener
         costumerFormBtnSave.setOnClickListener {
             val name = costumerFormName.text.toString()
-            val phone = costumerFormPhone.text.toString()
-            val email = costumerFormEmail.text.toString()
-            val city = costumerFormCity.text.toString()
-            val address = costumerFormAddress.text.toString()
+            var phone: String? = null
+            if (costumerFormPhone.text.toString().isNotEmpty()) {
+                phone = costumerFormPhone.text.toString()
+            }
+            var email: String? = null
+            if (costumerFormEmail.text.toString().isNotEmpty()) {
+                email = costumerFormEmail.text.toString()
+            }
+            var city: String? = null
+            if (costumerFormCity.text.toString().isNotEmpty()) {
+                city = costumerFormCity.text.toString()
+            }
+            var address: String? = null
+            if (costumerFormAddress.text.toString().isNotEmpty()) {
+                address = costumerFormAddress.text.toString()
+            }
 
             if (!isUpdateCostumerMode){
-                presenter.addCostumer(null, name, email, phone, city, address,
+                presenter.addCostumer(userId, null, name, email, phone, city, address,
                         null, null, isUpdateCostumerMode)
             } else {
-                presenter.updateCostumer(costumer.id, name, email, phone, city, address,
+                presenter.updateCostumer(userId, costumer.id, name, email, phone, city, address,
                         costumer.created_at, null, isUpdateCostumerMode)
             }
         }
@@ -88,17 +106,11 @@ class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
         costumerFormBtnSave.text = strUpdate
     }
 
-    override fun showErrorInput(isNameValid: Boolean, isPhoneValid: Boolean, isEmailValid: Boolean) {
+    override fun showErrorInput(isNameValid: Boolean, isEmailValid: Boolean) {
         if (!isNameValid){
             costumerFormName.error = "Isi dengan Nama Lengkap"
         } else {
             costumerFormName.error = null
-        }
-
-        if (!isPhoneValid){
-            costumerFormPhone.error = "Isi dengan No HP"
-        } else {
-            costumerFormPhone.error = null
         }
 
         if (!isEmailValid){
@@ -132,5 +144,6 @@ class CostumerFormActivity : AppCompatActivity(), CostumerFormContract.View {
 
     companion object {
         const val INTENT_COSTUMER_DATA: String = "IntentCostumerData"
+        const val INTENT_USER_ID: String = "IntentUserId"
     }
 }
