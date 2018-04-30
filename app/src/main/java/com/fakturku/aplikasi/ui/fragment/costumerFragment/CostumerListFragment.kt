@@ -2,7 +2,10 @@ package com.fakturku.aplikasi.ui.fragment.costumerFragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -35,6 +38,10 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
     private lateinit var animator: DefaultItemAnimator
     private lateinit var dividerItemDecoration: DividerItemDecoration
 
+    private var isLoadingData: Boolean = false
+    private var page: Int = 1
+    private var lastPage: Int = 0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         if(isFragmentWasVisited){
@@ -60,7 +67,7 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
         initRecyclerView()
 
         //Load Init Costumer List Data
-        presenter.loadCostumerListData(1)
+        presenter.loadCostumerListData(userId, page)
 
         //UI handling & listener
         costumerListFabAddCostumer.setOnClickListener{presenter.addCostumer(userId)}
@@ -85,30 +92,41 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
         costumerListRv.addItemDecoration(dividerItemDecoration)
         costumerListRv.setHasFixedSize(true)
 
-/*
         val colorPrimaryDark = ContextCompat.getColor(activity as DashboardActivity, R.color.colorPrimaryDark)
         costumerListSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
         costumerListSwipeRefreshLayout.setOnRefreshListener {
             if (!isLoadingData){
                 if((activity as DashboardActivity).isNetworkAvailable()){
-                    loadThenSetMosqueData(lastDataTime)
+                    page++
+                    if (page <= lastPage) {
+                        presenter.loadCostumerListData(userId, page)
+                    } else {
+                        costumerListSwipeRefreshLayout.isRefreshing = false
+                        showSnackBar("Semua data sudah ditampilkan", 300)
+                        costumerListSwipeRefreshLayout.isEnabled = false
+                    }
                 }else{
-                    addMosqueSwipeRefreshLayout.isRefreshing = false
-                    showSnackBar("Periksa Koneksi Internet Anda ...",
-                            Snackbar.LENGTH_LONG,300)
+                    costumerListSwipeRefreshLayout.isRefreshing = false
+                    showSnackBar("Periksa Koneksi Internet Anda ...",300)
                 }
             }
         }
-
-*/
     }
 
     override fun showProgress() {
-        costumerListProgressBar.visibility = View.VISIBLE
+        isLoadingData = true
+        if (page < 2) {
+            costumerListProgressBar.visibility = View.VISIBLE
+        }
     }
 
     override fun hideProgress() {
-        costumerListProgressBar.visibility = View.GONE
+        isLoadingData = false
+        if (page > 1) {
+            costumerListSwipeRefreshLayout.isRefreshing = false
+        } else {
+            costumerListProgressBar.visibility = View.GONE
+        }
     }
 
     override fun showPlaceholder() {
@@ -131,6 +149,10 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
                 }
             }
         }
+    }
+
+    override fun setLastPage(lastPage: Int) {
+        this.lastPage = lastPage
     }
 
     override fun showCustomerDetails(costumer: Costumer) {
@@ -186,13 +208,12 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
 
     }
 
-/*
-
-    private fun setData(costumerList: CostumerList) {
-        Log.d("TES", costumerList.toString())
+    private fun showSnackBar(msg: String, delayTime: Long){
+        Handler().postDelayed({
+            Snackbar.make(costumerListCoordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
+        }, delayTime)
     }
 
-*/
     companion object {
         const val INTENT_COSTUMER_DETAILS_CODE = 20
         const val INTENT_COSTUMER_DETAILS_UPDATE = 21

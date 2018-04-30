@@ -16,6 +16,8 @@ interface CostumerListContract{
 
         fun showCostumerList(costumerList: MutableList<Costumer>)
 
+        fun setLastPage(lastPage: Int)
+
         fun showCustomerDetails(costumer: Costumer)
 
         fun openAddCostumerPage(userId: Long)
@@ -25,7 +27,7 @@ interface CostumerListContract{
     }
 
     interface Presenter{
-        fun loadCostumerListData(page: Int)
+        fun loadCostumerListData(userId: Long, page: Int)
 
         fun addCostumer(userId: Long)
 
