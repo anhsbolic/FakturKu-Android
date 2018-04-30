@@ -68,7 +68,17 @@ class CostFormPresenter(private val view : CostFormContract.View)
 
                                 })
             } else {
-                view.showUpdateCostSuccess(cost)
+                apiService.updateCost(userId, cost.id!!, cost.name!!, cost.unit_cost, cost.info)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {updatedCost->
+                                    view.showUpdateCostSuccess(updatedCost)
+                                },
+                                {error->
+                                    Log.e("Error", error.message)
+
+                                })
             }
         } else {
             view.showErrorInput(isNameValid)
