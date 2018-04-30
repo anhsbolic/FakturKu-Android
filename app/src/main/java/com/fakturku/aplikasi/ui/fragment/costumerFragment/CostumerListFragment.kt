@@ -128,11 +128,11 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
     }
 
     override fun showProgress() {
-        costumerListProgressLayout.visibility = View.VISIBLE
+        costumerListProgressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        costumerListProgressLayout.visibility = View.GONE
+        costumerListProgressBar.visibility = View.GONE
     }
 
     override fun showPlaceholder() {
