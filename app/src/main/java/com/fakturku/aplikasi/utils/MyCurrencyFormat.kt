@@ -5,7 +5,7 @@ import java.util.*
 
 object MyCurrencyFormat {
 
-    fun rupiah(intRupiah: Int): String {
+    fun rupiah(intRupiah: Long): String {
         val localeID = Locale("in", "ID")
         val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
 

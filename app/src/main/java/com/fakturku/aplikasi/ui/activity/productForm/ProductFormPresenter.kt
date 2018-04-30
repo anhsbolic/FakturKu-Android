@@ -32,17 +32,17 @@ class ProductFormPresenter(private val view: ProductFormContract.View)
         view.setUpdateMode(product)
     }
 
-    override fun addProduct(userId: Long, productId:  Long?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+    override fun addProduct(userId: Long, productId:  Long?, name: String, buyPrice: Long?, sellPrice: Long?, notes: String?,
                              createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
         validateInput(userId, productId, name, buyPrice, sellPrice, notes, createdDate, updatedDate, isEditMode)
     }
 
-    override fun updateProduct(userId: Long, productId: Long?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+    override fun updateProduct(userId: Long, productId: Long?, name: String, buyPrice: Long?, sellPrice: Long?, notes: String?,
                                 createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
         validateInput(userId, productId, name, buyPrice, sellPrice, notes, createdDate, updatedDate, isEditMode)
     }
 
-    override fun validateInput(userId: Long, productId: Long?, name: String, buyPrice: Int?, sellPrice: Int?, notes: String?,
+    override fun validateInput(userId: Long, productId: Long?, name: String, buyPrice: Long?, sellPrice: Long?, notes: String?,
                                createdDate: String?, updatedDate: String?, isEditMode: Boolean) {
 
         var isNameValidate = false

@@ -48,9 +48,9 @@ class CostListAdapter(private val dataCostList: List<Cost>,
 
         val costPrice = dataCostList[position].cost_price
         if (costPrice != null){
-            holder.txtCostPrice.text = MyCurrencyFormat.rupiah(costPrice)
+            holder.txtCostPrice.text = MyCurrencyFormat.rupiah(costPrice.toLong())
         }
-
+//TODO : change toLong
         val initialName = costName[0].toString()
         val colorGenerator: ColorGenerator = ColorGenerator.MATERIAL
         val color: Int = colorGenerator.getColor(initialName)

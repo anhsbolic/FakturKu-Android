@@ -74,7 +74,7 @@ class InvoiceListAdapter(private val dataInvoiceList: List<Invoice>,
             1->{ holder.txtCostumerName.text = dataInvoiceList[position].supplier }
             2->{ holder.txtCostumerName.text = dataInvoiceList[position].supplier }
         }
-        holder.txtTotal.text = MyCurrencyFormat.rupiah(dataInvoiceList[position].total!!)
+        holder.txtTotal.text = MyCurrencyFormat.rupiah(dataInvoiceList[position].total!!.toLong())
 
         holder.setOnClickListener(View.OnClickListener {
             onItemClickListener.onItemClick(dataInvoiceList[holder.adapterPosition])

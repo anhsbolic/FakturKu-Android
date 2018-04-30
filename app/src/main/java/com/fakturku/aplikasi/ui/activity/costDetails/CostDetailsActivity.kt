@@ -76,7 +76,8 @@ class CostDetailsActivity : AppCompatActivity(), CostDetailsContract.View {
         costDetailsName.text = cost.name
         val costPrice = cost.cost_price
         if (costPrice != null){
-            costDetailsCostPrice.text = MyCurrencyFormat.rupiah(costPrice)
+            costDetailsCostPrice.text = MyCurrencyFormat.rupiah(costPrice.toLong())
+//TODO : Change int to long
         }
         costDetailsNotes.text = cost.notes
     }
