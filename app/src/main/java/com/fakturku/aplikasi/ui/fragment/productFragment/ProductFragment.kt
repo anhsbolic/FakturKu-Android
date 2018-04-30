@@ -114,7 +114,7 @@ class ProductFragment : Fragment(), ProductContract.View {
     override fun showProgress() {
         isLoadingData = true
         if (page < 2) {
-            productProgressLayout.visibility = View.VISIBLE
+            productProgressBar.visibility = View.VISIBLE
         }
     }
 
@@ -123,7 +123,7 @@ class ProductFragment : Fragment(), ProductContract.View {
         if (page > 1) {
             productSwipeRefreshLayout.isRefreshing = false
         } else {
-            productProgressLayout.visibility = View.GONE
+            productProgressBar.visibility = View.GONE
         }
     }
 
