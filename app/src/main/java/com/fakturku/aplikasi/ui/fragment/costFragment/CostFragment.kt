@@ -25,6 +25,8 @@ class CostFragment : Fragment(), CostContract.View {
     private lateinit var presenter: CostPresenter
     private var isFragmentWasVisited: Boolean = false
 
+    private var userId: Long = 0
+
     private var dataCostList: MutableList<Cost> = ArrayList()
     private lateinit var adapterRvCostList: RecyclerView.Adapter<*>
     private lateinit var lmRvCostList: LinearLayoutManager
@@ -46,6 +48,9 @@ class CostFragment : Fragment(), CostContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Get User Id
+        userId = (activity as DashboardActivity).getUserId()
+
         //Init Presenter
         presenter = CostPresenter(this@CostFragment)
 
@@ -56,7 +61,7 @@ class CostFragment : Fragment(), CostContract.View {
         presenter.loadCostListData(1)
 
         //UI handling & listener
-        costFabAddCost.setOnClickListener { presenter.addCost()}
+        costFabAddCost.setOnClickListener { presenter.addCost(userId)}
     }
 
     override fun initRecyclerView() {
@@ -130,13 +135,15 @@ class CostFragment : Fragment(), CostContract.View {
         startActivityForResult(intentCostDetails, INTENT_COST_DETAILS_CODE)
     }
 
-    override fun openAddCostPage() {
+    override fun openAddCostPage(userId: Long) {
         val intentCostProduct = Intent(activity, CostFormActivity::class.java)
+        intentCostProduct.putExtra(CostFormActivity.INTENT_USER_ID, userId)
         startActivityForResult(intentCostProduct, INTENT_ADD_COST_CODE)
     }
 
-    override fun openUpdateCostPage(cost: Cost) {
+    override fun openUpdateCostPage(userId: Long, cost: Cost) {
         val intentCostProduct = Intent(activity, CostFormActivity::class.java)
+        intentCostProduct.putExtra(CostFormActivity.INTENT_USER_ID, userId)
         intentCostProduct.putExtra(CostFormActivity.INTENT_COST_DATA, cost)
         startActivityForResult(intentCostProduct, INTENT_UPDATE_COST_CODE)
     }
@@ -148,7 +155,7 @@ class CostFragment : Fragment(), CostContract.View {
                     INTENT_COST_DETAILS_UPDATE->{
                         if (data != null) {
                             val cost: Cost = data.getParcelableExtra(INTENT_COST_DETAILS_UPDATE_DATA)
-                            presenter.updateCost(cost)
+                            presenter.updateCost(userId, cost)
                         }
                     }
                     INTENT_COST_DETAILS_DELETE->{

@@ -19,17 +19,17 @@ interface CostContract{
 
         fun showCostDetails(cost: Cost)
 
-        fun openAddCostPage()
+        fun openAddCostPage(userId: Long)
 
-        fun openUpdateCostPage(cost: Cost)
+        fun openUpdateCostPage(userId: Long, cost: Cost)
     }
 
     interface Presenter{
         fun loadCostListData(page: Int)
 
-        fun addCost()
+        fun addCost(userId: Long)
 
-        fun updateCost(cost: Cost)
+        fun updateCost(userId: Long, cost: Cost)
 
         fun seeCostDetails(cost: Cost)
     }

@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_cost_form.*
 
 class CostFormActivity : AppCompatActivity(), CostFormContract.View {
 
+    private var userId: Long = 0
     private lateinit var presenter : CostFormPresenter
     private lateinit var cost : Cost
     private var isUpdateCostMode : Boolean = false
@@ -29,6 +30,10 @@ class CostFormActivity : AppCompatActivity(), CostFormContract.View {
         //Init Presenter
         presenter = CostFormPresenter(this@CostFormActivity)
 
+        //Get User Id
+        if (intent.hasExtra(INTENT_USER_ID)) {
+            userId = intent.getLongExtra(INTENT_USER_ID, 0)
+        }
         //check intent data & mode
         if (intent.hasExtra(INTENT_COST_DATA)) {
             cost = intent.getParcelableExtra(INTENT_COST_DATA)
@@ -47,10 +52,10 @@ class CostFormActivity : AppCompatActivity(), CostFormContract.View {
             }
 
             if (!isUpdateCostMode) {
-                presenter.addCost(null, name, longCostPrice, info,
+                presenter.addCost(userId,null, name, longCostPrice, info,
                         null, null, isUpdateCostMode)
             } else {
-                presenter.updateCost(cost.id, name, longCostPrice, info,
+                presenter.updateCost(userId, cost.id, name, longCostPrice, info,
                         cost.created_at, null, isUpdateCostMode)
             }
         }
@@ -122,5 +127,6 @@ class CostFormActivity : AppCompatActivity(), CostFormContract.View {
 
     companion object {
         const val INTENT_COST_DATA: String = "IntentCostData"
+        const val INTENT_USER_ID: String = "IntentUserId"
     }
 }

@@ -17,13 +17,13 @@ interface CostFormContract{
     interface Presenter{
         fun setUpdateMode(cost: Cost)
 
-        fun addCost(id: Long?, name: String, unitPrice: Long?, info: String?,
-                       createdDate: String?, updatedDate: String?, isEditMode: Boolean)
+        fun addCost(userId:Long, costId: Long?, name: String, unitPrice: Long?, info: String?,
+                       createdAt: String?, updatedAt: String?, isEditMode: Boolean)
 
-        fun updateCost(id: Long?, name: String, unitPrice: Long?, info: String?,
-                          createdDate: String?, updatedDate: String?, isEditMode: Boolean)
+        fun updateCost(userId:Long, costId: Long?, name: String, unitPrice: Long?, info: String?,
+                          createdAt: String?, updatedAt: String?, isEditMode: Boolean)
 
-        fun validateInput(id: Long?, name: String, unitPrice: Long?, info: String?,
-                          createdDate: String?, updatedDate: String?, isEditMode: Boolean)
+        fun validateInput(userId:Long, costId: Long?, name: String, unitPrice: Long?, info: String?,
+                          createdAt: String?, updatedAt: String?, isEditMode: Boolean)
     }
 }

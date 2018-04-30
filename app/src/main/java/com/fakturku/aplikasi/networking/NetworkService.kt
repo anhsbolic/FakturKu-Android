@@ -44,16 +44,16 @@ interface ApiService{
     @POST("user/{userId}/cost")
     fun saveCost(@Path("userId") userId: Long,
                     @Field("name") name: String,
-                    @Field("unit_cost") unitCost: Long,
-                    @Field("info") info: String): Observable<Cost>
+                    @Field("unit_cost") unitCost: Long?,
+                    @Field("info") info: String?): Observable<Cost>
 
     @FormUrlEncoded
     @PUT("user/{userId}/cost/{costId}")
     fun updateCost(@Path("userId") userId: Long,
                       @Path("costId") costId: Long,
                       @Field("name") name: String,
-                      @Field("unit_cost") unitCost: Long,
-                      @Field("info") info: String): Observable<Cost>
+                      @Field("unit_cost") unitCost: Long?,
+                      @Field("info") info: String?): Observable<Cost>
 
     @DELETE("user/{userId}/cost/{costId}")
     fun deleteCost(@Path("userId") userId: Long,
