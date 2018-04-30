@@ -19,7 +19,7 @@ interface CostContract{
 
         fun setLastPage(lastPage: Int)
 
-        fun showCostDetails(cost: Cost)
+        fun showCostDetails(userId: Long, cost: Cost)
 
         fun openAddCostPage(userId: Long)
 
@@ -33,6 +33,6 @@ interface CostContract{
 
         fun updateCost(userId: Long, cost: Cost)
 
-        fun seeCostDetails(cost: Cost)
+        fun seeCostDetails(userId: Long, cost: Cost)
     }
 }

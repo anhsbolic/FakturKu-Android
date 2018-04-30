@@ -14,7 +14,7 @@ interface CostDetailsContract{
     }
 
     interface Presenter{
-        fun delete(cost: Cost)
+        fun delete(userId: Long, cost: Cost)
 
         fun update(cost: Cost)
     }

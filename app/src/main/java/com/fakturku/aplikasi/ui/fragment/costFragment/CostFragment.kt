@@ -74,7 +74,7 @@ class CostFragment : Fragment(), CostContract.View {
     override fun initRecyclerView() {
         adapterRvCostList = CostListAdapter(dataCostList, object : CostListAdapter.OnItemClickListener{
             override fun onItemClick(cost: Cost) {
-                presenter.seeCostDetails(cost)
+                presenter.seeCostDetails(userId, cost)
             }
         })
         lmRvCostList = LinearLayoutManager(activity)
@@ -152,8 +152,9 @@ class CostFragment : Fragment(), CostContract.View {
         this.lastPage = lastPage
     }
 
-    override fun showCostDetails(cost: Cost) {
+    override fun showCostDetails(userId: Long, cost: Cost) {
         val intentCostDetails = Intent(activity, CostDetailsActivity::class.java)
+        intentCostDetails.putExtra(CostDetailsActivity.INTENT_USER_ID, userId)
         intentCostDetails.putExtra(CostDetailsActivity.INTENT_DATA_COST, cost)
         startActivityForResult(intentCostDetails, INTENT_COST_DETAILS_CODE)
     }

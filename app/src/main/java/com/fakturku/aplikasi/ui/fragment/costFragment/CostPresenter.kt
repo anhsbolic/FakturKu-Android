@@ -66,8 +66,8 @@ class CostPresenter(private val view : CostContract.View)
         view.openUpdateCostPage(userId, cost)
     }
 
-    override fun seeCostDetails(cost: Cost) {
-        view.showCostDetails(cost)
+    override fun seeCostDetails(userId: Long, cost: Cost) {
+        view.showCostDetails(userId, cost)
     }
 
 }
