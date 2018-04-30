@@ -79,11 +79,20 @@ class CostumerFormPresenter(private val view: CostumerFormContract.View)
 
                                 })
             } else {
-//                view.showUpdateCostumerSuccess(costumer)
+                apiService.updateCostumer(userId, costumerId!!, name, phone, email, city, address)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                {updatedCostumer->
+                                    view.showUpdateCostumerSuccess(updatedCostumer)
+                                },
+                                {error->
+                                    Log.e("Error", error.message)
+
+                                })
             }
         } else {
             view.showErrorInput(isNameValidate, isEmailValidate)
         }
-
     }
 }
