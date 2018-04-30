@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_placeholder_cost"
         android:layout_gravity="center"
+        android:visibility="gone"
         tools:ignore="ContentDescription"/>
 
     <android.support.design.widget.FloatingActionButton
@@ -45,20 +46,11 @@
         app:pressedTranslationZ="12dp"
         app:backgroundTint="@color/colorFab"/>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/costProgressLayout"
-        android:layout_width="220dp"
-        android:layout_height="160dp"
-        android:layout_gravity="center"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:id="@+id/costProgressBar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:theme="@style/CircularProgressPrimary"
-            android:layout_gravity="center"/>
-
-    </android.support.v7.widget.CardView>
+    <ProgressBar
+        android:id="@+id/costProgressBar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:theme="@style/CircularProgressPrimary"
+        android:layout_gravity="center"/>
 
 </android.support.design.widget.CoordinatorLayout>

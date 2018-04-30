@@ -17,20 +17,22 @@ interface CostContract{
 
         fun showCostList(costList: MutableList<Cost>)
 
-        fun showCostDetails(cost: Cost)
+        fun setLastPage(lastPage: Int)
 
-        fun openAddCostPage()
+        fun showCostDetails(userId: Long, cost: Cost)
 
-        fun openUpdateCostPage(cost: Cost)
+        fun openAddCostPage(userId: Long)
+
+        fun openUpdateCostPage(userId: Long, cost: Cost)
     }
 
     interface Presenter{
-        fun loadCostListData(page: Int)
+        fun loadCostListData(userId: Long, page: Int)
 
-        fun addCost()
+        fun addCost(userId: Long)
 
-        fun updateCost(cost: Cost)
+        fun updateCost(userId: Long, cost: Cost)
 
-        fun seeCostDetails(cost: Cost)
+        fun seeCostDetails(userId: Long, cost: Cost)
     }
 }

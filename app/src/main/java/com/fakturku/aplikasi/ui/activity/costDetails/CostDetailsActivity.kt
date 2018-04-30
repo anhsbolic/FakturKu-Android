@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_cost_details.*
 
 class CostDetailsActivity : AppCompatActivity(), CostDetailsContract.View {
 
+    private var userId: Long = 0
     private lateinit var presenter: CostDetailsPresenter
     private lateinit var cost: Cost
 
@@ -23,6 +24,11 @@ class CostDetailsActivity : AppCompatActivity(), CostDetailsContract.View {
         title = null
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
+
+        //Get User Id
+        if (intent.hasExtra(INTENT_USER_ID)) {
+            userId = intent.getLongExtra(INTENT_USER_ID,0)
+        }
 
         //Init Presenter
         presenter = CostDetailsPresenter(this@CostDetailsActivity)
@@ -59,7 +65,7 @@ class CostDetailsActivity : AppCompatActivity(), CostDetailsContract.View {
                 AlertDialog.Builder(this@CostDetailsActivity)
                         .setMessage(strMsg)
                         .setPositiveButton(yesMsg,{ _ , _ ->
-                            presenter.delete(cost)
+                            presenter.delete(userId, cost)
                         })
                         .setNegativeButton(noMsg, null)
                         .show()
@@ -74,12 +80,11 @@ class CostDetailsActivity : AppCompatActivity(), CostDetailsContract.View {
 
     override fun setCostData(cost: Cost) {
         costDetailsName.text = cost.name
-        val costPrice = cost.cost_price
+        val costPrice = cost.unit_cost
         if (costPrice != null){
-            costDetailsCostPrice.text = MyCurrencyFormat.rupiah(costPrice.toLong())
-//TODO : Change int to long
+            costDetailsCostPrice.text = MyCurrencyFormat.rupiah(costPrice)
         }
-        costDetailsNotes.text = cost.notes
+        costDetailsNotes.text = cost.info
     }
 
     override fun update(cost: Cost) {
@@ -97,5 +102,6 @@ class CostDetailsActivity : AppCompatActivity(), CostDetailsContract.View {
 
     companion object {
         const val INTENT_DATA_COST: String = "IntentDataCost"
+        const val INTENT_USER_ID: String = "IntentUserId"
     }
 }

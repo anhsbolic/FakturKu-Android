@@ -2,7 +2,10 @@ package com.fakturku.aplikasi.ui.fragment.costFragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -25,11 +28,17 @@ class CostFragment : Fragment(), CostContract.View {
     private lateinit var presenter: CostPresenter
     private var isFragmentWasVisited: Boolean = false
 
+    private var userId: Long = 0
+
     private var dataCostList: MutableList<Cost> = ArrayList()
     private lateinit var adapterRvCostList: RecyclerView.Adapter<*>
     private lateinit var lmRvCostList: LinearLayoutManager
     private lateinit var animator: DefaultItemAnimator
     private lateinit var dividerItemDecoration: DividerItemDecoration
+
+    private var isLoadingData: Boolean = false
+    private var page: Int = 1
+    private var lastPage: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,6 +55,9 @@ class CostFragment : Fragment(), CostContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Get User Id
+        userId = (activity as DashboardActivity).getUserId()
+
         //Init Presenter
         presenter = CostPresenter(this@CostFragment)
 
@@ -53,16 +65,16 @@ class CostFragment : Fragment(), CostContract.View {
         initRecyclerView()
 
         //Load Init Data
-        presenter.loadCostListData(1)
+        presenter.loadCostListData(userId, page)
 
         //UI handling & listener
-        costFabAddCost.setOnClickListener { presenter.addCost()}
+        costFabAddCost.setOnClickListener { presenter.addCost(userId)}
     }
 
     override fun initRecyclerView() {
         adapterRvCostList = CostListAdapter(dataCostList, object : CostListAdapter.OnItemClickListener{
             override fun onItemClick(cost: Cost) {
-                presenter.seeCostDetails(cost)
+                presenter.seeCostDetails(userId, cost)
             }
         })
         lmRvCostList = LinearLayoutManager(activity)
@@ -76,30 +88,42 @@ class CostFragment : Fragment(), CostContract.View {
         costRv.itemAnimator = animator
         costRv.addItemDecoration(dividerItemDecoration)
         costRv.setHasFixedSize(true)
-/*
+
         val colorPrimaryDark = ContextCompat.getColor(activity as DashboardActivity, R.color.colorPrimaryDark)
-        costumerListSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
-        costumerListSwipeRefreshLayout.setOnRefreshListener {
+        costSwipeRefreshLayout.setColorSchemeColors(colorPrimaryDark)
+        costSwipeRefreshLayout.setOnRefreshListener {
             if (!isLoadingData){
                 if((activity as DashboardActivity).isNetworkAvailable()){
-                    loadThenSetMosqueData(lastDataTime)
+                    page++
+                    if (page <= lastPage) {
+                        presenter.loadCostListData(userId, page)
+                    } else {
+                        costSwipeRefreshLayout.isRefreshing = false
+                        showSnackBar("Semua data sudah ditampilkan", 300)
+                        costSwipeRefreshLayout.isEnabled = false
+                    }
                 }else{
-                    addMosqueSwipeRefreshLayout.isRefreshing = false
-                    showSnackBar("Periksa Koneksi Internet Anda ...",
-                            Snackbar.LENGTH_LONG,300)
+                    costSwipeRefreshLayout.isRefreshing = false
+                    showSnackBar("Periksa Koneksi Internet Anda ...",300)
                 }
             }
         }
-
-*/
     }
 
     override fun showProgress() {
-        costProgressLayout.visibility = View.VISIBLE
+        isLoadingData = true
+        if (page < 2) {
+            costProgressBar.visibility = View.VISIBLE
+        }
     }
 
     override fun hideProgress() {
-        costProgressLayout.visibility = View.GONE
+        isLoadingData = false
+        if (page > 1) {
+            costSwipeRefreshLayout.isRefreshing = false
+        } else {
+            costProgressBar.visibility = View.GONE
+        }
     }
 
     override fun showPlaceholder() {
@@ -124,19 +148,26 @@ class CostFragment : Fragment(), CostContract.View {
         }
     }
 
-    override fun showCostDetails(cost: Cost) {
+    override fun setLastPage(lastPage: Int) {
+        this.lastPage = lastPage
+    }
+
+    override fun showCostDetails(userId: Long, cost: Cost) {
         val intentCostDetails = Intent(activity, CostDetailsActivity::class.java)
+        intentCostDetails.putExtra(CostDetailsActivity.INTENT_USER_ID, userId)
         intentCostDetails.putExtra(CostDetailsActivity.INTENT_DATA_COST, cost)
         startActivityForResult(intentCostDetails, INTENT_COST_DETAILS_CODE)
     }
 
-    override fun openAddCostPage() {
+    override fun openAddCostPage(userId: Long) {
         val intentCostProduct = Intent(activity, CostFormActivity::class.java)
+        intentCostProduct.putExtra(CostFormActivity.INTENT_USER_ID, userId)
         startActivityForResult(intentCostProduct, INTENT_ADD_COST_CODE)
     }
 
-    override fun openUpdateCostPage(cost: Cost) {
+    override fun openUpdateCostPage(userId: Long, cost: Cost) {
         val intentCostProduct = Intent(activity, CostFormActivity::class.java)
+        intentCostProduct.putExtra(CostFormActivity.INTENT_USER_ID, userId)
         intentCostProduct.putExtra(CostFormActivity.INTENT_COST_DATA, cost)
         startActivityForResult(intentCostProduct, INTENT_UPDATE_COST_CODE)
     }
@@ -148,7 +179,7 @@ class CostFragment : Fragment(), CostContract.View {
                     INTENT_COST_DETAILS_UPDATE->{
                         if (data != null) {
                             val cost: Cost = data.getParcelableExtra(INTENT_COST_DETAILS_UPDATE_DATA)
-                            presenter.updateCost(cost)
+                            presenter.updateCost(userId, cost)
                         }
                     }
                     INTENT_COST_DETAILS_DELETE->{
@@ -173,6 +204,12 @@ class CostFragment : Fragment(), CostContract.View {
             else->{ super.onActivityResult(requestCode, resultCode, data) }
         }
 
+    }
+
+    private fun showSnackBar(msg: String, delayTime: Long){
+        Handler().postDelayed({
+            Snackbar.make(costCoordinatorLayout, msg, Snackbar.LENGTH_SHORT).show()
+        }, delayTime)
     }
 
     companion object {
