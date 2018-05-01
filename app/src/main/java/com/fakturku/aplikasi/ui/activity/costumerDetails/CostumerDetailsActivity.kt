@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_costumer_details.*
 class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.View {
 
     private lateinit var presenter: CostumerDetailsPresenter
+    private var userId: Long = 0
     private lateinit var costumer: Costumer
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,11 @@ class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.Vie
         title = null
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
+
+        //Get User Id
+        if (intent.hasExtra(INTENT_USER_ID)) {
+            userId = intent.getLongExtra(INTENT_USER_ID,0)
+        }
 
         //Init Presenter
         presenter = CostumerDetailsPresenter(this@CostumerDetailsActivity)
@@ -57,7 +63,7 @@ class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.Vie
                 AlertDialog.Builder(this@CostumerDetailsActivity)
                         .setMessage(strMsg)
                         .setPositiveButton(yesMsg,{ _ , _ ->
-                            presenter.delete(costumer)
+                            presenter.delete(userId, costumer)
                         })
                         .setNegativeButton(noMsg, null)
                         .show()
@@ -74,8 +80,8 @@ class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.Vie
         costumerDetailsName.text = costumer.name
         costumerDetailsEmail.text = costumer.email
         costumerDetailsPhone.text = costumer.phone
-        costumerDetailsAddress.text = costumer.address
         costumerDetailsCity.text = costumer.city
+        costumerDetailsAddress.text = costumer.address
     }
 
     override fun update(costumer: Costumer) {
@@ -94,5 +100,6 @@ class CostumerDetailsActivity : AppCompatActivity(), CostumerDetailsContract.Vie
 
     companion object {
         const val INTENT_DATA_COSTUMER: String = "IntentDataCostumer"
+        const val INTENT_USER_ID: String = "IntentUserId"
     }
 }

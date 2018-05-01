@@ -45,7 +45,7 @@ class CostumerListAdapter(private val dataCostumerList: List<Costumer>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val costumerName = dataCostumerList[position].name!!
         holder.txtName.text = costumerName
-        holder.txtPhone.text = dataCostumerList[position].phone!!
+        holder.txtPhone.text = dataCostumerList[position].phone
         holder.txtAddress.text = dataCostumerList[position].address
 
         val initialName = costumerName[0].toString()
@@ -66,5 +66,4 @@ class CostumerListAdapter(private val dataCostumerList: List<Costumer>,
     override fun getItemCount(): Int {
         return dataCostumerList.size
     }
-
 }

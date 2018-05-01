@@ -65,7 +65,6 @@ class CostFormPresenter(private val view : CostFormContract.View)
                                 },
                                 {error->
                                     Log.e("Error", error.message)
-
                                 })
             } else {
                 apiService.updateCost(userId, cost.id!!, cost.name!!, cost.unit_cost, cost.info)

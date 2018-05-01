@@ -16,21 +16,23 @@ interface CostumerListContract{
 
         fun showCostumerList(costumerList: MutableList<Costumer>)
 
-        fun showCustomerDetails(costumer: Costumer)
+        fun setLastPage(lastPage: Int)
 
-        fun openAddCostumerPage()
+        fun showCustomerDetails(userId: Long, costumer: Costumer)
 
-        fun openUpdateCostumerPage(costumer: Costumer)
+        fun openAddCostumerPage(userId: Long)
+
+        fun openUpdateCostumerPage(userId: Long, costumer: Costumer)
 
     }
 
     interface Presenter{
-        fun loadCostumerListData(page: Int)
+        fun loadCostumerListData(userId: Long, page: Int)
 
-        fun addCostumer()
+        fun addCostumer(userId: Long)
 
-        fun updateCostumer(costumer: Costumer)
+        fun updateCostumer(userId: Long, costumer: Costumer)
 
-        fun seeCostumerDetails(costumer: Costumer)
+        fun seeCostumerDetails(userId: Long, costumer: Costumer)
     }
 }

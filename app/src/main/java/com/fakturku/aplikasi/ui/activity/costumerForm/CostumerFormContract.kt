@@ -6,7 +6,7 @@ interface CostumerFormContract{
     interface View{
         fun setUpdateMode(costumer: Costumer)
 
-        fun showErrorInput(isNameValid: Boolean, isPhoneValid: Boolean, isEmailValid: Boolean)
+        fun showErrorInput(isNameValid: Boolean, isEmailValid: Boolean)
 
         fun showAddCostumerSuccess(costumer: Costumer)
 
@@ -16,14 +16,14 @@ interface CostumerFormContract{
     interface Presenter{
         fun setUpdateMode(costumer: Costumer)
 
-        fun addCostumer(id: String?, name: String, email: String, phone: String, city: String?,
-                        address: String?, createdDate: String?, updatedDate: String?, isEditMode: Boolean)
+        fun addCostumer(userId: Long, costumerId: Long?, name: String, email: String?, phone: String?, city: String?,
+                        address: String?, createdAt: String?, updatedAt: String?, isEditMode: Boolean)
 
-        fun updateCostumer(id: String?, name: String, email: String, phone: String, city: String?,
-                           address: String?, createdDate: String?, updatedDate: String?, isEditMode: Boolean)
+        fun updateCostumer(userId: Long, costumerId: Long?, name: String, email: String?, phone: String?, city: String?,
+                           address: String?, createdAt: String?, updatedAt: String?, isEditMode: Boolean)
 
-        fun validateInput(id: String?, name: String, email: String, phone: String, city: String?,
-                          address: String?, createdDate: String?, updatedDate: String?, isEditMode: Boolean)
+        fun validateInput(userId: Long, costumerId: Long?, name: String, email: String?, phone: String?, city: String?,
+                          address: String?, createdAt: String?, updatedAt: String?, isEditMode: Boolean)
 
     }
 }

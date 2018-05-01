@@ -1,9 +1,6 @@
 package com.fakturku.aplikasi.networking
 
-import com.fakturku.aplikasi.model.Cost
-import com.fakturku.aplikasi.model.CostList
-import com.fakturku.aplikasi.model.Product
-import com.fakturku.aplikasi.model.ProductList
+import com.fakturku.aplikasi.model.*
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -58,5 +55,35 @@ interface ApiService{
     @DELETE("user/{userId}/cost/{costId}")
     fun deleteCost(@Path("userId") userId: Long,
                       @Path("costId") costId: Long): Observable<Cost>
+
+    /* COSTUMER REST API */
+    @GET("user/{userId}/costumer")
+    fun getCostumerList(@Path("userId") userId: Long,
+                    @Query("page") page: Int): Observable<CostumerList>
+
+    @FormUrlEncoded
+    @POST("user/{userId}/costumer")
+    fun saveCostumer(@Path("userId") userId: Long,
+                     @Field("name") name: String,
+                     @Field("phone") phone: String?,
+                     @Field("email") email: String?,
+                     @Field("city") city: String?,
+                     @Field("address") address: String?): Observable<Costumer>
+
+    @FormUrlEncoded
+    @PUT("user/{userId}/costumer/{costumerId}")
+    fun updateCostumer(@Path("userId") userId: Long,
+                       @Path("costumerId") costumerId: Long,
+                       @Field("name") name: String,
+                       @Field("phone") phone: String?,
+                       @Field("email") email: String?,
+                       @Field("city") city: String?,
+                       @Field("address") address: String?): Observable<Costumer>
+
+    //TODO: fix error when update when null value
+
+    @DELETE("user/{userId}/costumer/{costumerId}")
+    fun deleteCostumer(@Path("userId") userId: Long,
+                       @Path("costumerId") costumerId: Long): Observable<Costumer>
 
 }

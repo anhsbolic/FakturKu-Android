@@ -87,8 +87,8 @@
     <!-- COSTUMER FORM-->
     <string name="costumer_form_attention">**) harus diisi</string>
     <string name="costumer_form_name">Nama Lengkap **</string>
-    <string name="costumer_form_phone">No HP **</string>
-    <string name="costumer_form_email">Email **</string>
+    <string name="costumer_form_phone">No HP</string>
+    <string name="costumer_form_email">Email</string>
     <string name="costumer_form_city">Kota</string>
     <string name="costumer_form_address">Alamat</string>
     <string name="costumer_form_save">Simpan</string>

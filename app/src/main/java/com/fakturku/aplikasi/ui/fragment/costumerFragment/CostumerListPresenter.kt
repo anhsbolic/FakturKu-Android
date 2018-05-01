@@ -1,93 +1,73 @@
 package com.fakturku.aplikasi.ui.fragment.costumerFragment
 
 import android.os.Handler
+import android.util.Log
 import com.fakturku.aplikasi.model.Costumer
+import com.fakturku.aplikasi.networking.ApiService
+import com.fakturku.aplikasi.ui.fragment.productFragment.ProductPresenter
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class CostumerListPresenter(private val view: CostumerListContract.View)
     : CostumerListContract.Presenter{
 
-    override fun loadCostumerListData(page: Int) {
+    //initialized gson
+    private val gsonBuilder: Gson = GsonBuilder().create()
+
+    //initialized retrofit
+    private val retrofit: Retrofit = Retrofit.Builder()
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
+            .baseUrl(ProductPresenter.BASE_URL_DEV)
+            .build()
+
+    //intialized API services
+    private val apiService: ApiService = retrofit.create(
+            ApiService::class.java)
+
+    //Presenter Functions
+    override fun loadCostumerListData(userId: Long, page: Int) {
         view.showProgress()
 
         Handler().postDelayed({
-            //CREATE FAKE DATA
-            val costumerList: MutableList<Costumer> = ArrayList()
-            val costumer1 = Costumer(
-                    "1",
-                    "Leslie Cremin DDS",
-                    "+3538060548699",
-                    "brant14@gmail.com",
-                    "6741 Santino Plaza\nSouth Ledatown, DE 69067-6823",
-                    "Kertzmannview",
-                    "2018-03-26 11:43:00",
-                    "2018-03-26 11:43:00")
-            val costumer2 = Costumer(
-                    "2",
-                    "Prof. Ignatius Torp",
-                    "+3763744488263",
-                    "mckenzie87@yahoo.com",
-                    "47605 Rath Knolls Apt. 307\nLake Erickatown, NV 96094-2418",
-                    "Josephinemouth",
-                    "2018-03-27 11:43:00",
-                    "2018-03-27 11:43:00"
-            )
-            val costumer3 = Costumer(
-                    "3",
-                    "Cameron Pagac",
-                    "+6708487416852",
-                    "raphael28@gmail.com",
-                    "24309 Crist Port Apt. 747\nHesselland, FL 68943-4439",
-                    "New Kariville",
-                    "2018-03-28 11:43:00",
-                    "2018-03-28 11:43:00"
-            )
-            val costumer4 = Costumer(
-                    "4",
-                    "Miss Laury Rolfson",
-                    "+7022972139539",
-                    "wyman.sammie@yahoo.com",
-                    "2832 Narciso Hill\nLeschstad, AZ 59579",
-                    "South Kelli",
-                    "2018-03-29 11:43:00",
-                    "2018-03-29 11:43:00"
-            )
-            val costumer5 = Costumer(
-                    "5",
-                    "Joan Wilderman",
-                    "+8420901142496",
-                    "pollich.brielle@hotmail.com",
-                    "964 Jeff Vista Suite 890\nLake Marianaville, MA 75430-3080",
-                    "Delfinabury",
-                    "2018-03-30 11:43:00",
-                    "2018-03-30 11:43:00"
-            )
-            costumerList.add(costumer1)
-            costumerList.add(costumer2)
-            costumerList.add(costumer3)
-            costumerList.add(costumer4)
-            costumerList.add(costumer5)
+            //LOAD DATA
+            apiService.getCostumerList(userId, page)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            {costumerList->
+                                //SHOW DATA
+                                if (!costumerList.data.isEmpty()){
+                                    view.showCostumerList(costumerList.data)
+                                    view.setLastPage(costumerList.lastPage)
+                                    view.hidePlaceholder()
+                                    view.hideProgress()
+                                } else {
+                                    view.showPlaceholder()
+                                    view.hideProgress()
+                                }
+                            },
+                            {error->
+                                Log.e("Error", error.message)
 
-            //SHOW DATA
-            if (!costumerList.isEmpty()){
-                view.showCostumerList(costumerList)
-                view.hidePlaceholder()
-                view.hideProgress()
-            } else {
-                view.showPlaceholder()
-                view.hideProgress()
-            }
+                            })
         }, 1200)
     }
 
-    override fun addCostumer() {
-        view.openAddCostumerPage()
+    override fun addCostumer(userId: Long) {
+        view.openAddCostumerPage(userId)
     }
 
-    override fun updateCostumer(costumer: Costumer) {
-        view.openUpdateCostumerPage(costumer)
+    override fun updateCostumer(userId: Long, costumer: Costumer) {
+        view.openUpdateCostumerPage(userId, costumer)
     }
 
-    override fun seeCostumerDetails(costumer: Costumer) {
-        view.showCustomerDetails(costumer)
+    override fun seeCostumerDetails(userId: Long, costumer: Costumer) {
+        view.showCustomerDetails(userId, costumer)
     }
 }
