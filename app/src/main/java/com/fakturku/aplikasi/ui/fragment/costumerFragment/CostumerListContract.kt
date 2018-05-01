@@ -18,7 +18,7 @@ interface CostumerListContract{
 
         fun setLastPage(lastPage: Int)
 
-        fun showCustomerDetails(costumer: Costumer)
+        fun showCustomerDetails(userId: Long, costumer: Costumer)
 
         fun openAddCostumerPage(userId: Long)
 
@@ -33,6 +33,6 @@ interface CostumerListContract{
 
         fun updateCostumer(userId: Long, costumer: Costumer)
 
-        fun seeCostumerDetails(costumer: Costumer)
+        fun seeCostumerDetails(userId: Long, costumer: Costumer)
     }
 }

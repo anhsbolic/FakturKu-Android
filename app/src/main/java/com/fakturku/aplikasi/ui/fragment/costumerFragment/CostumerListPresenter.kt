@@ -67,7 +67,7 @@ class CostumerListPresenter(private val view: CostumerListContract.View)
         view.openUpdateCostumerPage(userId, costumer)
     }
 
-    override fun seeCostumerDetails(costumer: Costumer) {
-        view.showCustomerDetails(costumer)
+    override fun seeCostumerDetails(userId: Long, costumer: Costumer) {
+        view.showCustomerDetails(userId, costumer)
     }
 }

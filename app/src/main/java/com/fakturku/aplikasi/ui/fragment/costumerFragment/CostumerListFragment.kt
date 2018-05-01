@@ -76,7 +76,7 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
     override fun initRecyclerView() {
         adapterRvCostumerList = CostumerListAdapter(dataCostumerList, object : CostumerListAdapter.OnItemClickListener{
             override fun onItemClick(costumer: Costumer) {
-                presenter.seeCostumerDetails(costumer)
+                presenter.seeCostumerDetails(userId, costumer)
             }
         })
 
@@ -155,8 +155,9 @@ class CostumerListFragment : Fragment(), CostumerListContract.View {
         this.lastPage = lastPage
     }
 
-    override fun showCustomerDetails(costumer: Costumer) {
+    override fun showCustomerDetails(userId: Long, costumer: Costumer) {
         val intentCostumerDetails = Intent(activity, CostumerDetailsActivity::class.java)
+        intentCostumerDetails.putExtra(CostumerDetailsActivity.INTENT_USER_ID, userId)
         intentCostumerDetails.putExtra(CostumerDetailsActivity.INTENT_DATA_COSTUMER, costumer)
         startActivityForResult(intentCostumerDetails, INTENT_COSTUMER_DETAILS_CODE)
     }

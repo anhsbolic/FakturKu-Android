@@ -13,7 +13,7 @@ interface CostumerDetailsContract{
     }
 
     interface Presenter{
-        fun delete(costumer: Costumer)
+        fun delete(userId: Long, costumer: Costumer)
 
         fun update(costumer: Costumer)
 
